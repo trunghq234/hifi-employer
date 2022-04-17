@@ -43,4 +43,7 @@ export default defineConfig({
     },
     modules: {},
   },
+  define: {
+    "process.env": process.env,
+  },
 });

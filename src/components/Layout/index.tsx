@@ -3,7 +3,7 @@ import RightContent from "@/components/Layout/RightContent";
 import { AdminRoutes, MenuItems } from "@/config";
 import ProLayout from "@ant-design/pro-layout";
 import { useState } from "react";
-import { Link, NavLink, Route, Routes } from "react-router-dom";
+import { Link, NavLink, Outlet, Route, Routes } from "react-router-dom";
 
 const MainLayout = () => {
   const [pathname, setPathname] = useState(window.location.pathname);
@@ -36,11 +36,7 @@ const MainLayout = () => {
         </NavLink>
       )}
       rightContentRender={() => <RightContent />}>
-      <Routes>
-        {AdminRoutes?.map((route) => (
-          <Route key={route.path} path={route.path} element={route.page} />
-        ))}
-      </Routes>
+      <Outlet />
     </ProLayout>
   );
 };
