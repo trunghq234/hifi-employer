@@ -18,5 +18,7 @@
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
-  "rules": { "indent": "error" }
+  "rules": {
+    "indent": "error"
+  }
 }
