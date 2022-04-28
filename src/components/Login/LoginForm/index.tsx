@@ -3,8 +3,8 @@ import { authActions } from "@/store/reducers/authSlice";
 import { selectUser } from "@/store/selectors";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Button, Col, Form, Input, message, Radio, Row } from "antd";
-import React, { useEffect, useState } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Navigate, useLocation } from "react-router-dom";
 
 const defaultFormValue = {
   email: "",
@@ -18,12 +18,10 @@ const LoginForm = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
 
   const from = (location.state as FromLocation)?.from?.pathname || "/";
 
-  console.log("From: ", from);
   if (user) {
     return <Navigate to={from} replace />;
   }
@@ -45,7 +43,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="bg-white-color h-screen">
+    <div className="bg-white-color h-screen overflow-auto">
       <Row justify="center" align="middle" className="h-full">
         <Form
           onFinish={handleLogin}
@@ -85,10 +83,7 @@ const LoginForm = () => {
             </Button>
           </div>
           <p>
-            {"Don't"} have an account?{" "}
-            <Link to={"/register"}>
-              <a>Join free today</a>
-            </Link>
+            {"Don't"} have an account? <Link to={"/register"}>Join free today</Link>
           </p>
         </Form>
       </Row>

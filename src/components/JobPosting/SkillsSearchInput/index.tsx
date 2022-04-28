@@ -1,8 +1,8 @@
+import suggestionApi from "@/api/suggestionApi";
+import { Skill } from "@/types";
 import { message, Select, Typography } from "antd";
-import suggestionApi from "api/employer/suggestionApi";
 import _debounce from "lodash.debounce";
 import React, { useMemo, useRef, useState } from "react";
-import { Skill } from "types";
 import Content from "./Content";
 const { Title } = Typography;
 const { Option } = Select;
@@ -21,7 +21,7 @@ const SkillsSearchSelect: React.FC<IProps> = (props: IProps) => {
 
   const searchSkillCallApi = useMemo(
     () =>
-      _debounce((keyword, selectedSkills) => {
+      _debounce((keyword: string, selectedSkills: string[]) => {
         if (!keyword || keyword.length < 2) {
           setMessageType("Default");
           setData([]);
