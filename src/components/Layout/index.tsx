@@ -19,7 +19,7 @@ const MainLayout = () => {
       fixSiderbar
       primaryColor="#6D5CE8"
       contentWidth="Fluid"
-      layout="side"
+      layout="mix"
       headerTitleRender={(logo, title) => (
         <Link to="/" onClick={() => setPathname("/")}>
           {logo}

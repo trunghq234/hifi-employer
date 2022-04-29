@@ -10,6 +10,7 @@ type User = {
 
 type Company = {
   _id: string;
+  images: string[];
   email: string;
   name: string;
   phoneNumber: string;
@@ -20,6 +21,7 @@ type Company = {
   contactName: string;
   summary: string;
   accountStatus: "pending" | "rejected" | "fullfilled";
+  notifications: Notification[];
 };
 
 type Post = Partial<{
@@ -61,4 +63,36 @@ type WorkLocation = {
   city?: string;
   address?: string;
 };
-export type { User, Company, Post, Salary, Skill, WorkLocation, Category, Subcategory };
+
+type Notification = {
+  message: string;
+  createdAt: Date;
+  redirectUrl: string;
+  _id: string;
+};
+
+type Message = {
+  userId: string;
+  content: string;
+  createdAt: string;
+};
+
+type Room = {
+  _id: string;
+  messages: Message[];
+  chatters: User[];
+};
+
+export type {
+  User,
+  Company,
+  Post,
+  Salary,
+  Skill,
+  WorkLocation,
+  Category,
+  Subcategory,
+  Notification,
+  Message,
+  Room,
+};

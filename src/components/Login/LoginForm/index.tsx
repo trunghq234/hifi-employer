@@ -4,7 +4,7 @@ import { selectUser } from "@/store/selectors";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Button, Col, Form, Input, message, Radio, Row } from "antd";
 import React, { useState } from "react";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 const defaultFormValue = {
   email: "",
@@ -15,6 +15,7 @@ export type FromLocation = {
   from: Location;
 };
 const LoginForm = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const [loading, setLoading] = useState(false);
@@ -31,8 +32,9 @@ const LoginForm = () => {
     try {
       const result = await dispatch(authActions.login({ email, password }));
       await unwrapResult(result);
+
       message.success("Login successfully");
-      // navigate(from, { replace: true });
+      navigate(from, { replace: true });
     } catch (errorLogin: any) {
       message.error(errorLogin.message);
       setLoading(false);

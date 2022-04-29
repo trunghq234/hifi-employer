@@ -19,6 +19,9 @@ export const authSlice = createSlice({
       localStorage.removeItem("accessToken");
       return initialState;
     },
+    setUser: (state, { payload }: PayloadAction<Company>) => {
+      return { ...state, user: payload };
+    },
   },
   extraReducers: (builder) => {
     [login, register, verifyToken].forEach((thunk) =>

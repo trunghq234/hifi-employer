@@ -1,0 +1,32 @@
+.container {
+  width: 100%;
+  padding: 8px;
+
+  .flex-row-reserve {
+    flex-direction: row-reverse;
+
+    .bubble {
+      border-radius: 20px 20px 0 20px;
+      border-color: #d9d9d9;
+      background-color: #e6faff;
+    }
+  }
+
+  .bubble {
+    border-radius: 20px 20px 20px 0;
+    border-color: #d9d9d9;
+
+    .content {
+      word-wrap: break-word;
+      max-width: 100%;
+      white-space: pre-line;
+      margin-bottom: 4px;
+    }
+
+    .chat-time {
+      width: 100%;
+      text-align: right;
+      color: #8c8c8c;
+    }
+  }
+}

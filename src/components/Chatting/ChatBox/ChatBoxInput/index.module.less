@@ -1,0 +1,25 @@
+.container {
+  bottom: 0;
+  position: sticky;
+  flex-direction: row;
+  display: flex;
+  justify-content: "middle";
+
+  .btn {
+    padding: 4px;
+  }
+
+  .btn-picker {
+    position: relative;
+
+    .picker {
+      position: absolute;
+      top: -360px;
+      right: -340px;
+    }
+
+    .picker-hidden {
+      display: none;
+    }
+  }
+}
