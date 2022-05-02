@@ -61,4 +61,32 @@ type WorkLocation = {
   city?: string;
   address?: string;
 };
-export type { User, Company, Post, Salary, Skill, WorkLocation, Category, Subcategory };
+
+type Resume = {
+  fileName: string;
+  fileUrl: string;
+};
+
+type Application = {
+  _id: string;
+  userId: string;
+  postId: string;
+  user: User;
+  status: string;
+  coverLetter: string;
+  phoneNumber: string;
+  resume: Resume;
+};
+
+export type {
+  User,
+  Company,
+  Post,
+  Salary,
+  Skill,
+  WorkLocation,
+  Category,
+  Subcategory,
+  Application,
+  Resume,
+};

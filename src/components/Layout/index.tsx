@@ -8,36 +8,41 @@ import { Link, NavLink, Outlet, Route, Routes } from "react-router-dom";
 const MainLayout = () => {
   const [pathname, setPathname] = useState(window.location.pathname);
   return (
-    <ProLayout
-      route={MenuItems}
-      location={{
-        pathname,
-      }}
-      title="Hifi business"
-      logo={logoImage}
-      fixedHeader
-      fixSiderbar
-      primaryColor="#6D5CE8"
-      contentWidth="Fluid"
-      layout="side"
-      headerTitleRender={(logo, title) => (
-        <Link to="/" onClick={() => setPathname("/")}>
-          {logo}
-          {title}
-        </Link>
-      )}
-      menuItemRender={(item, dom) => (
-        <NavLink
-          to={`${item.path}`}
-          onClick={() => {
-            setPathname(item.path || "/");
-          }}>
-          {dom}
-        </NavLink>
-      )}
-      rightContentRender={() => <RightContent />}>
-      <Outlet />
-    </ProLayout>
+    <div
+      style={{
+        height: "100vh",
+      }}>
+      <ProLayout
+        route={MenuItems}
+        location={{
+          pathname,
+        }}
+        title="Hifi employer"
+        logo={logoImage}
+        fixedHeader
+        fixSiderbar
+        primaryColor="#6D5CE8"
+        contentWidth="Fluid"
+        layout="side"
+        headerTitleRender={(logo, title) => (
+          <Link to="/" onClick={() => setPathname("/")}>
+            {logo}
+            {title}
+          </Link>
+        )}
+        menuItemRender={(item, dom) => (
+          <NavLink
+            to={`${item.path}`}
+            onClick={() => {
+              setPathname(item.path || "/");
+            }}>
+            {dom}
+          </NavLink>
+        )}
+        rightContentRender={() => <RightContent />}>
+        <Outlet />
+      </ProLayout>
+    </div>
   );
 };
 
