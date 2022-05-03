@@ -3,12 +3,13 @@ import { authActions } from "@/store/reducers/authSlice";
 import { selectUser } from "@/store/selectors";
 import notificationSocket from "@/utils/notificationSocket";
 import {
+  BellFilled,
   BellOutlined,
   NotificationOutlined,
   UserOutlined,
   WechatOutlined,
 } from "@ant-design/icons";
-import { Avatar, Badge, Button, Col, Popover, Row } from "antd";
+import { Avatar, Badge, Button, Col, Popover, Row, Tooltip } from "antd";
 import React, { useEffect } from "react";
 import Content from "./Content";
 import Notifications from "./Notifications";
@@ -37,12 +38,14 @@ const RightContent = () => {
   return (
     <Row gutter={[20, 10]}>
       <Col>
-        <Button type="link" icon={<WechatOutlined />} href="/chatting"></Button>
+        <Tooltip title="Chatting">
+          <Button type="link" icon={<WechatOutlined />} href="/chatting"></Button>
+        </Tooltip>
       </Col>
       <Col>
         <Popover placement="bottomRight" content={<Notifications />} trigger="hover">
           <Badge count={user?.notifications.length} size="small">
-            <BellOutlined style={{ fontSize: 24 }} />
+            <Button type="link" icon={<BellFilled />} />
           </Badge>
         </Popover>
       </Col>

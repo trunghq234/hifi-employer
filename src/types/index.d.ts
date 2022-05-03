@@ -36,15 +36,18 @@ type Post = Partial<{
   photoFile: any;
   postPhoto: string;
 }>;
+
 type Skill = {
   _id: string;
   text: string;
 };
+
 type Category = {
   _id: string;
   name: string;
   subcategories: Subcategory[];
 };
+
 type Subcategory = {
   _id: string;
   name: string;

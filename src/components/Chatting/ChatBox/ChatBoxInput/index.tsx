@@ -4,7 +4,8 @@ import moment from "moment";
 import React, { FC, useState } from "react";
 import socket from "@/utils/messageSocket";
 import styles from "./index.module.less";
-import { NimblePicker, Picker } from "emoji-mart";
+import { Picker } from "emoji-mart";
+import "emoji-mart/css/emoji-mart.css";
 
 interface IProps {
   roomId?: string;
@@ -45,14 +46,15 @@ const ChatBoxInput: FC<IProps> = (props) => {
           setShowPicker(!showPicker);
         }}>
         🙂
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          className={[styles.picker, !showPicker && styles["picker-hidden"]].join(" ")}>
+          <Picker set="google" onSelect={handleSelect} />
+        </div>
       </Button>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        className={[styles.picker, !showPicker && styles["picker-hidden"]].join(" ")}>
-        <Picker set="google" onSelect={handleSelect} />
-      </div>
+
       <Input.TextArea
         value={value}
         placeholder="Type something..."
