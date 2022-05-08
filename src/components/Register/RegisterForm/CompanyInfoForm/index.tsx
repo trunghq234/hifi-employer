@@ -38,7 +38,6 @@ const defaultFormValue = {
 const CompanyInfoForm = ({ onNext, onPrevious, loading }: Props) => {
   const handleSubmit = async (data: any) => {
     data.lastStep = true;
-    console.log("Company Info: ", data);
     onNext?.(data);
   };
   return (

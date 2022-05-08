@@ -10,12 +10,8 @@ const { Option } = Select;
 type ChangeType = keyof WorkLocation;
 const WorkLocationInput: React.FC<Props> = (props) => {
   const { value = {}, onChange } = props;
-  console.log(value);
   const handleChange = (type: ChangeType, newValue: any) => {
-    console.log("newValue:", newValue);
-    console.log("newValue:", value);
     if (!value) return;
-    console.log("Adress:", value);
     onChange?.({ ...value, [type]: newValue });
   };
   return (

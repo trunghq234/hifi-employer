@@ -13,7 +13,6 @@ const ImageFileUpload: React.FC<ImageFileUploadProps> = ({ value, onChange }) =>
   const [imageFiles, setImageFiles] = useState<RcFile[]>([]);
 
   const onRemove = (file: UploadFile<unknown>) => {
-    console.log("onRemove: ", file);
     if (!value) return;
     const index = value.findIndex((f) => f.uid === file.uid);
     const newFileList = value.slice();

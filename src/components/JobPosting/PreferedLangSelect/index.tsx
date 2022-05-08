@@ -11,7 +11,6 @@ interface IProps {
 }
 const PreferedLangSelect: React.FC<IProps> = (props) => {
   const { value, onChange } = props;
-  console.log(value);
   return (
     <div>
       <Label text="Preferred Language For Applications" />

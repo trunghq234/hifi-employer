@@ -15,15 +15,7 @@ type changeType = keyof Salary;
 
 const SalaryRange: React.FC<ISalaryRange> = (props) => {
   const { value, onChange } = props;
-  // const [salary, setSalary] = useState<Salary>({
-  //   min: 0,
-  //   max: 1000,
-  //   unit: 'usd',
-  //   negotiable: false,
-  // });
-  console.log(value);
   const handleChange = (type: changeType, newValue: any) => {
-    // setSalary((prev) => ({ ...prev, [type]: value }));
     if (!value) return;
     onChange?.({ ...value, [type]: newValue });
   };

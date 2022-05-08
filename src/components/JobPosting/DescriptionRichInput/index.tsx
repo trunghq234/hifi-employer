@@ -1,16 +1,13 @@
-import dynamic from "next/dynamic";
 import React from "react";
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Label from "../Label";
 import { formats, modules } from "./data";
-
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 interface IProps {
   value?: string;
   onChange?: (value: string) => void;
 }
 const DescriptionRichInput: React.FC<IProps> = ({ value, onChange }) => {
-  console.log(value);
   return (
     <div>
       <Label text="Job Description" />

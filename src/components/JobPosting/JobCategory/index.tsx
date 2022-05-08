@@ -13,14 +13,12 @@ interface IProps {
 const JobCategory: React.FC<IProps> = ({ value, onChange }) => {
   const [categories, setCategories] = useState<Category[]>([]);
 
-  console.log(value);
   useEffect(() => {
     let mounted = true;
     (() => {
       suggestionApi.getAllJobCategories().then((data) => {
         if (mounted) {
           setCategories(data);
-          console.log(data);
         }
       });
     })();

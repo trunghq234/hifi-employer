@@ -93,7 +93,6 @@ const RegisterForm = () => {
               {step === 0 && (
                 <AccountInfoForm
                   onNext={(data) => {
-                    console.log("data", data);
                     updateFormData(data);
                     setStep((prev) => prev + 1);
                   }}
@@ -106,7 +105,6 @@ const RegisterForm = () => {
                     setStep((prev) => prev - 1);
                   }}
                   onNext={(data) => {
-                    console.log("data", data);
                     updateFormData({ isVerified: true });
                     setStep((prev) => prev + 1);
                   }}

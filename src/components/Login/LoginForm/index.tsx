@@ -38,9 +38,7 @@ const LoginForm = () => {
       setLoading(false);
     }
   };
-  const onFinishFailed = (data: any) => {
-    console.log("Errror: ", data);
-  };
+  const onFinishFailed = (data: any) => {};
 
   return (
     <div className="bg-white-color h-screen overflow-auto">

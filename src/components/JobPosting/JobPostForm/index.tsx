@@ -45,7 +45,6 @@ const JobPostForm = (props: Props) => {
       Utils.renameProperty(post, "categories", "jobCategories");
       const { data } = await postApi.createPost(post);
       message.info("Create job hirement post successfully!");
-      console.log("Success:", data);
     } catch (error: any) {
       await deteteImage(url);
       message.error(error.message);
@@ -53,9 +52,7 @@ const JobPostForm = (props: Props) => {
     setLoading(false);
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
+  const onFinishFailed = (errorInfo: any) => {};
 
   return (
     <Form

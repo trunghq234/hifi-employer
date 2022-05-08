@@ -47,8 +47,7 @@ const SkillsSearchSelect: React.FC<IProps> = (props: IProps) => {
   const handleSearch = async (keyword: string) => {
     if (!keyword || keyword.length < 2) setData([]);
     setMessageType("Loading");
-    console.log("value:", value);
-    searchSkillCallApi(keyword, value);
+    searchSkillCallApi(keyword, value ?? []);
   };
   const handleChange = (selectedValue: string[]) => {
     if (!selectedValue) return;
