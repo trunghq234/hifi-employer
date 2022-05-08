@@ -12,7 +12,6 @@ interface IProps {
 }
 const WorkLocationSelect: React.FC<IProps> = (props) => {
   const { value, onChange } = props;
-  console.log(value);
   return (
     <div>
       <Label text="Working Location" />

@@ -19,7 +19,6 @@ const CompanyIndustriesSelect: React.FC<IProps> = ({ value, onChange }) => {
       suggestionApi.getAllJobCategories().then((data) => {
         if (mounted) {
           setCategories(data);
-          console.log(data);
         }
       });
     })();

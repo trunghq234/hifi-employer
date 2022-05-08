@@ -59,7 +59,9 @@ const RegisterForm = () => {
     if (isSubmit) {
       dispatch(authActions.register(formData))
         .then(unwrapResult)
-        .then((data) => console.log("Data register: ", data))
+        .then(() => {
+          message.success("Register successfully");
+        })
         .catch((err: any) => {
           message.error(err.message);
         })
