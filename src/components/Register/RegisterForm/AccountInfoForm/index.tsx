@@ -1,6 +1,6 @@
 import { validateMessages } from "@/constants/validateMessages";
 import { Button, Col, Form, Input, Row } from "antd";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import _debounce from "lodash.debounce";
 import validationApi from "@/api/validationApi";
 import axios from "axios";
@@ -20,14 +20,27 @@ const defaultFormValue = {
 const AccountInfoForm = ({ onNext }: Props) => {
   const [form] = Form.useForm();
   const [isEmailValidating, setIsEmailValidating] = useState(false);
+  const [emailIsValid, setEmailIsvalid] = useState(false);
+  const mounted = useRef(false);
+
+  useEffect(() => {
+    mounted.current = true;
+
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
   const checkEmailUsed = useMemo(
     () =>
       _debounce(async (email: string) => {
         try {
-          setIsEmailValidating(true);
+          mounted && setIsEmailValidating(true);
           await validationApi.checkEmail(email);
+          setEmailIsvalid(true);
         } catch (error: any) {
           let errMessage = "";
+          mounted && setEmailIsvalid(false);
           if (axios.isAxiosError(error)) {
             errMessage = error.response?.data.message;
           } else {
@@ -41,12 +54,13 @@ const AccountInfoForm = ({ onNext }: Props) => {
             },
           ]);
         }
-        setIsEmailValidating(false);
+        mounted && setIsEmailValidating(false);
       }, 1000),
     [],
   );
 
   const handleSubmit = (data: any) => {
+    if (!emailIsValid) return;
     onNext?.(data);
   };
 
@@ -89,7 +103,7 @@ const AccountInfoForm = ({ onNext }: Props) => {
         </Col>
       </Row>
       <div className="flex justify-end w-full">
-        <Button size="large" htmlType="submit" disabled={isEmailValidating}>
+        <Button size="large" htmlType="submit" disabled={!emailIsValid || isEmailValidating}>
           Next Step
         </Button>
       </div>

@@ -91,7 +91,17 @@ const CompanyInfoForm = ({ onNext, onPrevious, loading }: Props) => {
           <Form.Item
             name="phoneNumber"
             label="Phone number"
-            rules={[{ required: true }]}
+            rules={[
+              { required: true },
+              {
+                validator: (rule, value) => {
+                  if (value && !/^\d{10}$/.test(value)) {
+                    return Promise.reject("Phone number must be 10 digits");
+                  }
+                  return Promise.resolve();
+                },
+              },
+            ]}
             required={false}>
             <Input />
           </Form.Item>

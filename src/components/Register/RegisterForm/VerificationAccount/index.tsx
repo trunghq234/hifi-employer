@@ -11,6 +11,7 @@ const VerificationForm = ({ onNext, onPrevious, email }: Props) => {
   const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
+    // TODO: send email to user to verify account
     message.success("Send email success");
   }, [email]);
 

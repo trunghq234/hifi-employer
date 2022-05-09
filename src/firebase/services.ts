@@ -30,7 +30,7 @@ const deteteImage = async (url: string | undefined) => {
     const storageRef = ref(storage, `/images/${fileName}`);
     await deleteObject(storageRef);
   } catch (error: any) {
-    console.log(error);
+    console.log("deteteImage: ", error);
     return;
   }
 };

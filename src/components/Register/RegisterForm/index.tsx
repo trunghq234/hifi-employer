@@ -45,9 +45,6 @@ const RegisterForm = () => {
   const location = useLocation();
   const from = (location.state as FromLocation)?.from?.pathname || "/";
 
-  if (user) {
-    return <Navigate to={from} replace />;
-  }
   const updateFormData = async (data: any) => {
     setFormData((prev) => ({ ...prev, ...data }));
     if (data.lastStep) {
@@ -56,21 +53,28 @@ const RegisterForm = () => {
   };
 
   useEffect(() => {
+    let isMounted = true;
     if (isSubmit) {
       dispatch(authActions.register(formData))
         .then(unwrapResult)
-        .then(() => {
+        .then((data) => {
           message.success("Register successfully");
         })
         .catch((err: any) => {
           message.error(err.message);
         })
         .finally(() => {
-          setIsSubmit(false);
+          isMounted && setIsSubmit(false);
         });
     }
+    return () => {
+      isMounted = false;
+    };
   }, [isSubmit]);
 
+  if (user) {
+    return <Navigate to={from} replace />;
+  }
   return (
     <div className="bg-white-color min-h-screen">
       <div className="h-screen overflow-y-scroll">
