@@ -1,9 +1,9 @@
 import logoImage from "@/assets/images/Logo.png";
 import RightContent from "@/components/Layout/RightContent";
-import { AdminRoutes, MenuItems } from "@/config";
+import { MenuItems } from "@/config";
 import ProLayout from "@ant-design/pro-layout";
 import { useState } from "react";
-import { Link, NavLink, Outlet, Route, Routes } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 const MainLayout = () => {
   const [pathname, setPathname] = useState(window.location.pathname);

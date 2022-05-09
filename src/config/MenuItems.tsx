@@ -8,6 +8,10 @@ const MenuItems = {
       path: "/sample",
       name: "Sample",
     },
+    {
+      path: "/job-post",
+      name: "Post Job",
+    },
   ],
 };
 

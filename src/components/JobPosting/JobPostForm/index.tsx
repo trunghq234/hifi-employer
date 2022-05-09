@@ -32,6 +32,7 @@ const defaultFormValue: Post = {
 };
 const JobPostForm = (props: Props) => {
   const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
   const onFinish = async (post: Post) => {
     setLoading(true);
     const { error, url } = await uploadImage(post.photoFile[0]);
@@ -50,6 +51,7 @@ const JobPostForm = (props: Props) => {
       message.error(error.message);
     }
     setLoading(false);
+    form.resetFields();
   };
 
   const onFinishFailed = (errorInfo: any) => {};
@@ -57,7 +59,7 @@ const JobPostForm = (props: Props) => {
   return (
     <Form
       {...layout}
-      name="customized_form_controls"
+      form={form}
       layout="horizontal"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
