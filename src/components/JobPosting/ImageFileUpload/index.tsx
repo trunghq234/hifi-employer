@@ -3,6 +3,7 @@ import { Button, message, Typography, Upload } from "antd";
 import { RcFile } from "antd/lib/upload";
 import { UploadFile } from "antd/lib/upload/interface";
 import React, { useState } from "react";
+import Label from "../Label";
 
 const { Title } = Typography;
 interface ImageFileUploadProps {
@@ -37,8 +38,8 @@ const ImageFileUpload: React.FC<ImageFileUploadProps> = ({ value, onChange }) =>
     return false;
   };
   return (
-    <div>
-      <Title level={5}>Image</Title>
+    <div className="flex flex-col">
+      <Label text="Image" requiredMark />
       <Upload
         name="file"
         fileList={value || imageFiles}

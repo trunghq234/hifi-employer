@@ -10,7 +10,7 @@ interface IProps {
 const DescriptionRichInput: React.FC<IProps> = ({ value, onChange }) => {
   return (
     <div>
-      <Label text="Job Description" />
+      <Label text="Job Description" requiredMark />
       <ReactQuill
         theme="snow"
         onChange={onChange}

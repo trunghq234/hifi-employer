@@ -67,14 +67,11 @@ const JobPostForm = (props: Props) => {
       <Row gutter={[80, 0]}>
         <Col xs={24} md={12}>
           <Form.Item name="title" rules={[{ required: true, message: "Please input job title!" }]}>
-            <LabelInput label="Job title" />
+            <LabelInput label="Job title" requiredMark />
           </Form.Item>
         </Col>
         <Col xs={24} md={12}>
-          <Form.Item
-            name="jobType"
-            labelCol={{ span: 24 }}
-            rules={[{ required: true, message: "Please enter job type!" }]}>
+          <Form.Item name="jobType" rules={[{ required: true, message: "Please enter job type!" }]}>
             <JobTypeSelect />
           </Form.Item>
         </Col>

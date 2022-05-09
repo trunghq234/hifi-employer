@@ -2,6 +2,7 @@ import suggestionApi from "@/api/suggestionApi";
 import { Category } from "@/types";
 import { Select, Typography } from "antd";
 import React, { useEffect, useState } from "react";
+import Label from "../Label";
 
 const { Option, OptGroup } = Select;
 const { Title } = Typography;
@@ -30,7 +31,7 @@ const JobCategory: React.FC<IProps> = ({ value, onChange }) => {
 
   return (
     <div>
-      <Title level={5}>Job category</Title>
+      <Label text="Job category" requiredMark />
       <Select
         mode="multiple"
         allowClear

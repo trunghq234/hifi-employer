@@ -35,12 +35,12 @@ const AccountInfoForm = ({ onNext }: Props) => {
     () =>
       _debounce(async (email: string) => {
         try {
-          mounted && setIsEmailValidating(true);
+          mounted.current && setIsEmailValidating(true);
           await validationApi.checkEmail(email);
-          setEmailIsvalid(true);
+          mounted.current && setEmailIsvalid(true);
         } catch (error: any) {
           let errMessage = "";
-          mounted && setEmailIsvalid(false);
+          mounted.current && setEmailIsvalid(false);
           if (axios.isAxiosError(error)) {
             errMessage = error.response?.data.message;
           } else {
@@ -54,7 +54,7 @@ const AccountInfoForm = ({ onNext }: Props) => {
             },
           ]);
         }
-        mounted && setIsEmailValidating(false);
+        mounted.current && setIsEmailValidating(false);
       }, 1000),
     [],
   );

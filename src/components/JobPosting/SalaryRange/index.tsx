@@ -1,6 +1,7 @@
 import { Salary } from "@/types";
 import { InputNumber, Select, Space, Switch, Typography } from "antd";
 import React from "react";
+import Label from "../Label";
 
 type Props = {};
 
@@ -21,7 +22,7 @@ const SalaryRange: React.FC<ISalaryRange> = (props) => {
   };
   return (
     <div>
-      <Title level={5}>Salary Range</Title>
+      <Label text="Salary Range" requiredMark />
       <Space size={"small"}>
         <InputNumber
           addonBefore="From"

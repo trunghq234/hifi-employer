@@ -3,6 +3,7 @@ import { Skill } from "@/types";
 import { message, Select, Typography } from "antd";
 import _debounce from "lodash.debounce";
 import React, { useMemo, useRef, useState } from "react";
+import Label from "../Label";
 import Content from "./Content";
 const { Title } = Typography;
 const { Option } = Select;
@@ -59,7 +60,8 @@ const SkillsSearchSelect: React.FC<IProps> = (props: IProps) => {
   };
   return (
     <div>
-      <Title level={5}>Skill Tags</Title>
+      <Label text="Skill Tags" requiredMark />
+
       <Select
         loading={messageType === "Loading"}
         showSearch
