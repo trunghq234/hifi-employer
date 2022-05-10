@@ -7,31 +7,40 @@ import socket from "@/utils/messageSocket";
 import ChatUserItem from "./ChatUserItem";
 import styles from "./index.module.less";
 import { Room } from "@/types";
-import { setRoomsState } from "@/store/reducers/chattingSlices";
+import { $chatting, setCurrentRoomState, setRoomsState } from "@/store/reducers/chattingSlices";
 const { Title } = Typography;
+import { selectUser } from "@/store/selectors";
 
 interface IProps {}
 
 const SideNav: FC<IProps> = (props) => {
-  const userId = "6255931ff19b3638879e3303";
+  const user = useAppSelector(selectUser);
   const [rooms, setRooms] = useState<Room[]>([]);
-  const [currentroom, setCurrentRoom] = useState<Room>();
-  const dispatch = useAppDispatch();
+  const [receivedData, setReceivedData] = useState<Room>();
   const [roomId, setRoomId] = useState<string>();
-  const chatting = useAppSelector((state) => state.chatting);
+  const dispatch = useAppDispatch();
+  const chatting = useAppSelector($chatting);
+
+  const joinAllRoom = () => {
+    socket.connect();
+
+    rooms.forEach((room) => {
+      socket.emit("joinRoom", room._id);
+    });
+  };
 
   useEffect(() => {
     socket.on("sendRoom", (data: Room) => {
-      setCurrentRoom(data);
       setRoomId(data._id);
+      dispatch(setCurrentRoomState(data));
     });
   }, [socket]);
 
   useEffect(() => {
     roomApi
-      .getRoomsByUserId(userId)
+      .getRoomsByUserId(user?._id!)
       .then((res) => {
-        setRooms(res.data.value);
+        dispatch(setRoomsState(res.data.value));
       })
       .catch((err) => {
         console.log(err);
@@ -39,17 +48,42 @@ const SideNav: FC<IProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    if (currentroom) {
-      dispatch(setRoomsState(currentroom));
-    }
-  }, [currentroom]);
-
-  useEffect(() => {
-    if (chatting.room) {
-      let newRooms = rooms.map((room) => (room._id === chatting.room?._id ? chatting.room : room));
-      setRooms(newRooms);
+    if (chatting.rooms) {
+      setRooms(chatting.rooms);
+      console.log(chatting);
     }
   }, [chatting]);
+
+  useEffect(() => {
+    if (rooms.length > 0) {
+      joinAllRoom();
+    }
+  }, [rooms]);
+
+  useEffect(() => {
+    socket.on("sendDataServer", (data: Room) => {
+      setReceivedData(data);
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    if (receivedData) {
+      let newRooms = [...chatting.rooms!];
+      const index = newRooms.findIndex((room) => room._id === receivedData?._id);
+
+      if (index != -1) {
+        newRooms[index] = receivedData;
+      } else {
+        newRooms.push(receivedData);
+      }
+
+      dispatch(setRoomsState(newRooms));
+
+      if (receivedData?._id === chatting.currentRoom?._id) {
+        dispatch(setCurrentRoomState(receivedData));
+      }
+    }
+  }, [receivedData]);
 
   return (
     <>
@@ -64,7 +98,7 @@ const SideNav: FC<IProps> = (props) => {
             lastMessage={room.messages[room.messages.length - 1]}
             key={room._id}
             roomId={room._id}
-            user={room.chatters[0]}
+            chatter={room.chatters[0]}
             selected={room._id === roomId}
           />
         );

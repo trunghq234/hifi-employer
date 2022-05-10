@@ -4,25 +4,19 @@ import socket from "@/utils/messageSocket";
 import ChatItem from "./ChatItem";
 import styles from "./index.module.less";
 import { Message, Room } from "@/types";
-import { setRoomsState } from "@/store/reducers/chattingSlices";
+import { setCurrentRoomState, setRoomsState } from "@/store/reducers/chattingSlices";
+import { selectUser } from "@/store/selectors";
 
 interface IProps {}
 
 const ChatBoxContent: FC<IProps> = (props) => {
-  const dispatch = useAppDispatch();
   const chatting = useAppSelector((state) => state.chatting);
   const [messageList, setMessageList] = useState<Message[]>([]);
-  const userId = "6255931ff19b3638879e3303";
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
-    socket.on("sendDataServer", (data: Room) => {
-      dispatch(setRoomsState(data));
-    });
-  }, [socket]);
-
-  useEffect(() => {
-    if (chatting.room) {
-      setMessageList(chatting.room?.messages);
+    if (chatting.currentRoom) {
+      setMessageList(chatting.currentRoom?.messages);
     }
   }, [chatting]);
 
@@ -33,7 +27,7 @@ const ChatBoxContent: FC<IProps> = (props) => {
           return (
             <ChatItem
               key={index}
-              isMine={message.userId === userId}
+              isMine={message.userId === user?._id}
               message={message.content}
               date={message.createdAt}
             />

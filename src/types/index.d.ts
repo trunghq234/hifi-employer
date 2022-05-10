@@ -72,6 +72,7 @@ type Notification = {
   createdAt: Date;
   redirectUrl: string;
   _id: string;
+  isRead: boolean;
 };
 
 type Message = {
@@ -83,7 +84,14 @@ type Message = {
 type Room = {
   _id: string;
   messages: Message[];
-  chatters: User[];
+  chatters: Chatter[];
+};
+
+type Chatter = {
+  chatterId: string;
+  name: string;
+  avatar: string;
+  type: string;
 };
 
 export type {
@@ -98,4 +106,5 @@ export type {
   Notification,
   Message,
   Room,
+  Chatter,
 };

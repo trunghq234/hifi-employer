@@ -44,7 +44,9 @@ const RightContent = () => {
       </Col>
       <Col>
         <Popover placement="bottomRight" content={<Notifications />} trigger="hover">
-          <Badge count={user?.notifications.length} size="small">
+          <Badge
+            count={user?.notifications.filter((notification) => !notification.isRead).length}
+            size="small">
             <Button type="link" icon={<BellFilled />} />
           </Badge>
         </Popover>

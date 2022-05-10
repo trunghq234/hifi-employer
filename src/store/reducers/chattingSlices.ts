@@ -4,25 +4,30 @@ import { RootState } from "..";
 
 interface ChattingState {
   loading?: boolean;
-  room?: Room | undefined;
+  rooms?: Room[];
+  currentRoom?: Room;
 }
 
 const initialState: ChattingState = {
   loading: false,
-  room: undefined,
+  rooms: undefined,
+  currentRoom: undefined,
 };
 
 export const chattingSlice = createSlice({
   name: "chatting",
   initialState,
   reducers: {
-    setRoomsState: (state, action: PayloadAction<Room>) => {
-      state.room = action.payload;
+    setRoomsState: (state, action: PayloadAction<Room[]>) => {
+      return { ...state, rooms: action.payload };
+    },
+    setCurrentRoomState: (state, action: PayloadAction<Room>) => {
+      return { ...state, currentRoom: action.payload };
     },
   },
 });
 
-export const { setRoomsState } = chattingSlice.actions;
+export const { setRoomsState, setCurrentRoomState } = chattingSlice.actions;
 
 export const $chatting = (state: RootState) => state.chatting;
 

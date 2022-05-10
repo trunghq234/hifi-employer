@@ -6,6 +6,8 @@ import socket from "@/utils/messageSocket";
 import styles from "./index.module.less";
 import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
+import { selectUser } from "@/store/selectors";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 interface IProps {
   roomId?: string;
@@ -15,12 +17,13 @@ const ChatBoxInput: FC<IProps> = (props) => {
   const { roomId } = props;
   const [value, setValue] = useState("");
   const [showPicker, setShowPicker] = useState(false);
+  const user = useAppSelector(selectUser);
 
   const handleSendMessage = (newMessage: string) => {
     socket.emit("sendDataClient", {
       room: roomId,
       message: {
-        userId: "6255931ff19b3638879e3303",
+        userId: user?._id,
         content: newMessage,
         createdAt: moment(),
       },

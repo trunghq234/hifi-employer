@@ -1,11 +1,11 @@
-import { User } from "@/types";
+import { Chatter, User } from "@/types";
 import { MessageOutlined } from "@ant-design/icons";
 import { Avatar, Button, Col, Row, Typography } from "antd";
 import React, { FC } from "react";
 import styles from "./index.module.less";
 
 interface IProps {
-  chatter?: User;
+  chatter?: Chatter;
   setVisibleDrawer: Function;
 }
 

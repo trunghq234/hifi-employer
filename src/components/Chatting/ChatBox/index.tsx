@@ -18,8 +18,8 @@ const ChatBox: FC<IProps> = (props) => {
   const [room, setRoom] = useState<Room>();
 
   useEffect(() => {
-    if (chatting.room) {
-      setRoom(chatting.room);
+    if (chatting) {
+      setRoom(chatting.currentRoom);
     }
   }, [chatting]);
 

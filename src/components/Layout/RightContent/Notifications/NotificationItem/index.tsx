@@ -1,4 +1,4 @@
-import { Avatar, Col, Row, Tooltip, Typography } from "antd";
+import { Avatar, Badge, Col, Row, Tooltip, Typography } from "antd";
 import moment from "moment";
 import styles from "./index.module.less";
 import React, { FC } from "react";
@@ -22,7 +22,7 @@ const NotificationItem: FC<IProp> = (props) => {
       <Col span={5} className={styles.col}>
         <Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" size={"large"} />
       </Col>
-      <Col span={19}>
+      <Col span={18}>
         <Row>
           <Typography.Text ellipsis={true} className={styles.title}>
             {notification.message}
@@ -36,6 +36,7 @@ const NotificationItem: FC<IProp> = (props) => {
           </Tooltip>
         </Row>
       </Col>
+      <Col span={1}>{!notification.isRead && <Badge status="processing" />}</Col>
     </Row>
   );
 };
