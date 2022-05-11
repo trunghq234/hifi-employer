@@ -3,7 +3,7 @@ import React from "react";
 import Label from "../Label";
 const { Option } = Select;
 
-const options = ["Vietnamese", "English", "Japanese", "Korean", "Chinese", "French"];
+const options = ["Any", "Vietnamese", "English", "Japanese", "Korean", "Chinese", "French"];
 
 interface IProps {
   value?: string[];
@@ -11,7 +11,6 @@ interface IProps {
 }
 const PreferedLangSelect: React.FC<IProps> = (props) => {
   const { value, onChange } = props;
-  console.log(value);
   return (
     <div>
       <Label text="Preferred Language For Applications" />
@@ -22,6 +21,7 @@ const PreferedLangSelect: React.FC<IProps> = (props) => {
         placeholder="Please select"
         size="large"
         value={value}
+        defaultValue={["Any"]}
         onChange={onChange}>
         {options.map((opt) => (
           <Option key={opt}>{opt}</Option>

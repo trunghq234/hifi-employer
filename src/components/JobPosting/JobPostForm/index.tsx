@@ -32,6 +32,7 @@ const defaultFormValue: Post = {
 };
 const JobPostForm = (props: Props) => {
   const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
   const onFinish = async (post: Post) => {
     setLoading(true);
     const { error, url } = await uploadImage(post.photoFile[0]);
@@ -45,22 +46,20 @@ const JobPostForm = (props: Props) => {
       Utils.renameProperty(post, "categories", "jobCategories");
       const { data } = await postApi.createPost(post);
       message.info("Create job hirement post successfully!");
-      console.log("Success:", data);
     } catch (error: any) {
       await deteteImage(url);
       message.error(error.message);
     }
     setLoading(false);
+    form.resetFields();
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
+  const onFinishFailed = (errorInfo: any) => {};
 
   return (
     <Form
       {...layout}
-      name="customized_form_controls"
+      form={form}
       layout="horizontal"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
@@ -68,14 +67,11 @@ const JobPostForm = (props: Props) => {
       <Row gutter={[80, 0]}>
         <Col xs={24} md={12}>
           <Form.Item name="title" rules={[{ required: true, message: "Please input job title!" }]}>
-            <LabelInput label="Job title" />
+            <LabelInput label="Job title" requiredMark />
           </Form.Item>
         </Col>
         <Col xs={24} md={12}>
-          <Form.Item
-            name="jobType"
-            labelCol={{ span: 24 }}
-            rules={[{ required: true, message: "Please enter job type!" }]}>
+          <Form.Item name="jobType" rules={[{ required: true, message: "Please enter job type!" }]}>
             <JobTypeSelect />
           </Form.Item>
         </Col>

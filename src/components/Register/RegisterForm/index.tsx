@@ -1,20 +1,18 @@
+import authApi from "@/api/authApi";
 import { FromLocation } from "@/components/Login/LoginForm";
-import { validateMessages } from "@/constants/validateMessages";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { authActions } from "@/store/reducers/authSlice";
-import { Company, WorkLocation } from "@/types";
+import { selectUser } from "@/store/selectors";
+import { WorkLocation } from "@/types";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { Button, Col, Form, Input, message, Row, Select } from "antd";
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import CompanyIndustriesSelect from "../CompanyIndustriesSelect";
-import WorkLocationInput from "../WorkLocationInput";
-const { TextArea } = Input;
-const { Option } = Select;
-const layout = {
-  labelCol: { span: 7 },
-  wrapperCol: { span: 17 },
-};
+import { message, Steps } from "antd";
+import React, { useEffect, useState } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import AccountInfoForm from "./AccountInfoForm";
+import CompanyInfoForm from "./CompanyInfoForm";
+import VerificationForm from "./VerificationAccount";
+
+const { Step } = Steps;
 
 const companySizeOptions: string[] = [
   "Less than 10",
@@ -24,48 +22,62 @@ const companySizeOptions: string[] = [
   "500-1000",
   "1000+",
 ];
-const defaultFormValue = {
-  email: "",
-  password: "",
-  confirmPassword: "",
-  name: "",
-  size: "",
-  industries: [],
-  contactName: "",
-  phoneNumber: "",
-  location: {} as Partial<WorkLocation>,
-  summary: "",
+type RegisterFormValue = {
+  email: string;
+  password: string;
+  isVerified: boolean;
+  confirmPassword: string;
+  name: string;
+  size: string;
+  industries: [];
+  contactName: string;
+  phoneNumber: string;
+  location: Partial<WorkLocation>;
+  summary: string;
 };
+
 const RegisterForm = () => {
   const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState(false);
-
+  const [step, setStep] = useState(0);
+  const [formData, setFormData] = useState<RegisterFormValue>();
+  const [isSubmit, setIsSubmit] = useState(false);
+  const user = useAppSelector(selectUser);
   const location = useLocation();
-  const navigate = useNavigate();
-
   const from = (location.state as FromLocation)?.from?.pathname || "/";
-  const handleRegister = async (data: typeof defaultFormValue) => {
-    data.location.officeName = data.name;
-    console.log("COmpany: ", data);
-    setLoading(true);
 
-    try {
-      const result = await dispatch(authActions.register(data));
-      await unwrapResult(result);
-
-      message.success("Register successfully");
-      navigate(from, { replace: true });
-    } catch (error: any) {
-      console.log("Register Error: ", error);
-      message.error(error.message);
+  const updateFormData = async (data: any) => {
+    setFormData((prev) => ({ ...prev, ...data }));
+    if (data.lastStep) {
+      setIsSubmit(true);
     }
-
-    setLoading(false);
   };
 
+  useEffect(() => {
+    let isMounted = true;
+    if (isSubmit) {
+      dispatch(authActions.register(formData))
+        .then(unwrapResult)
+        .then((data) => {
+          message.success("Register successfully");
+        })
+        .catch((err: any) => {
+          message.error(err.message);
+        })
+        .finally(() => {
+          isMounted && setIsSubmit(false);
+        });
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [isSubmit]);
+
+  if (user) {
+    return <Navigate to={from} replace />;
+  }
   return (
     <div className="bg-white-color min-h-screen">
-      <div className="h-screen">
+      <div className="h-screen overflow-y-scroll">
         <div className="px-6 lg:px-20 xl:px-36 py-10 min-h-screen">
           <div className="my-1">
             <h3 className="text-3xl font-bold">Sign Up for Employers</h3>
@@ -75,114 +87,47 @@ const RegisterForm = () => {
             </p>
           </div>
 
-          <div className="mt-2 w-full">
-            <Form
-              {...layout}
-              labelAlign="left"
-              onFinish={handleRegister}
-              validateMessages={validateMessages}
-              initialValues={defaultFormValue}>
-              <Row>
-                <h5 className="text-base font-bold mb-2 text-center">Account</h5>
-                <Col span={24}>
-                  <Form.Item
-                    label="Email"
-                    name="email"
-                    rules={[{ required: true }, { type: "email", message: "Invalid email" }]}>
-                    <Input placeholder="John.snow@gmail.com" />
-                  </Form.Item>
-                </Col>
-
-                <Col span={24}>
-                  <Form.Item label="Password" name="password" rules={[{ required: true }]}>
-                    <Input placeholder="******" type={"password"} />
-                  </Form.Item>
-                </Col>
-                <Col span={24}>
-                  <Form.Item
-                    label="Confirm password"
-                    name="confirmPassword"
-                    rules={[{ required: true }]}>
-                    <Input placeholder="******" type={"password"} />
-                  </Form.Item>
-                </Col>
-                <h5 className="text-base font-bold mb-2 text-center">Company Information</h5>
-                <Col span={24}>
-                  <Form.Item
-                    name="name"
-                    label="Company Name"
-                    rules={[{ required: true }]}
-                    required={false}>
-                    {/* <LabelInput label="Company Name" /> */}
-                    <Input placeholder="Company Name" />
-                  </Form.Item>
-                </Col>
-                <Col span={24}>
-                  <Form.Item
-                    name="size"
-                    label="Size of company"
-                    rules={[{ required: true }]}
-                    required={false}>
-                    {/* <Input placeholder="Size of company" /> */}
-                    <Select placeholder="Choose size">
-                      {companySizeOptions.map((option) => (
-                        <Option key={option}>{option}</Option>
-                      ))}
-                    </Select>
-                  </Form.Item>
-                </Col>
-                <Col span={24}>
-                  <Form.Item
-                    name="industries"
-                    label="Company Industries"
-                    rules={[{ required: true }]}
-                    required={false}>
-                    <CompanyIndustriesSelect />
-                  </Form.Item>
-                </Col>
-                <Col span={24}>
-                  <Form.Item
-                    name="contactName"
-                    label="Contact Person's Name"
-                    rules={[{ required: true }]}
-                    required={false}>
-                    <Input />
-                  </Form.Item>
-                </Col>
-                <Col span={24}>
-                  <Form.Item
-                    name="phoneNumber"
-                    label="Phone number"
-                    rules={[{ required: true }]}
-                    required={false}>
-                    <Input />
-                  </Form.Item>
-                </Col>
-                <Col span={24}>
-                  <Form.Item
-                    name="location"
-                    label="Work Location"
-                    rules={[{ required: true }]}
-                    required={false}>
-                    <WorkLocationInput />
-                  </Form.Item>
-                </Col>
-                <Col span={24}>
-                  <Form.Item
-                    name="summary"
-                    label="Summary"
-                    rules={[{ required: true }]}
-                    required={false}>
-                    <TextArea rows={4} />
-                  </Form.Item>
-                </Col>
-                <div className="flex justify-end w-full">
-                  <Button loading={loading} size="large" htmlType="submit">
-                    Next Step
-                  </Button>
-                </div>
-              </Row>
-            </Form>
+          <div className="my-6 px-14">
+            <Steps current={step}>
+              <Step title="Account" />
+              <Step title="Verify account" />
+              <Step title="Company Info" />
+            </Steps>
+          </div>
+          <div className="mt-2 w-full flex items-center">
+            <div>
+              {step === 0 && (
+                <AccountInfoForm
+                  onNext={(data) => {
+                    updateFormData(data);
+                    setStep((prev) => prev + 1);
+                  }}
+                />
+              )}
+              {step === 1 && (
+                <VerificationForm
+                  email={formData?.email}
+                  onPrevious={() => {
+                    setStep((prev) => prev - 1);
+                  }}
+                  onNext={(data) => {
+                    updateFormData({ isVerified: true });
+                    setStep((prev) => prev + 1);
+                  }}
+                />
+              )}
+              {step === 2 && (
+                <CompanyInfoForm
+                  onPrevious={() => {
+                    setStep((prev) => prev - 1);
+                  }}
+                  loading={isSubmit}
+                  onNext={async (data) => {
+                    updateFormData(data);
+                  }}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ const JobTypeSelect: React.FC<IProps> = (props) => {
   const { value, onChange, children } = props;
   return (
     <div>
-      <Label text="Job type" />
+      <Label text="Job type" requiredMark />
       <Select
         allowClear
         style={{ width: "100%" }}
