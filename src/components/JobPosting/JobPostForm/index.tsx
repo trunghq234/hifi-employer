@@ -1,7 +1,7 @@
 import { deteteImage, uploadImage } from "@/firebase/services";
 import { Post } from "@/types";
 import Utils from "@/utils";
-import { Button, Col, Form, message, Row } from "antd";
+import { Button, Col, DatePicker, Form, message, Row } from "antd";
 import postApi from "@/api/postApi";
 import React, { useState } from "react";
 import DescriptionRichInput from "../DescriptionRichInput";
@@ -13,6 +13,7 @@ import PreferedLangSelect from "../PreferedLangSelect";
 import SalaryRange from "../SalaryRange";
 import SkillSearchSelect from "../SkillsSearchInput";
 import WorkLocationSelect from "../WorkLocationSelect";
+import Label from "../Label";
 
 type Props = {};
 const layout = {
@@ -21,7 +22,7 @@ const layout = {
 const defaultFormValue: Post = {
   title: "",
   jobType: "",
-  categories: [],
+  category: "",
   salary: { min: 1000, max: 3000, unit: "usd", negotiable: false },
   description: "",
   skillTags: [],
@@ -43,7 +44,7 @@ const JobPostForm = (props: Props) => {
     }
     post.postPhoto = url;
     try {
-      Utils.renameProperty(post, "categories", "jobCategories");
+      Utils.renameProperty(post, "category", "jobCategory");
       const { data } = await postApi.createPost(post);
       message.info("Create job hirement post successfully!");
     } catch (error: any) {
@@ -54,7 +55,9 @@ const JobPostForm = (props: Props) => {
     form.resetFields();
   };
 
-  const onFinishFailed = (errorInfo: any) => {};
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
 
   return (
     <Form
@@ -78,7 +81,7 @@ const JobPostForm = (props: Props) => {
 
         <Col xs={24} md={12}>
           <Form.Item
-            name="categories"
+            name="category"
             rules={[{ required: true, message: "Please input job category!" }]}>
             <JobCategory />
           </Form.Item>
@@ -113,18 +116,29 @@ const JobPostForm = (props: Props) => {
             <PreferedLangSelect />
           </Form.Item>
         </Col>
+
+        <Col xs={12} md={6}>
+          <Form.Item
+            name="photoFile"
+            rules={[{ required: true, message: "Please choose photo of post!" }]}>
+            <ImageFileUpload />
+          </Form.Item>
+        </Col>
+
+        <Col xs={12} md={6}>
+          <Label text="Application deadline" requiredMark={true} />
+          <Form.Item
+            name="applicationDeadline"
+            rules={[{ required: true, message: "Please choose application deadline" }]}>
+            <DatePicker size="large" />
+          </Form.Item>
+        </Col>
+
         <Col xs={24} md={12}>
           <Form.Item
             name="locations"
             rules={[{ required: true, message: "Please choose working location of company" }]}>
             <WorkLocationSelect />
-          </Form.Item>
-        </Col>
-        <Col xs={24} md={12}>
-          <Form.Item
-            name="photoFile"
-            rules={[{ required: true, message: "Please choose photo of post!" }]}>
-            <ImageFileUpload />
           </Form.Item>
         </Col>
       </Row>

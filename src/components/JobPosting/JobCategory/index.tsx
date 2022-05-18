@@ -32,13 +32,7 @@ const JobCategory: React.FC<IProps> = ({ value, onChange }) => {
   return (
     <div>
       <Label text="Job category" requiredMark />
-      <Select
-        mode="multiple"
-        allowClear
-        defaultValue="lucy"
-        size="large"
-        value={value}
-        onChange={onChange}>
+      <Select allowClear defaultValue="lucy" size="large" value={value} onChange={onChange}>
         {categories.map((cat) => (
           <OptGroup key={cat._id} label={cat.name}>
             {cat.subcategories.map((sub) => (
