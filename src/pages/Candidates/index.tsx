@@ -1,8 +1,11 @@
-import { applicationApi } from "@/api";
 import postApi from "@/api/postApi";
 import CandidatesList from "@/components/Applications/CandidatesList";
+import { getApplications } from "@/store/actions/applicationActions";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { selectApplications, selectUser } from "@/store/selectors";
 import { Application } from "@/types";
-import { Button, Card, Col, Input, Row, Select, Tabs } from "antd";
+import { stringHelper } from "@/utils";
+import { Card, Col, Input, Row, Select, Tabs } from "antd";
 import { useEffect, useState } from "react";
 
 const { Option } = Select;
@@ -14,60 +17,85 @@ type Title = {
   title: string;
 };
 
+type CandidatesList = {
+  new: Application[];
+  inProgress: Application[];
+  hired: Application[];
+  unsuitable: Application[];
+};
+
 const Candidates = () => {
   const [titleOptions, setTitleOptions] = useState<JSX.Element[]>();
-  const [newCandidates, setNewCandidates] = useState<Application[]>();
-  const [inProgressCandidates, setInProgressCandidates] = useState<Application[]>();
-  const [hiredCandidates, setHiredCandidates] = useState<Application[]>();
-  const [unsuitableCandidates, setUnsuitableCandidates] = useState<Application[]>();
+  const [candidates, setCandidates] = useState<CandidatesList>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const user = useAppSelector(selectUser);
+  const applications = useAppSelector(selectApplications);
+  const dispatch = useAppDispatch();
 
   const renderOptions = (titles: Array<Title>) => {
     return titles.map((e) => <Option key={e._id}>{e.title}</Option>);
   };
 
   const clasifyStatus = (candidates: Application[]) => {
-    const newCandidates: Application[] = [];
-    const inProgressCandidates: Application[] = [];
-    const hiredCandidates: Application[] = [];
-    const unsuitableCandidates: Application[] = [];
+    if (!candidates) {
+      return;
+    }
+    const candidatesList: CandidatesList = {
+      new: [],
+      inProgress: [],
+      hired: [],
+      unsuitable: [],
+    };
     candidates.map((candidate) => {
       switch (candidate.status) {
         case "NEW":
-          newCandidates.push(candidate);
+          candidatesList.new.push(candidate);
           break;
         case "IN_PROGRESS":
-          inProgressCandidates.push(candidate);
+          candidatesList.inProgress.push(candidate);
           break;
         case "UNSUITABLE":
-          unsuitableCandidates.push(candidate);
+          candidatesList.unsuitable.push(candidate);
           break;
         case "HIRED":
-          hiredCandidates.push(candidate);
+          candidatesList.hired.push(candidate);
           break;
       }
     });
-    setNewCandidates(newCandidates);
-    setInProgressCandidates(inProgressCandidates);
-    setHiredCandidates(hiredCandidates);
-    setUnsuitableCandidates(unsuitableCandidates);
+    setCandidates(candidatesList);
   };
 
   const handleSelectPosition = (id: any) => {
-    applicationApi
-      .getAllPostByPost(id)
-      .then((res) => {
-        clasifyStatus(res.data.data);
-      })
-      .catch((err) => console.log(err));
+    setIsLoading(true);
+    dispatch(getApplications(id));
+  };
+
+  const handleSearch = (searchText: any) => {
+    const dataSearch = applications?.filter(
+      (application) =>
+        stringHelper
+          .removeAccents(application.user.name.toLowerCase())
+          .search(searchText.toLowerCase()) >= 0,
+    );
+    if (!dataSearch) return;
+    clasifyStatus(dataSearch);
   };
 
   useEffect(() => {
+    setIsLoading(false);
+    if (applications) {
+      clasifyStatus(applications);
+    }
+  }, [applications]);
+
+  useEffect(() => {
     postApi
-      .getAllPostByCompany("6236feaa5e6bdfc312fa5a49")
+      .getAllPostByCompany(user?._id)
       .then((res) => {
         const titles = res.data.data;
-        const tmp = renderOptions(titles);
-        setTitleOptions(tmp);
+        const titleOptions = renderOptions(titles);
+        setTitleOptions(titleOptions);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -91,23 +119,28 @@ const Candidates = () => {
           </Col>
           <Col flex="auto" />
           <Col span={8}>
-            <Search size="large" placeholder="Search candidates" enterButton />
+            <Search
+              size="large"
+              placeholder="Search candidates"
+              enterButton
+              onSearch={(e) => handleSearch(e)}
+            />
           </Col>
         </Row>
       </Card>
-      <Card className="my-3">
+      <Card className="my-3" loading={isLoading}>
         <Tabs defaultActiveKey="1" type="card">
           <TabPane tab="New" key="1">
-            <CandidatesList candidates={newCandidates} />
+            <CandidatesList candidates={candidates?.new} />
           </TabPane>
           <TabPane tab="In progress" key="2">
-            <CandidatesList candidates={inProgressCandidates} />
+            <CandidatesList candidates={candidates?.inProgress} />
           </TabPane>
           <TabPane tab="Hired" key="6">
-            <CandidatesList candidates={hiredCandidates} />
+            <CandidatesList candidates={candidates?.hired} />
           </TabPane>
           <TabPane tab="Unsuitable" key="7">
-            <CandidatesList candidates={unsuitableCandidates} />
+            <CandidatesList candidates={candidates?.unsuitable} />
           </TabPane>
         </Tabs>
       </Card>

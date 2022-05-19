@@ -1,1 +1,3 @@
-export default {};
+import { applicationStatus } from "./applicationStatus";
+
+export { applicationStatus };

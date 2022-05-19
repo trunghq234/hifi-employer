@@ -14,16 +14,13 @@ const ExternalLink = ({ candidate, title }: LinkProps) => {
     <div className="flex gap-1 items-center">
       <p className="m-0 text-base">{title}</p>
       {title == "Resume" ? (
-        <a className="m-0" href={candidate.resume.fileUrl} target="_blank">
+        <a style={{ height: "18px" }} className="m-0" href={candidate.resume.url} target="_blank">
           <HiOutlineExternalLink size={18} />
         </a>
       ) : (
-        <Button
-          className="m-0"
-          type="link"
-          onClick={() => setIsVisible(true)}
-          icon={<HiOutlineExternalLink size={18} />}
-        />
+        <a style={{ height: "18px" }} onClick={() => setIsVisible(true)}>
+          <HiOutlineExternalLink size={18} />
+        </a>
       )}
       <Modal
         visible={isVisible}

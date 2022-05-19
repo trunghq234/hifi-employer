@@ -2,10 +2,21 @@ type User = {
   _id: string;
   uid: string;
   signInProvider: string;
-  type: string;
   email: string;
+  isVerified: boolean;
   name: string;
+  birthDate: string;
   photoUrl: string;
+  phoneNumber: string;
+  address: string;
+  age: number;
+  gender: string;
+  nationality: string;
+  about: string;
+  skills: Skill[];
+  resume: Resume;
+  socialNetwork: { facebook: String; linkedIn: String; github: String; twitter: String };
+  candidateStatus: string;
 };
 
 type Company = {
@@ -64,7 +75,7 @@ type WorkLocation = {
 
 type Resume = {
   fileName: string;
-  fileUrl: string;
+  url: string;
 };
 
 type Application = {
