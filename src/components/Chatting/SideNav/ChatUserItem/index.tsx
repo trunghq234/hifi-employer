@@ -10,7 +10,7 @@ import { selectUser } from "@/store/selectors";
 interface IProps {
   lastMessage: Message;
   roomId: string;
-  chatter: Chatter;
+  chatter?: Chatter;
   selected: boolean;
 }
 
@@ -36,14 +36,14 @@ const ChatUserItem: FC<IProps> = (props) => {
           </Typography.Title>
           <Row>
             <Typography.Text ellipsis={true} className={styles.text}>
-              {user?._id === lastMessage.userId ? "You: " : ""}
-              {lastMessage.content}
+              {user?._id === lastMessage?.userId ? "You: " : ""}
+              {lastMessage?.content}
             </Typography.Text>
           </Row>
           <Row>
-            <Tooltip title={moment(lastMessage.createdAt).format("YYYY-MM-DD HH:mm:ss")}>
+            <Tooltip title={moment(lastMessage?.createdAt).format("YYYY-MM-DD HH:mm:ss")}>
               <Typography.Text className={styles.time}>
-                {moment(lastMessage.createdAt).fromNow()}
+                {moment(lastMessage?.createdAt).fromNow()}
               </Typography.Text>
             </Tooltip>
           </Row>

@@ -1,4 +1,5 @@
 import { useAppSelector } from "@/store/hooks";
+import { selectUser } from "@/store/selectors";
 import { Room } from "@/types";
 import { MessageOutlined } from "@ant-design/icons";
 import { Button, Col, Row, Typography } from "antd";
@@ -16,6 +17,7 @@ const ChatBox: FC<IProps> = (props) => {
   const { setVisibleDrawer } = props;
   const chatting = useAppSelector((state) => state.chatting);
   const [room, setRoom] = useState<Room>();
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
     if (chatting) {
@@ -29,7 +31,9 @@ const ChatBox: FC<IProps> = (props) => {
         <>
           <ChatBoxHeader
             setVisibleDrawer={setVisibleDrawer}
-            chatter={room.chatters[0]}></ChatBoxHeader>
+            chatter={room.chatters.find(
+              (chatter) => chatter.chatterId != user?._id,
+            )}></ChatBoxHeader>
           <ChatBoxContent />
           <ChatBoxInput roomId={room._id}></ChatBoxInput>
         </>

@@ -98,7 +98,7 @@ const SideNav: FC<IProps> = (props) => {
             lastMessage={room.messages[room.messages.length - 1]}
             key={room._id}
             roomId={room._id}
-            chatter={room.chatters[0]}
+            chatter={room.chatters.find((chatter) => chatter.chatterId != user?._id)}
             selected={room._id === roomId}
           />
         );
