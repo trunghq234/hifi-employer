@@ -2,10 +2,21 @@ type User = {
   _id: string;
   uid: string;
   signInProvider: string;
-  type: string;
   email: string;
+  isVerified: boolean;
   name: string;
+  birthDate: string;
   photoUrl: string;
+  phoneNumber: string;
+  address: string;
+  age: number;
+  gender: string;
+  nationality: string;
+  about: string;
+  skills: Skill[];
+  resume: Resume;
+  socialNetwork: { facebook: String; linkedIn: String; github: String; twitter: String };
+  candidateStatus: string;
 };
 
 type Company = {
@@ -94,6 +105,22 @@ type Chatter = {
   type: string;
 };
 
+type Resume = {
+  fileName: string;
+  url: string;
+};
+
+type Application = {
+  _id: string;
+  userId: string;
+  postId: string;
+  user: User;
+  status: string;
+  coverLetter: string;
+  phoneNumber: string;
+  resume: Resume;
+};
+
 export type {
   User,
   Company,
@@ -107,4 +134,6 @@ export type {
   Message,
   Room,
   Chatter,
+  Application,
+  Resume,
 };

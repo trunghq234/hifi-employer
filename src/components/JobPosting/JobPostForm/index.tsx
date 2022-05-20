@@ -1,9 +1,9 @@
+import postApi from "@/api/postApi";
 import { deteteImage, uploadImage } from "@/firebase/services";
 import { Post } from "@/types";
-import Utils from "@/utils";
+import { objectHelper } from "@/utils";
 import { Button, Col, DatePicker, Form, message, Row } from "antd";
-import postApi from "@/api/postApi";
-import React, { useState } from "react";
+import { useState } from "react";
 import DescriptionRichInput from "../DescriptionRichInput";
 import ImageFileUpload from "../ImageFileUpload";
 import JobCategory from "../JobCategory";
@@ -44,7 +44,7 @@ const JobPostForm = (props: Props) => {
     }
     post.postPhoto = url;
     try {
-      Utils.renameProperty(post, "category", "jobCategory");
+      objectHelper.renameProperty(post, "categories", "jobCategories");
       const { data } = await postApi.createPost(post);
       message.info("Create job hirement post successfully!");
     } catch (error: any) {
