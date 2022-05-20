@@ -24,6 +24,10 @@ const MenuItems = {
         </span>
       ),
     },
+    {
+      path: "/job-post",
+      name: "Post Job",
+    },
   ],
 };
 

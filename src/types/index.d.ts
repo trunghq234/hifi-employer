@@ -36,7 +36,7 @@ type Company = {
 type Post = Partial<{
   title: string;
   jobType: string;
-  categories: string[];
+  category: string;
   salary: Salary;
   description: string;
   skillTags: Skill[];

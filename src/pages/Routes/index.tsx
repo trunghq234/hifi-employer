@@ -25,7 +25,6 @@ const MainRoutes = (props: Props) => {
           // handle result here
         })
         .catch((error) => {
-          console.log(error);
           localStorage.removeItem("accessToken");
           // handle error here
         })

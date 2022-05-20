@@ -1,6 +1,7 @@
 import { Salary } from "@/types";
 import { InputNumber, Select, Space, Switch, Typography } from "antd";
 import React from "react";
+import Label from "../Label";
 
 type Props = {};
 
@@ -15,21 +16,13 @@ type changeType = keyof Salary;
 
 const SalaryRange: React.FC<ISalaryRange> = (props) => {
   const { value, onChange } = props;
-  // const [salary, setSalary] = useState<Salary>({
-  //   min: 0,
-  //   max: 1000,
-  //   unit: 'usd',
-  //   negotiable: false,
-  // });
-  console.log(value);
   const handleChange = (type: changeType, newValue: any) => {
-    // setSalary((prev) => ({ ...prev, [type]: value }));
     if (!value) return;
     onChange?.({ ...value, [type]: newValue });
   };
   return (
     <div>
-      <Title level={5}>Salary Range</Title>
+      <Label text="Salary Range" requiredMark />
       <Space size={"small"}>
         <InputNumber
           addonBefore="From"

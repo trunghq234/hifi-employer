@@ -13,7 +13,6 @@ const uploadImage = async (file: RcFile) => {
   try {
     const storageRef = ref(storage, `/images/${file.uid}_${new Date().valueOf()}`);
     const imageUrl = await uploadBytes(storageRef, file).then((snapshot) => {
-      console.log("Uploaded a blob or file!");
       const url = getDownloadURL(snapshot.ref);
       return url;
     });
@@ -28,12 +27,10 @@ const deteteImage = async (url: string | undefined) => {
     const start = url.indexOf("/images%2F") + "/images%2F".length;
     const end = url.indexOf("?alt");
     const fileName = url.slice(start, end);
-    console.log("fileName", fileName);
     const storageRef = ref(storage, `/images/${fileName}`);
     await deleteObject(storageRef);
-    console.log("Delete successfully!");
   } catch (error: any) {
-    console.log(error);
+    console.log("deteteImage: ", error);
     return;
   }
 };

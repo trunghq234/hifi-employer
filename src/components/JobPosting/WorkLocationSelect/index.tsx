@@ -12,10 +12,9 @@ interface IProps {
 }
 const WorkLocationSelect: React.FC<IProps> = (props) => {
   const { value, onChange } = props;
-  console.log(value);
   return (
     <div>
-      <Label text="Working Location" />
+      <Label text="Working Location" requiredMark />
       <Select
         mode="multiple"
         style={{ width: "100%", borderRadius: 30 }}
@@ -28,8 +27,8 @@ const WorkLocationSelect: React.FC<IProps> = (props) => {
           <Option
             key={loca.id}
             value={loca.id}
-            label={<OptionLabel name={loca.name} address={loca.address} />}>
-            <LocationOption name={loca.name} address={loca.address} />
+            label={<OptionLabel name={loca.officeName} address={loca.address} />}>
+            <LocationOption name={loca.officeName} address={loca.address} />
           </Option>
         ))}
       </Select>
