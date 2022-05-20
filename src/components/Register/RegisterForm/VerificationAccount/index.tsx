@@ -1,4 +1,4 @@
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
 
 type Props = {
@@ -11,7 +11,8 @@ const VerificationForm = ({ onNext, onPrevious, email }: Props) => {
   const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
-    console.log("Send email: ", email);
+    // TODO: send email to user to verify account
+    message.success("Send email success");
   }, [email]);
 
   return (

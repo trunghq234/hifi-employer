@@ -3,6 +3,7 @@ import { Skill } from "@/types";
 import { message, Select, Typography } from "antd";
 import _debounce from "lodash.debounce";
 import React, { useMemo, useRef, useState } from "react";
+import Label from "../Label";
 import Content from "./Content";
 const { Title } = Typography;
 const { Option } = Select;
@@ -47,8 +48,7 @@ const SkillsSearchSelect: React.FC<IProps> = (props: IProps) => {
   const handleSearch = async (keyword: string) => {
     if (!keyword || keyword.length < 2) setData([]);
     setMessageType("Loading");
-    console.log("value:", value);
-    searchSkillCallApi(keyword, value);
+    searchSkillCallApi(keyword, value ?? []);
   };
   const handleChange = (selectedValue: string[]) => {
     if (!selectedValue) return;
@@ -60,7 +60,8 @@ const SkillsSearchSelect: React.FC<IProps> = (props: IProps) => {
   };
   return (
     <div>
-      <Title level={5}>Skill Tags</Title>
+      <Label text="Skill Tags" requiredMark />
+
       <Select
         loading={messageType === "Loading"}
         showSearch

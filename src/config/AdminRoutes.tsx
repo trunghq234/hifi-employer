@@ -4,6 +4,7 @@ import Loginpage from "@/pages/LoginPage";
 import Sample from "@/pages/Sample";
 import SignUpPage from "@/pages/RegisterPage";
 import Chatting from "@/pages/Chatting";
+import JobPost from "@/pages/JobPost";
 
 interface IRoute {
   path: string;
@@ -34,6 +35,10 @@ const AdminRoutes: IRoute[] = [
   {
     path: "/chatting",
     page: <Chatting />,
+  },
+  {
+    path: "/job-post",
+    page: <JobPost />,
   },
 ];
 

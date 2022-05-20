@@ -5,7 +5,6 @@ const validationApi = {
     const {
       data: { data },
     } = await axiosClient.get("/check-employer-or-jobseeker" + `?email=${email}`);
-    console.log("Categories: ", data);
     return data;
   },
 };

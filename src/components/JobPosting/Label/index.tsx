@@ -12,7 +12,7 @@ const Label: React.FC<IProps> = (props) => {
   return (
     <Space size={4}>
       <Title level={5}>{text}</Title>
-      {requiredMark && <p className="text-red-500 text-sm">*</p>}
+      {requiredMark && <p className="text-red-500 text-base">*</p>}
     </Space>
   );
 };

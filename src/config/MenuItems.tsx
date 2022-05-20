@@ -12,6 +12,10 @@ const MenuItems = {
       path: "/chatting",
       name: "Chatting",
     },
+    {
+      path: "/job-post",
+      name: "Post Job",
+    },
   ],
 };
 
