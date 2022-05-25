@@ -1,4 +1,5 @@
 import authApi from "@/api/authApi";
+import emailApi from "@/api/emailApi";
 import { FromLocation } from "@/components/Login/LoginForm";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { authActions } from "@/store/reducers/authSlice";
@@ -110,7 +111,7 @@ const RegisterForm = () => {
                   onPrevious={() => {
                     setStep((prev) => prev - 1);
                   }}
-                  onNext={(data) => {
+                  onNext={async (data) => {
                     updateFormData({ isVerified: true });
                     setStep((prev) => prev + 1);
                   }}

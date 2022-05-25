@@ -1,11 +1,11 @@
 import { Skill } from "@/types";
-import axiosClient from "./axiosClient";
+import axiosInstance from "./axiosIns";
 
 const suggestionApi = {
   getAllJobCategories: async () => {
     const {
       data: { data },
-    } = await axiosClient.get("/suggestion/categories");
+    } = await axiosInstance.get("/suggestion/categories");
     return data;
   },
   searchSkills: async (keyword: string, selectedSkill?: string[]): Promise<Skill[]> => {
@@ -13,7 +13,7 @@ const suggestionApi = {
       q: keyword,
       selected: selectedSkill ? selectedSkill.join(",") : "",
     });
-    const { data } = await axiosClient.get(`/suggestion/skills?${params.toString()}`);
+    const { data } = await axiosInstance.get(`/suggestion/skills?${params.toString()}`);
     return data.data as Skill[];
   },
 };

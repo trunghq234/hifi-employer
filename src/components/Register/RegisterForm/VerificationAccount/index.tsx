@@ -1,5 +1,7 @@
-import { Button, Input, message } from "antd";
-import React, { useEffect, useState } from "react";
+import emailApi from "@/api/emailApi";
+import { Button, Input, InputRef, message } from "antd";
+import axios from "axios";
+import React, { useRef, useState } from "react";
 
 type Props = {
   email?: string;
@@ -9,19 +11,34 @@ type Props = {
 
 const VerificationForm = ({ onNext, onPrevious, email }: Props) => {
   const [isVerified, setIsVerified] = useState(false);
+  const inputRef = useRef<InputRef | null>(null);
 
-  useEffect(() => {
-    // TODO: send email to user to verify account
-    message.success("Send email success");
-  }, [email]);
+  const handleVerifyClick = async () => {
+    const code = inputRef.current?.input?.value;
+    if (!code) {
+      message.error("Please enter verification code");
+      return;
+    }
+    try {
+      await emailApi.verifyCode({ email, code });
+      setIsVerified(true);
+      onNext?.();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        message.error(error.response?.data.message);
+      } else {
+        message.error("Error verifying code");
+      }
+    }
+  };
 
   return (
     <div>
       Verification email has been sent to {email}! Please check your inbox or junk mail. Didn't
       receive the email?
       <div className="flex gap-4">
-        <Input className="my-2 w-1/3" />
-        <Button className="my-2 bg-primary-color" onClick={() => setIsVerified(true)}>
+        <Input ref={inputRef} className="my-2 w-1/3" />
+        <Button className="my-2 bg-primary-color" onClick={handleVerifyClick}>
           Verify
         </Button>
       </div>

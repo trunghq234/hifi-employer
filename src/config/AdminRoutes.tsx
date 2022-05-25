@@ -4,7 +4,9 @@ import Loginpage from "@/pages/LoginPage";
 import Sample from "@/pages/Sample";
 import SignUpPage from "@/pages/RegisterPage";
 import Candidates from "@/pages/Candidates";
-import JobPost from "@/pages/JobPost";
+import NewPostPage from "@/pages/JobPost/NewPost";
+import JobPostsPage from "@/pages/JobPost";
+import { PostDetails } from "@/components/post/PostDetails";
 
 interface IRoute {
   path: string;
@@ -37,8 +39,16 @@ const AdminRoutes: IRoute[] = [
     page: <Candidates />,
   },
   {
-    path: "/job-post",
-    page: <JobPost />,
+    path: "/job-posts",
+    page: <JobPostsPage />,
+  },
+  {
+    path: "/job-posts/new",
+    page: <NewPostPage />,
+  },
+  {
+    path: "/job-posts/:id",
+    page: <PostDetails />,
   },
 ];
 

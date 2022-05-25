@@ -1,28 +1,27 @@
 import postApi from "@/api/postApi";
 import { deteteImage, uploadImage } from "@/firebase/services";
 import { Post } from "@/types";
-import { objectHelper } from "@/utils";
 import { Button, Col, DatePicker, Form, message, Row } from "antd";
 import { useState } from "react";
 import DescriptionRichInput from "../DescriptionRichInput";
 import ImageFileUpload from "../ImageFileUpload";
 import JobCategory from "../JobCategory";
 import JobTypeSelect from "../JobTypeSelect";
+import Label from "../Label";
 import LabelInput from "../LabelInput";
 import PreferedLangSelect from "../PreferedLangSelect";
 import SalaryRange from "../SalaryRange";
 import SkillSearchSelect from "../SkillsSearchInput";
 import WorkLocationSelect from "../WorkLocationSelect";
-import Label from "../Label";
 
 type Props = {};
 const layout = {
   wrapperCol: { span: 24 },
 };
-const defaultFormValue: Post = {
+const defaultFormValue: Partial<Post> = {
   title: "",
   jobType: "",
-  category: "",
+  jobCategory: "",
   salary: { min: 1000, max: 3000, unit: "usd", negotiable: false },
   description: "",
   skillTags: [],
@@ -42,9 +41,8 @@ const JobPostForm = (props: Props) => {
       setLoading(false);
       return;
     }
-    post.postPhoto = url;
+    post.postPhoto = url!!;
     try {
-      objectHelper.renameProperty(post, "categories", "jobCategories");
       const { data } = await postApi.createPost(post);
       message.info("Create job hirement post successfully!");
     } catch (error: any) {

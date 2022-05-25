@@ -11,6 +11,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-layout": "^6.34.8",
+    "@heroicons/react": "^1.0.6",
     "@loadable/component": "^5.15.2",
     "@reduxjs/toolkit": "^1.8.1",
     "antd": "^4.19.3",

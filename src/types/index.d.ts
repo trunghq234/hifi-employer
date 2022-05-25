@@ -33,18 +33,37 @@ type Company = {
   accountStatus: "pending" | "rejected" | "fullfilled";
 };
 
-type Post = Partial<{
+type Post = {
+  _id: string;
   title: string;
   jobType: string;
-  category: string;
+  jobCategory:
+    | {
+        _id: string;
+        name: string;
+        category: {
+          _id: string;
+          name: string;
+        };
+      }
+    | string;
+  // | string;
   salary: Salary;
-  description: string;
-  skillTags: Skill[];
-  preferedLangs: string[];
-  locations: WorkLocation[];
-  photoFile: any;
+  company: {
+    _id: string;
+    name: string;
+  };
+  description: any;
+  skillTags: Array<Skill>;
+  locations: any;
+  verficationStatus: string;
+  createdAt: string;
+  updatedAt: string;
   postPhoto: string;
-}>;
+  preferedLangs: string[];
+  photoFile: any;
+};
+
 type Skill = {
   _id: string;
   text: string;
