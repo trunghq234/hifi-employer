@@ -21,6 +21,7 @@ type User = {
 
 type Company = {
   _id: string;
+  images: string[];
   email: string;
   name: string;
   phoneNumber: string;
@@ -31,6 +32,7 @@ type Company = {
   contactName: string;
   summary: string;
   accountStatus: "pending" | "rejected" | "fullfilled";
+  notifications: Notification[];
 };
 
 type Post = {
@@ -69,11 +71,13 @@ type Skill = {
   _id: string;
   text: string;
 };
+
 type Category = {
   _id: string;
   name: string;
   subcategories: Subcategory[];
 };
+
 type Subcategory = {
   _id: string;
   name: string;
@@ -91,6 +95,33 @@ type WorkLocation = {
   officeName?: string;
   city?: string;
   address?: string;
+};
+
+type Notification = {
+  message: string;
+  createdAt: Date;
+  redirectUrl: string;
+  _id: string;
+  isRead: boolean;
+};
+
+type Message = {
+  userId: string;
+  content: string;
+  createdAt: string;
+};
+
+type Room = {
+  _id: string;
+  messages: Message[];
+  chatters: Chatter[];
+};
+
+type Chatter = {
+  chatterId: string;
+  name: string;
+  avatar: string;
+  type: string;
 };
 
 type Resume = {
@@ -118,6 +149,10 @@ export type {
   WorkLocation,
   Category,
   Subcategory,
+  Notification,
+  Message,
+  Room,
+  Chatter,
   Application,
   Resume,
 };

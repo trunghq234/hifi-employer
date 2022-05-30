@@ -1,6 +1,6 @@
 import { applicationStatus } from "@/constants";
 import { updateApplication } from "@/store/actions/applicationActions";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { Application } from "@/types";
 import { stringHelper } from "@/utils";
 import { Avatar, Button, Col, Row, Tag } from "antd";
@@ -8,12 +8,27 @@ import DescriptionText from "../DescriptionText";
 import ExternalLink from "../ExternalLink";
 import TitleApplication from "../TitleApplication";
 import * as SimpleIcons from "react-icons/si";
+import socket from "@/utils/messageSocket";
+import { useNavigate } from "react-router-dom";
+import { selectUser } from "@/store/selectors";
 
 const CandidateCard = ({ candidate }: { candidate: Application }) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const user = useAppSelector(selectUser);
 
   const updateStatus = (idApplication: string, status: string) => {
     dispatch(updateApplication({ idApplication, status }));
+  };
+
+  const handleMessage = () => {
+    socket.connect();
+    socket.emit("joinRoomByChatterId", {
+      user: candidate.user._id,
+      company: user?._id,
+    });
+
+    navigate("/chatting");
   };
 
   const renderFooterButton = (status: string) => {
@@ -34,7 +49,9 @@ const CandidateCard = ({ candidate }: { candidate: Application }) => {
       case "IN_PROGRESS":
         return (
           <>
-            <Button type="default">Message</Button>
+            <Button type="default" onClick={handleMessage}>
+              Message
+            </Button>
             <Button
               type="primary"
               onClick={() => updateStatus(candidate._id, applicationStatus.hired)}>
@@ -88,7 +105,7 @@ const CandidateCard = ({ candidate }: { candidate: Application }) => {
         </Col>
         <Col>
           <TitleApplication title="ABOUT" />
-          <DescriptionText title={""} description={<span>candidate.user.about</span>} />
+          <DescriptionText title={""} description={<span>{candidate.user.about}</span>} />
         </Col>
       </Row>
       <div className="flex justify-between">

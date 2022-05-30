@@ -1,6 +1,7 @@
 import { PostDetails } from "@/components/JobPost/PostDetails";
 import AboutPage from "@/pages/AboutPage";
 import Candidates from "@/pages/Candidates";
+import Chatting from "@/pages/Chatting";
 import Dashboard from "@/pages/Dashboard";
 import JobPostsPage from "@/pages/JobPost";
 import NewPostPage from "@/pages/JobPost/NewPost";
@@ -39,6 +40,10 @@ const AdminRoutes: IRoute[] = [
   {
     path: "/sample",
     page: <Sample />,
+  },
+  {
+    path: "/chatting",
+    page: <Chatting />,
   },
   {
     path: "/manage-candidates",
