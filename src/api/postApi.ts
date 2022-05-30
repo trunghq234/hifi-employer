@@ -12,7 +12,7 @@ const postApi = {
     });
   },
   getAllPostByCompany: (id: any) => {
-    return axiosClient.get(`${url}/${id}`);
+    return axiosClient.get(`${url}/company/${id}`);
   },
 };
 export default postApi;

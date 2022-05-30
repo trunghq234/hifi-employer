@@ -1,4 +1,10 @@
-import { HiOutlineBriefcase, HiViewGrid } from "react-icons/hi";
+import {
+  HiCog,
+  HiOutlineBriefcase,
+  HiOutlineCog,
+  HiOutlinePencilAlt,
+  HiViewGrid,
+} from "react-icons/hi";
 
 const MenuItems = {
   routes: [
@@ -24,13 +30,27 @@ const MenuItems = {
       name: "Candidates",
       icon: (
         <span role="img" className="anticon">
-          <HiOutlineBriefcase />
+          <HiOutlineBriefcase size={18} />
         </span>
       ),
     },
     {
       path: "/job-post",
       name: "Post Job",
+      icon: (
+        <span role="img" className="anticon">
+          <HiOutlinePencilAlt size={18} />
+        </span>
+      ),
+    },
+    {
+      path: "/setting",
+      name: "Setting",
+      icon: (
+        <span role="img" className="anticon">
+          <HiOutlineCog size={18} />
+        </span>
+      ),
     },
   ],
 };

@@ -30,8 +30,10 @@ export const applicationSlice = createSlice({
   },
 });
 
-export const authActions = {
+export const applicationActions = {
   ...applicationSlice.actions,
+  getApplications,
+  updateApplication,
 };
 
 export default applicationSlice.reducer;

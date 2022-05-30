@@ -23,5 +23,12 @@ const authApi = {
     } = await axiosClient.post("/auth/register", companyInfo);
     return { user: data, accessToken };
   },
+  updatePassword: async ({ idCompany, password, newPassword }: any) => {
+    const {
+      data: { data, accessToken },
+    } = await axiosClient.patch(`/auth/password/${idCompany}`, { password, newPassword });
+    return { user: data, accessToken };
+  },
 };
+
 export default authApi;

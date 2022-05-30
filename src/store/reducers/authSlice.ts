@@ -1,6 +1,7 @@
 import { Company } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { login, register, verifyToken } from "../actions/authActions";
+import { login, register, updatePassword, verifyToken } from "../actions/authActions";
+
 export type AuthState = Partial<{
   accessToken: string;
   user: Company;
@@ -24,7 +25,7 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    [login, register, verifyToken].forEach((thunk) =>
+    [login, register, verifyToken, updatePassword].forEach((thunk) =>
       builder.addCase(thunk.fulfilled, (state, { payload }: PayloadAction<any>) => {
         return { ...state, ...payload };
       }),
@@ -42,4 +43,5 @@ export const authActions = {
   login,
   register,
   verifyToken,
+  updatePassword,
 };

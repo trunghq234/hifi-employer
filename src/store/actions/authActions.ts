@@ -16,6 +16,7 @@ const login = createAsyncThunk("auth/login", async (user: any, { rejectWithValue
     }
   }
 });
+
 const verifyToken = createAsyncThunk(
   "auth/verify-token",
   async (accessToken: any, { rejectWithValue }) => {
@@ -32,6 +33,7 @@ const verifyToken = createAsyncThunk(
     }
   },
 );
+
 const register = createAsyncThunk("auth/register", async (userData: any, { rejectWithValue }) => {
   try {
     const authState = await authApi.register(userData);
@@ -48,4 +50,23 @@ const register = createAsyncThunk("auth/register", async (userData: any, { rejec
   }
 });
 
-export { login, register, verifyToken };
+const updatePassword = createAsyncThunk(
+  "auth/update-password",
+  async (payload: any, { rejectWithValue }) => {
+    try {
+      const authState = await authApi.updatePassword(payload);
+      localStorage.setItem("accessToken", authState.accessToken);
+      return authState;
+    } catch (error: any) {
+      if (!error.response) {
+        throw error;
+      }
+
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(error.response.data);
+      }
+    }
+  },
+);
+
+export { login, register, verifyToken, updatePassword };

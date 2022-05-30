@@ -1,4 +1,5 @@
 import { Application } from "@/types";
+import { Empty } from "antd";
 import CandidateCard from "../CandidateCard";
 
 interface IProps {
@@ -8,12 +9,12 @@ interface IProps {
 const CandidatesList = (props: IProps) => {
   return (
     <>
-      {props.candidates ? (
+      {props.candidates?.length ? (
         props.candidates.map((candidate) => (
           <CandidateCard key={candidate._id} candidate={candidate} />
         ))
       ) : (
-        <></>
+        <Empty description={"No candidates"} />
       )}
     </>
   );
