@@ -62,6 +62,7 @@ type Post = {
   postPhoto: string;
   preferedLangs: string[];
   photoFile: any;
+  applicationDeadline: string | moment.Moment;
 };
 
 type Skill = {

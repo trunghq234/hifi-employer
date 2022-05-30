@@ -32,7 +32,6 @@ const WorkLocationSelect: React.FC<IProps> = (props) => {
           </Option>
         ))}
       </Select>
-      <Button />
     </div>
   );
 };

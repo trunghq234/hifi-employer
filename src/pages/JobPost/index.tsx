@@ -1,7 +1,7 @@
 import postApi from "@/api/postApi";
 import CheckboxMenu from "@/components/commons/CheckboxMenu";
-import HeaderPost from "@/components/post/Header";
-import ListPost from "@/components/post/ListPost";
+import HeaderPost from "@/components/JobPost/Header";
+import ListPost from "@/components/JobPost/ListPost";
 import { Post } from "@/types";
 import { Button, Card, Col, Input, Row, Select } from "antd";
 import React, { useEffect, useState } from "react";

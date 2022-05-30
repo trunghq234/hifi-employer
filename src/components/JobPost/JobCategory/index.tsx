@@ -14,6 +14,7 @@ interface IProps {
 const JobCategory: React.FC<IProps> = ({ value, onChange }) => {
   const [categories, setCategories] = useState<Category[]>([]);
 
+  console.log("category", value);
   useEffect(() => {
     let mounted = true;
     (() => {
@@ -32,7 +33,7 @@ const JobCategory: React.FC<IProps> = ({ value, onChange }) => {
   return (
     <div>
       <Label text="Job category" requiredMark />
-      <Select allowClear defaultValue="lucy" size="large" value={value} onChange={onChange}>
+      <Select allowClear size="large" value={value} onChange={onChange}>
         {categories.map((cat) => (
           <OptGroup key={cat._id} label={cat.name}>
             {cat.subcategories.map((sub) => (

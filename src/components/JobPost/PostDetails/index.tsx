@@ -2,6 +2,7 @@ import postApi from "@/api/postApi";
 import { Post, Skill } from "@/types";
 import { CheckOutlined, CloseOutlined, LeftOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Divider, notification, Row, Tag, Tooltip } from "antd";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import DescriptionItem from "../DescriptionItem";
@@ -15,45 +16,27 @@ export const PostDetails = (props: Props) => {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
+    let isSubscribed = true;
     const fetchData = async () => {
       try {
         const res = await postApi.getById(id);
         if (res.data.data) {
-          setData(res.data.data);
+          isSubscribed && setData(res.data.data);
         }
       } catch (error) {
-        console.log(error);
+        if (axios.isAxiosError(error)) {
+          error.response?.status === 404 && navigate("/404");
+        }
+        console.log("error", error);
       }
     };
 
     fetchData();
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
-  const handleApprovePost = async () => {
-    try {
-      const result = await postApi.approvePost(id, true);
-
-      notification.success({
-        message: `${result.data.message}`,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    navigate(-1);
-  };
-
-  const handleRejectPost = async () => {
-    try {
-      const result = await postApi.approvePost(id, false);
-
-      notification.success({
-        message: `${result.data.message}`,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    navigate(-1);
-  };
   return (
     <Card className={styles.container}>
       <Link to={"/job-posts"}>
@@ -62,29 +45,8 @@ export const PostDetails = (props: Props) => {
         </Button>
       </Link>
       <div className={styles.titleContainer}>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div>
           <span className={styles.title}>{data?.title}</span>
-          {data?.verficationStatus == "pending" && (
-            <>
-              <Tooltip title="Approve">
-                <Button
-                  icon={<CheckOutlined />}
-                  className={styles.icon}
-                  onClick={handleApprovePost}>
-                  Approve
-                </Button>
-              </Tooltip>
-              <Tooltip title="Reject">
-                <Button
-                  danger
-                  icon={<CloseOutlined />}
-                  className={styles.icon}
-                  onClick={handleRejectPost}>
-                  Reject
-                </Button>
-              </Tooltip>
-            </>
-          )}
         </div>
         <Divider />
       </div>

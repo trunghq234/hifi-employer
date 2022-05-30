@@ -18,6 +18,9 @@ const postApi = {
   getPosts: async (query: String = "") => {
     return await axiosClient.get(`${url}${query}`);
   },
+  updatePost: async (postId: string, data: any) => {
+    return await axiosClient.put(`${url}/${postId}`, data);
+  },
 
   getById: async (id: any) => {
     return await axiosClient.get(`${url}/${id}`);

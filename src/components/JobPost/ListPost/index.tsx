@@ -1,12 +1,12 @@
 import postApi from "@/api/postApi";
 import { DataSource } from "@/pages/JobPost";
 import { Post } from "@/types";
-import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { Button, notification, Table, Tag, Tooltip } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./index.module.less";
 
 type Props = {
@@ -22,6 +22,24 @@ type PostTable = {
   updatedAt: string;
   status: string;
   _id: string;
+};
+const convertToTableData = (posts: Post[]) => {
+  const tmp = posts.map((e: Post) => {
+    return {
+      title: e.title,
+      company: e.company?.name ?? "",
+      createdAt: moment(e.createdAt).format("DD/MM/YYYY HH:mm:ss"),
+      updatedAt: moment(e.updatedAt).format("DD/MM/YYYY HH:mm:ss"),
+      //@ts-ignore
+      category: e.jobCategory?.category?.name ?? "",
+      _id: e._id,
+      status:
+        e.verficationStatus == "fulfilled"
+          ? "Approved"
+          : e.verficationStatus.charAt(0).toUpperCase() + e.verficationStatus.slice(1),
+    };
+  });
+  return tmp;
 };
 
 const ListPost = (props: Props) => {
@@ -80,6 +98,13 @@ const ListPost = (props: Props) => {
                 <Button icon={<EyeOutlined />} className={styles.action} />
               </Link>
             </Tooltip>
+            <Tooltip title="Edit">
+              <Button
+                onClick={() => navigate(_id + "/update")}
+                icon={<EditOutlined />}
+                className={styles.action}
+              />
+            </Tooltip>
             <Tooltip title="Delete">
               <Button
                 danger
@@ -93,7 +118,7 @@ const ListPost = (props: Props) => {
       },
     },
   ];
-
+  const navigate = useNavigate();
   const [dataSource, setDataSource] = useState<PostTable[]>([]);
   const [totalSize, setTotalSize] = useState(10);
 
@@ -105,6 +130,9 @@ const ListPost = (props: Props) => {
     } catch (error) {
       console.log(error);
     }
+  };
+  const handleEditPost = async (id: any) => {
+    navigate("id");
   };
 
   const handleChangePage = async (currPage: number) => {
@@ -121,30 +149,13 @@ const ListPost = (props: Props) => {
       console.log(error);
     }
   };
-  const convertToTableData = (posts: Post[]) => {
-    const tmp = posts.map((e: Post) => {
-      return {
-        title: e.title,
-        company: e.company?.name ?? "",
-        createdAt: moment(e.createdAt).format("DD/MM/YYYY HH:mm:ss"),
-        updatedAt: moment(e.updatedAt).format("DD/MM/YYYY HH:mm:ss"),
-        //@ts-ignore
-        category: e.jobCategory?.category?.name ?? "",
-        _id: e._id,
-        status:
-          e.verficationStatus == "fulfilled"
-            ? "Approved"
-            : e.verficationStatus.charAt(0).toUpperCase() + e.verficationStatus.slice(1),
-      };
-    });
-    return tmp;
-  };
 
   useEffect(() => {
     if (props.data) {
       setTotalSize(props.data.totalItems);
 
       const tmp = convertToTableData(props.data.data);
+      console.log("prop.data", props.data);
       setDataSource(tmp);
     }
   }, [props.data]);
