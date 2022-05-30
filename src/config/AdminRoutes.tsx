@@ -3,6 +3,7 @@ import Dashboard from "@/pages/Dashboard";
 import Loginpage from "@/pages/LoginPage";
 import Sample from "@/pages/Sample";
 import SignUpPage from "@/pages/RegisterPage";
+import Chatting from "@/pages/Chatting";
 import Candidates from "@/pages/Candidates";
 import JobPost from "@/pages/JobPost";
 
@@ -31,6 +32,10 @@ const AdminRoutes: IRoute[] = [
   {
     path: "/sample",
     page: <Sample />,
+  },
+  {
+    path: "/chatting",
+    page: <Chatting />,
   },
   {
     path: "/manage-candidates",

@@ -16,6 +16,10 @@ const MenuItems = {
       name: "Sample",
     },
     {
+      path: "/chatting",
+      name: "Chatting",
+    },
+    {
       path: "/manage-candidates",
       name: "Candidates",
       icon: (
