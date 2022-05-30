@@ -1,7 +1,7 @@
 import postApi from "@/api/postApi";
 import { Post } from "@/types";
 import { Button, Col, DatePicker, Form, message, Row } from "antd";
-import moment, { isMoment } from "moment";
+import moment from "moment";
 import { useState } from "react";
 import DescriptionRichInput from "../DescriptionRichInput";
 import JobCategory from "../JobCategory";

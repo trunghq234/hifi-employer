@@ -1,8 +1,7 @@
 import postApi from "@/api/postApi";
-import { deteteImage, uploadImage } from "@/firebase/services";
 import { Post } from "@/types";
 import { Button, Col, DatePicker, Form, message, Row } from "antd";
-import moment, { isMoment } from "moment";
+import moment from "moment";
 import { useState } from "react";
 import DescriptionRichInput from "../DescriptionRichInput";
 import JobCategory from "../JobCategory";
@@ -67,7 +66,7 @@ const UpdatePostForm = ({ post: postData, changePreviewMode }: Props) => {
               ...postData,
               category: undefined,
               applicationDeadline: postData?.applicationDeadline
-                ? isMoment(postData?.applicationDeadline)
+                ? moment.isMoment(postData?.applicationDeadline)
                   ? postData?.applicationDeadline
                   : moment(postData?.applicationDeadline)
                 : moment(),
