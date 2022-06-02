@@ -39,32 +39,22 @@ type Post = {
   _id: string;
   title: string;
   jobType: string;
-  jobCategory:
-    | {
-        _id: string;
-        name: string;
-        category: {
-          _id: string;
-          name: string;
-        };
-      }
-    | string;
+  jobCategory: Subcategory | string;
   // | string;
   salary: Salary;
-  company: {
-    _id: string;
-    name: string;
-  };
+  company: Company;
   description: any;
   skillTags: Array<Skill>;
   locations: any;
   verficationStatus: string;
-  createdAt: string;
+  createdAt: Date;
   updatedAt: string;
   postPhoto: string;
   preferedLangs: string[];
   photoFile: any;
   applicationDeadline: string | moment.Moment;
+  workplaceType: "remote" | "on-site" | "hybrid";
+  experienceLevel: "Internship" | "Entry level" | "Associate" | "Mid-Senior level" | "Director";
 };
 
 type Skill = {
@@ -81,6 +71,7 @@ type Category = {
 type Subcategory = {
   _id: string;
   name: string;
+  category?: Category;
 };
 
 type Salary = {
@@ -139,6 +130,12 @@ type Application = {
   phoneNumber: string;
   resume: Resume;
 };
+
+declare global {
+  interface String {
+    capitalize(): string;
+  }
+}
 
 export type {
   User,

@@ -9,7 +9,7 @@ interface IProps {
 }
 const options = ["Full-time", "Part-time", "Internship", "Freelancer", "Seasonal", "Other"];
 const JobTypeSelect: React.FC<IProps> = (props) => {
-  const { value, onChange, children } = props;
+  const { value, onChange } = props;
   return (
     <div>
       <Label text="Job type" requiredMark />

@@ -1,4 +1,6 @@
 import suggestionApi from "@/api/suggestionApi";
+import { useAppSelector } from "@/store/hooks";
+import { selectUser } from "@/store/selectors";
 import { Post, Skill } from "@/types";
 import { LeftOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Divider, Row, Tag } from "antd";
@@ -13,6 +15,7 @@ type Props = {
 
 const PostPreview = ({ post: postData, changeMode }: Props) => {
   const [post, setPost] = useState(postData);
+  const user = useAppSelector(selectUser);
   useEffect(() => {
     let isMounted = true;
     const skillTags = postData.skillTags as any as string[];
@@ -24,7 +27,8 @@ const PostPreview = ({ post: postData, changeMode }: Props) => {
     return () => {
       isMounted = false;
     };
-  }, [post.skillTags]);
+  }, [JSON.stringify(post.skillTags)]);
+  console.log("post", post);
   return (
     <Card className={styles.container}>
       <Button
@@ -51,8 +55,8 @@ const PostPreview = ({ post: postData, changeMode }: Props) => {
         </Col>
         <Row style={{ marginTop: "10px" }}>
           <div style={{ fontSize: "1rem", marginBottom: "20px" }}>
-            <Col span={24}>Netcompany · Ho Chi Minh City, Viet Nam</Col>
-            <Col span={24}>On-site · 1 week ago </Col>
+            <Col span={24}>{user?.name} · Ho Chi Minh City, Viet Nam</Col>
+            <Col span={24}>{post.workplaceType}</Col>
           </div>
           <Col span={24}>
             <DescriptionItem
@@ -66,12 +70,15 @@ const PostPreview = ({ post: postData, changeMode }: Props) => {
             />
           </Col>
           <Col span={24}>
-            <DescriptionItem iconName="BriefcaseIcon" content="FullTime · Senior level" />
+            <DescriptionItem
+              iconName="BriefcaseIcon"
+              content={`${post.jobType?.capitalize()} · ${post.experienceLevel}`}
+            />
           </Col>
           <Col span={24}>
             <DescriptionItem
               iconName="OfficeBuildingIcon"
-              content="501-1,000 employees · Software Development"
+              content={`${user?.size} · Software Development`}
             />
           </Col>
         </Row>

@@ -1,10 +1,11 @@
 import postApi from "@/api/postApi";
-import { Post, Skill } from "@/types";
-import { CheckOutlined, CloseOutlined, LeftOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Divider, notification, Row, Tag, Tooltip } from "antd";
+import { Post, Skill, Subcategory } from "@/types";
+import { LeftOutlined } from "@ant-design/icons";
+import { Button, Card, Col, Divider, Row, Spin, Tag } from "antd";
 import axios from "axios";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import DescriptionItem from "../DescriptionItem";
 import styles from "./index.module.less";
 
@@ -12,6 +13,7 @@ type Props = {};
 
 export const PostDetails = (props: Props) => {
   const [data, setData] = useState<Post>();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
@@ -19,6 +21,7 @@ export const PostDetails = (props: Props) => {
     let isSubscribed = true;
     const fetchData = async () => {
       try {
+        setLoading(true);
         const res = await postApi.getById(id);
         if (res.data.data) {
           isSubscribed && setData(res.data.data);
@@ -31,12 +34,20 @@ export const PostDetails = (props: Props) => {
       }
     };
 
-    fetchData();
+    fetchData().finally(() => {
+      isSubscribed && setLoading(false);
+    });
     return () => {
       isSubscribed = false;
     };
   }, []);
 
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spin />
+      </div>
+    );
   return (
     <Card className={styles.container}>
       <Link to={"/job-posts"}>
@@ -60,8 +71,10 @@ export const PostDetails = (props: Props) => {
         </Col>
         <Row style={{ marginTop: "10px" }}>
           <div style={{ fontSize: "1rem", marginBottom: "20px" }}>
-            <Col span={24}>Netcompany · Ho Chi Minh City, Viet Nam</Col>
-            <Col span={24}>On-site · 1 week ago </Col>
+            <Col span={24}>{data?.company.name} · Ho Chi Minh City, Viet Nam</Col>
+            <Col span={24}>
+              {data?.workplaceType.capitalize()} · {moment(data?.createdAt).fromNow()}
+            </Col>
           </div>
           <Col span={24}>
             <DescriptionItem
@@ -75,12 +88,15 @@ export const PostDetails = (props: Props) => {
             />
           </Col>
           <Col span={24}>
-            <DescriptionItem iconName="BriefcaseIcon" content="FullTime · Senior level" />
+            <DescriptionItem
+              iconName="BriefcaseIcon"
+              content={`${data?.jobType} · ${data?.experienceLevel}`}
+            />
           </Col>
           <Col span={24}>
             <DescriptionItem
               iconName="OfficeBuildingIcon"
-              content="501-1,000 employees · Software Development"
+              content={`${data?.company?.size} · ${(data?.jobCategory as Subcategory)?.name}`}
             />
           </Col>
         </Row>

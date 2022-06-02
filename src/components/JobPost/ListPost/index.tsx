@@ -2,7 +2,7 @@ import postApi from "@/api/postApi";
 import { DataSource } from "@/pages/JobPost";
 import { Post } from "@/types";
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
-import { Button, notification, Table, Tag, Tooltip } from "antd";
+import { Button, notification, Popconfirm, Table, Tag, Tooltip } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -43,6 +43,7 @@ const convertToTableData = (posts: Post[]) => {
 };
 
 const ListPost = (props: Props) => {
+  const [confirmVisibleItem, setConfirmVisibleItem] = useState("");
   const columns: ColumnsType<PostTable> = [
     {
       title: "Title",
@@ -106,12 +107,23 @@ const ListPost = (props: Props) => {
               />
             </Tooltip>
             <Tooltip title="Delete">
-              <Button
-                danger
-                onClick={() => handleDeletePost(_id)}
-                icon={<DeleteOutlined />}
-                className={styles.action}
-              />
+              <Popconfirm
+                title="Are you sure delete this task?"
+                visible={confirmVisibleItem === _id}
+                onConfirm={() => {
+                  handleDeletePost(_id);
+                  setConfirmVisibleItem("");
+                }}
+                onCancel={() => setConfirmVisibleItem("")}
+                okText="Yes"
+                cancelText="No">
+                <Button
+                  danger
+                  icon={<DeleteOutlined />}
+                  onClick={() => setConfirmVisibleItem(_id)}
+                  className={styles.action}
+                />
+              </Popconfirm>
             </Tooltip>
           </div>
         );
@@ -130,9 +142,6 @@ const ListPost = (props: Props) => {
     } catch (error) {
       console.log(error);
     }
-  };
-  const handleEditPost = async (id: any) => {
-    navigate("id");
   };
 
   const handleChangePage = async (currPage: number) => {

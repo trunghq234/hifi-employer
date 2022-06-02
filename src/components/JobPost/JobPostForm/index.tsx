@@ -1,6 +1,6 @@
 import postApi from "@/api/postApi";
 import { Post } from "@/types";
-import { Button, Col, DatePicker, Form, message, Row } from "antd";
+import { Button, Col, DatePicker, Form, message, Row, Select } from "antd";
 import moment from "moment";
 import { useState } from "react";
 import DescriptionRichInput from "../DescriptionRichInput";
@@ -13,6 +13,8 @@ import SalaryRange from "../SalaryRange";
 import SkillSearchSelect from "../SkillsSearchInput";
 import WorkLocationSelect from "../WorkLocationSelect";
 
+const { Option } = Select;
+
 type Props = {
   post?: Partial<Post>;
   changePreviewMode: (data: any) => void;
@@ -21,6 +23,15 @@ type Props = {
 const layout = {
   wrapperCol: { span: 24 },
 };
+
+const experienceLevelOptions = [
+  "Internship",
+  "Entry level",
+  "Associate",
+  "Mid-Senior level",
+  "Director",
+];
+const workplaceTypeOptions = ["remote", "on-site", "hybrid"];
 const defaultFormValue: Partial<Post> = {
   title: "",
   jobType: "",
@@ -77,6 +88,35 @@ const JobPostForm = ({ post: postData, changePreviewMode, onSuccess }: Props) =>
         <Col xs={24} md={12}>
           <Form.Item name="jobType" rules={[{ required: true, message: "Please enter job type!" }]}>
             <JobTypeSelect />
+          </Form.Item>
+        </Col>
+        <Col xs={24} md={12}>
+          <Label text="Experience Level" requiredMark />
+          <Form.Item
+            name="experienceLevel"
+            rules={[{ required: true, message: "Please enter experience level!" }]}>
+            <Select allowClear style={{ width: "100%" }} placeholder="Please select" size="large">
+              {experienceLevelOptions.map((opt) => (
+                <Option key={opt}>{opt}</Option>
+              ))}
+            </Select>
+          </Form.Item>
+        </Col>
+        <Col xs={24} md={12}>
+          <Label text="Workplace type" requiredMark />
+          <Form.Item
+            name="workplaceType"
+            rules={[{ required: true, message: "Please enter workplace type!" }]}>
+            <Select
+              allowClear
+              style={{ width: "100%" }}
+              placeholder="Please select"
+              size="large"
+              className="capitalize">
+              {workplaceTypeOptions.map((opt) => (
+                <Option key={opt}>{opt.capitalize()}</Option>
+              ))}
+            </Select>
           </Form.Item>
         </Col>
 
