@@ -1,4 +1,5 @@
 import ChangePassword from "@/components/Setting/ChangePassword";
+import EditProfile from "@/components/Setting/EditProfile";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Card, Tabs } from "antd";
 import { FC, useEffect, useState } from "react";
@@ -26,7 +27,7 @@ const Setting: FC = () => {
                 Profile
               </span>
             }>
-            {/* <EditProfile /> */}
+            <EditProfile />
           </TabPane>
           <TabPane
             key="2"

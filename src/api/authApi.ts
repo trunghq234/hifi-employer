@@ -29,6 +29,12 @@ const authApi = {
     } = await axiosClient.patch(`/auth/password/${idCompany}`, { password, newPassword });
     return { user: data, accessToken };
   },
+  updateCompany: async ({ idCompany, company }: any) => {
+    const {
+      data: { data },
+    } = await axiosClient.patch(`/auth/${idCompany}`, company);
+    return { user: data };
+  },
 };
 
 export default authApi;

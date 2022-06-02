@@ -1,6 +1,6 @@
 import {
-  HiCog,
   HiOutlineBriefcase,
+  HiOutlineChat,
   HiOutlineCog,
   HiOutlinePencilAlt,
   HiViewGrid,
@@ -13,24 +13,25 @@ const MenuItems = {
       name: "Dashboard",
       icon: (
         <span role="img" className="anticon">
-          <HiViewGrid />
+          <HiViewGrid size={20} />
         </span>
       ),
     },
     {
-      path: "/sample",
-      name: "Sample",
-    },
-    {
       path: "/chatting",
       name: "Chatting",
+      icon: (
+        <span role="img" className="anticon">
+          <HiOutlineChat size={20} />
+        </span>
+      ),
     },
     {
       path: "/manage-candidates",
       name: "Candidates",
       icon: (
         <span role="img" className="anticon">
-          <HiOutlineBriefcase size={18} />
+          <HiOutlineBriefcase size={20} />
         </span>
       ),
     },
@@ -39,7 +40,7 @@ const MenuItems = {
       name: "Post Job",
       icon: (
         <span role="img" className="anticon">
-          <HiOutlinePencilAlt size={18} />
+          <HiOutlinePencilAlt size={20} />
         </span>
       ),
     },
@@ -48,7 +49,7 @@ const MenuItems = {
       name: "Setting",
       icon: (
         <span role="img" className="anticon">
-          <HiOutlineCog size={18} />
+          <HiOutlineCog size={20} />
         </span>
       ),
     },

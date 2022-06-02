@@ -1,7 +1,6 @@
 import AboutPage from "@/pages/AboutPage";
 import Dashboard from "@/pages/Dashboard";
 import Loginpage from "@/pages/LoginPage";
-import Sample from "@/pages/Sample";
 import SignUpPage from "@/pages/RegisterPage";
 import Chatting from "@/pages/Chatting";
 import Candidates from "@/pages/Candidates";
@@ -29,10 +28,6 @@ const AdminRoutes: IRoute[] = [
   {
     path: "/about",
     page: <AboutPage />,
-  },
-  {
-    path: "/sample",
-    page: <Sample />,
   },
   {
     path: "/chatting",

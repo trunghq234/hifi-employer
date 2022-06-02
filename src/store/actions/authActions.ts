@@ -69,4 +69,19 @@ const updatePassword = createAsyncThunk(
   },
 );
 
-export { login, register, verifyToken, updatePassword };
+const updateCompany = createAsyncThunk("auth/update", async (payload: any, { rejectWithValue }) => {
+  try {
+    const authState = await authApi.updateCompany(payload);
+    return authState;
+  } catch (error: any) {
+    if (!error.response) {
+      throw error;
+    }
+
+    if (axios.isAxiosError(error)) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+});
+
+export { login, register, verifyToken, updatePassword, updateCompany };

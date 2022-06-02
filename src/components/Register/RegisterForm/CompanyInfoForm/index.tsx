@@ -50,7 +50,7 @@ const CompanyInfoForm = ({ onNext, onPrevious, loading }: Props) => {
       <Row>
         <h5 className="text-base font-bold mb-2 text-center">Company Information</h5>
         <Col span={24}>
-          <Form.Item name="name" label="Company Name" rules={[{ required: true }]}>
+          <Form.Item name="name" label="Company name" rules={[{ required: true }]}>
             {/* <LabelInput label="Company Name" /> */}
             <Input placeholder="Company Name" />
           </Form.Item>
@@ -65,12 +65,12 @@ const CompanyInfoForm = ({ onNext, onPrevious, loading }: Props) => {
           </Form.Item>
         </Col>
         <Col span={24}>
-          <Form.Item name="industries" label="Company Industries" rules={[{ required: true }]}>
+          <Form.Item name="industries" label="Company industries" rules={[{ required: true }]}>
             <CompanyIndustriesSelect />
           </Form.Item>
         </Col>
         <Col span={24}>
-          <Form.Item name="contactName" label="Contact Person's Name" rules={[{ required: true }]}>
+          <Form.Item name="contactName" label="Contact person's name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
         </Col>
@@ -93,7 +93,22 @@ const CompanyInfoForm = ({ onNext, onPrevious, loading }: Props) => {
           </Form.Item>
         </Col>
         <Col span={24}>
-          <Form.Item name="location" label="Work Location" rules={[{ required: true }]}>
+          <Form.Item
+            label={
+              <>
+                <span
+                  style={{
+                    color: "#ff4d4f",
+                    fontSize: "14px",
+                    marginRight: "4px",
+                    fontFamily: "SimSun",
+                  }}>
+                  *
+                </span>
+                Work location
+              </>
+            }
+            rules={[{ required: true }]}>
             <WorkLocationInput />
           </Form.Item>
         </Col>

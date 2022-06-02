@@ -1,11 +1,12 @@
 import JobPostForm from "@/components/JobPosting/JobPostForm";
+import { Card } from "antd";
 import { FC } from "react";
 
 const JobPost: FC = () => {
   return (
-    <div>
+    <Card>
       <JobPostForm />
-    </div>
+    </Card>
   );
 };
 
