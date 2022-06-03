@@ -11,7 +11,8 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import AccountInfoForm from "./AccountInfoForm";
 import CompanyInfoForm from "./CompanyInfoForm";
 import VerificationForm from "./VerificationAccount";
-
+import moment from "moment";
+import notificationSocket from "@/utils/notificationSocket";
 const { Step } = Steps;
 
 const companySizeOptions: string[] = [
@@ -59,6 +60,19 @@ const RegisterForm = () => {
         .then(unwrapResult)
         .then((data) => {
           message.success("Register successfully");
+          notificationSocket.emit("joinNotification", {
+            receiver: "627784b7a8dfd63eec4a8ca1",
+          });
+
+          const sendData = {
+            receiverType: "admin",
+            receiver: "627784b7a8dfd63eec4a8ca1",
+            message: "New company is registered",
+            redirectUrl: "/recruiters",
+            createdAt: moment(),
+          };
+
+          notificationSocket.emit("sendNotification", sendData);
         })
         .catch((err: any) => {
           message.error(err.message);
@@ -75,6 +89,23 @@ const RegisterForm = () => {
   if (user) {
     return <Navigate to={from} replace />;
   }
+
+  useEffect(() => {
+    notificationSocket.emit("joinNotification", {
+      receiver: "627784b7a8dfd63eec4a8ca1",
+    });
+
+    const sendData = {
+      receiverType: "admin",
+      receiver: "627784b7a8dfd63eec4a8ca1",
+      message: "New company is registered",
+      redirectUrl: "/recruiters",
+      createdAt: moment(),
+    };
+
+    notificationSocket.emit("sendNotification", sendData);
+  }, []);
+
   return (
     <div className="bg-white-color min-h-screen">
       <div className="h-screen overflow-y-scroll">

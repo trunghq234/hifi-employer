@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 
-const url = "/posts";
+const url = "employer/posts";
 
 const postApi = {
   getAllPost: () => {
