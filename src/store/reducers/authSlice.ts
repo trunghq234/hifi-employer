@@ -26,7 +26,7 @@ export const authSlice = createSlice({
       localStorage.removeItem("accessToken");
       return initialState;
     },
-    setUser: (state, { payload }: PayloadAction<Company>) => {
+    setUser: (state: any, { payload }: PayloadAction<Company>) => {
       return { ...state, user: payload };
     },
   },

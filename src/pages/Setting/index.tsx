@@ -1,11 +1,19 @@
+import ChangeAvatar from "@/components/Setting/ChangeAvatar";
 import ChangePassword from "@/components/Setting/ChangePassword";
 import EditProfile from "@/components/Setting/EditProfile";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Card, Tabs } from "antd";
 import { FC, useEffect, useState } from "react";
+import {
+  HiOutlineLockClosed,
+  HiOutlinePhotograph,
+  HiOutlineUser,
+  HiPhotograph,
+} from "react-icons/hi";
 
 const { TabPane } = Tabs;
 type TabPosition = "left" | "right" | "top" | "bottom";
+const iconProps = { color: "#6B7280", size: 20 };
 
 const Setting: FC = () => {
   const [position, setPosition] = useState<TabPosition>("left");
@@ -23,7 +31,9 @@ const Setting: FC = () => {
             key="1"
             tab={
               <span>
-                <UserOutlined />
+                <span role={"img"} className="anticon">
+                  <HiOutlineUser {...iconProps} />
+                </span>
                 Profile
               </span>
             }>
@@ -33,11 +43,25 @@ const Setting: FC = () => {
             key="2"
             tab={
               <span>
-                <LockOutlined />
+                <span role={"img"} className="anticon">
+                  <HiOutlineLockClosed {...iconProps} />
+                </span>
                 Change password
               </span>
             }>
             <ChangePassword />
+          </TabPane>
+          <TabPane
+            key="3"
+            tab={
+              <span>
+                <span role={"img"} className="anticon">
+                  <HiOutlinePhotograph {...iconProps} />
+                </span>
+                Avatar
+              </span>
+            }>
+            <ChangeAvatar />
           </TabPane>
         </Tabs>
       </Card>
