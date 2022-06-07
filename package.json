@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3002",
     "build": "vite build",
     "preview": "vite preview",
     "prepare": "husky install"
@@ -11,6 +11,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-layout": "^6.34.8",
+    "@heroicons/react": "^1.0.6",
     "@loadable/component": "^5.15.2",
     "@reduxjs/toolkit": "^1.8.1",
     "@types/emoji-mart": "^3.0.9",

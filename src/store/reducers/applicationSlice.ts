@@ -21,7 +21,6 @@ export const applicationSlice = createSlice({
     builder.addCase(
       updateApplication.fulfilled,
       (state, { payload }: PayloadAction<Application>) => {
-        console.log(payload);
         state.entities = state.entities?.map((application) =>
           application._id == payload._id ? { ...application, status: payload.status } : application,
         );

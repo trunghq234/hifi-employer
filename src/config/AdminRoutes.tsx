@@ -1,10 +1,14 @@
+import { PostDetails } from "@/components/JobPost/PostDetails";
 import AboutPage from "@/pages/AboutPage";
-import Dashboard from "@/pages/Dashboard";
-import Loginpage from "@/pages/LoginPage";
-import SignUpPage from "@/pages/RegisterPage";
-import Chatting from "@/pages/Chatting";
 import Candidates from "@/pages/Candidates";
-import JobPost from "@/pages/JobPost";
+import Chatting from "@/pages/Chatting";
+import Dashboard from "@/pages/Dashboard";
+import JobPostsPage from "@/pages/JobPost";
+import NewPostPage from "@/pages/JobPost/NewPost";
+import UpdatePostPage from "@/pages/JobPost/UpdatePost";
+import Loginpage from "@/pages/LoginPage";
+import NotFoundPage from "@/pages/NotFound";
+import SignUpPage from "@/pages/RegisterPage";
 import Setting from "@/pages/Setting";
 
 interface IRoute {
@@ -16,6 +20,10 @@ const AdminRoutes: IRoute[] = [
   {
     path: "/",
     page: <Dashboard />,
+  },
+  {
+    path: "/404",
+    page: <NotFoundPage />,
   },
   {
     path: "/login",
@@ -38,8 +46,20 @@ const AdminRoutes: IRoute[] = [
     page: <Candidates />,
   },
   {
-    path: "/job-post",
-    page: <JobPost />,
+    path: "/job-posts",
+    page: <JobPostsPage />,
+  },
+  {
+    path: "/job-posts/new",
+    page: <NewPostPage />,
+  },
+  {
+    path: "/job-posts/:id/update",
+    page: <UpdatePostPage />,
+  },
+  {
+    path: "/job-posts/:id",
+    page: <PostDetails />,
   },
   {
     path: "/setting",

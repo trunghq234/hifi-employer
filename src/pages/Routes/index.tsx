@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import RequireAuth from "../Auth";
 import LoadingPage from "../LoadingPage";
 import Loginpage from "../LoginPage";
+import NotFoundPage from "../NotFound";
 import RegisterPage from "../RegisterPage";
 
 type Props = {};
@@ -51,6 +52,7 @@ const MainRoutes = (props: Props) => {
           <Route key={route.path} path={route.path} element={route.page} />
         ))}
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };

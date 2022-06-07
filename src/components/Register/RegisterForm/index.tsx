@@ -3,14 +3,15 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { authActions } from "@/store/reducers/authSlice";
 import { selectUser } from "@/store/selectors";
 import { WorkLocation } from "@/types";
+import notificationSocket from "@/utils/notificationSocket";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { message, Steps } from "antd";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import AccountInfoForm from "./AccountInfoForm";
 import CompanyInfoForm from "./CompanyInfoForm";
 import VerificationForm from "./VerificationAccount";
-
 const { Step } = Steps;
 
 type RegisterFormValue = {
@@ -50,6 +51,19 @@ const RegisterForm = () => {
         .then(unwrapResult)
         .then((data) => {
           message.success("Register successfully");
+          notificationSocket.emit("joinNotification", {
+            receiver: "627784b7a8dfd63eec4a8ca1",
+          });
+
+          const sendData = {
+            receiverType: "admin",
+            receiver: "627784b7a8dfd63eec4a8ca1",
+            message: "New company is registered",
+            redirectUrl: "/recruiters",
+            createdAt: moment(),
+          };
+
+          notificationSocket.emit("sendNotification", sendData);
         })
         .catch((err: any) => {
           message.error(err.message);
@@ -66,6 +80,23 @@ const RegisterForm = () => {
   if (user) {
     return <Navigate to={from} replace />;
   }
+
+  useEffect(() => {
+    notificationSocket.emit("joinNotification", {
+      receiver: "627784b7a8dfd63eec4a8ca1",
+    });
+
+    const sendData = {
+      receiverType: "admin",
+      receiver: "627784b7a8dfd63eec4a8ca1",
+      message: "New company is registered",
+      redirectUrl: "/recruiters",
+      createdAt: moment(),
+    };
+
+    notificationSocket.emit("sendNotification", sendData);
+  }, []);
+
   return (
     <div className="bg-white-color min-h-screen">
       <div className="h-screen overflow-y-scroll">
@@ -101,7 +132,7 @@ const RegisterForm = () => {
                   onPrevious={() => {
                     setStep((prev) => prev - 1);
                   }}
-                  onNext={(data) => {
+                  onNext={async (data) => {
                     updateFormData({ isVerified: true });
                     setStep((prev) => prev + 1);
                   }}

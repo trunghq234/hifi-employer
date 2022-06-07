@@ -36,11 +36,11 @@ const MenuItems = {
       ),
     },
     {
-      path: "/job-post",
-      name: "Post Job",
+      path: "/job-posts",
+      name: "Job Posts",
       icon: (
         <span role="img" className="anticon">
-          <HiOutlinePencilAlt size={20} />
+          <HiOutlineBriefcase />
         </span>
       ),
     },

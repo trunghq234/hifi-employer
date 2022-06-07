@@ -2,11 +2,11 @@ import axiosClient from "./axiosClient";
 
 const applicationApi = {
   getAllByPost: (id: any) => {
-    const url = `/applications/posts/${id}`;
+    const url = `employer/applications/posts/${id}`;
     return axiosClient.get(url);
   },
   updateStatus: (id: string, status: string) => {
-    const url = `/applications/${id}`;
+    const url = `employer/applications/${id}`;
     return axiosClient.patch(url, { status: status });
   },
 };

@@ -16,12 +16,17 @@ const RightContent = () => {
 
   useEffect(() => {
     if (user) {
-      notificationSocket.connect();
       notificationSocket.emit("joinNotification", {
         receiver: user?._id,
       });
     }
   }, [user]);
+
+  useEffect(() => {
+    notificationSocket.emit("joinNotification", {
+      receiver: "627784b7a8dfd63eec4a8ca1",
+    });
+  }, []);
 
   useEffect(() => {
     notificationSocket.on("receiveNotification", (user) => {
