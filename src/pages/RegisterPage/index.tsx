@@ -1,18 +1,16 @@
 import RegisterForm from "@/components/Register/RegisterForm";
 import SideBar from "@/components/SideBar";
 import { Col, Row } from "antd";
-import React from "react";
-import { Link } from "react-router-dom";
 
 type Props = {};
 
 const RegisterPage = (props: Props) => {
   return (
     <Row className="rounded-md">
-      <Col span={6}>
+      <Col span={8}>
         <SideBar />
       </Col>
-      <Col span={18}>
+      <Col span={16}>
         <RegisterForm />
       </Col>
     </Row>

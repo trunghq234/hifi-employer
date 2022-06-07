@@ -3,14 +3,13 @@ import { Button, message, Upload } from "antd";
 import { RcFile } from "antd/lib/upload";
 import { UploadFile } from "antd/lib/upload/interface";
 import React, { useState } from "react";
-import Label from "../Label";
 
-interface ImageFileUploadProps {
+interface AvatarUploadProps {
   value?: RcFile[];
   onChange?: (value: RcFile[]) => void;
 }
 
-const ImageFileUpload: React.FC<ImageFileUploadProps> = ({ value, onChange }) => {
+const AvatarUpload: React.FC<AvatarUploadProps> = ({ value, onChange }) => {
   const [imageFiles, setImageFiles] = useState<RcFile[]>([]);
 
   const onRemove = (file: UploadFile<unknown>) => {
@@ -37,20 +36,16 @@ const ImageFileUpload: React.FC<ImageFileUploadProps> = ({ value, onChange }) =>
     onChange?.([file]);
     return false;
   };
+
   return (
-    <div className="flex flex-col">
-      <Label text="Image" requiredMark />
-      <Upload
-        name="file"
-        fileList={value || imageFiles}
-        beforeUpload={beforeUpload}
-        onRemove={onRemove}>
-        <Button size="large" icon={<UploadOutlined />}>
-          Click to Upload
-        </Button>
-      </Upload>
-    </div>
+    <Upload
+      name="file"
+      fileList={value || imageFiles}
+      beforeUpload={beforeUpload}
+      onRemove={onRemove}>
+      <Button icon={<UploadOutlined />}>Click to upload</Button>
+    </Upload>
   );
 };
 
-export default ImageFileUpload;
+export default AvatarUpload;

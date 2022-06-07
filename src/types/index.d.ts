@@ -24,6 +24,7 @@ type Company = {
   images: string[];
   email: string;
   name: string;
+  logo: string;
   phoneNumber: string;
   industries: Subcategory[];
   address: string;

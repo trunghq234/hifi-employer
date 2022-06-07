@@ -122,6 +122,7 @@ const AccountInfoForm = ({ onNext }: Props) => {
       <div className="flex justify-end w-full">
         <Button
           size="large"
+          type="primary"
           htmlType="submit"
           disabled={!emailIsValid || isEmailValidating}
           loading={loading}>

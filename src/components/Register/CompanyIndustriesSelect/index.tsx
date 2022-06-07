@@ -1,17 +1,18 @@
-import { Select, Typography } from "antd";
+import { Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { Category } from "@/types";
 import suggestionApi from "@/api/suggestionApi";
 
 const { Option, OptGroup } = Select;
-const { Title } = Typography;
+
 interface IProps {
-  value?: string;
+  value?: any;
   onChange?: (value: string) => void;
 }
 
 const CompanyIndustriesSelect: React.FC<IProps> = ({ value, onChange }) => {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [defaultValue, setDefaultValue] = useState<any>([]);
 
   useEffect(() => {
     let mounted = true;
@@ -20,6 +21,9 @@ const CompanyIndustriesSelect: React.FC<IProps> = ({ value, onChange }) => {
         if (mounted) {
           setCategories(data);
         }
+        const tmp = value.map((e: { _id: any }) => e._id);
+        setDefaultValue(tmp);
+        // console.log(tmp);
       });
     })();
 
@@ -29,19 +33,23 @@ const CompanyIndustriesSelect: React.FC<IProps> = ({ value, onChange }) => {
   }, []);
 
   return (
-    <div>
-      <Select mode="multiple" allowClear value={value} onChange={onChange} showArrow>
-        {categories.map((cat) => (
-          <OptGroup key={cat._id} label={cat.name}>
-            {cat.subcategories.map((sub) => (
-              <Option key={sub._id} value={sub._id}>
-                {sub.name}
-              </Option>
-            ))}
-          </OptGroup>
-        ))}
-      </Select>
-    </div>
+    <Select
+      mode="multiple"
+      allowClear
+      value={value}
+      defaultValue={"6236a8b7c4b1400ea3711319"}
+      onChange={onChange}
+      showArrow>
+      {categories.map((cat) => (
+        <OptGroup key={cat._id} label={cat.name}>
+          {cat.subcategories.map((sub) => (
+            <Option key={sub._id} value={sub._id}>
+              {sub.name}
+            </Option>
+          ))}
+        </OptGroup>
+      ))}
+    </Select>
   );
 };
 

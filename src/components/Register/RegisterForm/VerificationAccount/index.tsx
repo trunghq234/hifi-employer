@@ -38,7 +38,7 @@ const VerificationForm = ({ onNext, onPrevious, email }: Props) => {
       receive the email?
       <div className="flex gap-4">
         <Input ref={inputRef} className="my-2 w-1/3" />
-        <Button className="my-2 bg-primary-color" onClick={handleVerifyClick}>
+        <Button className="my-2" type="primary" onClick={handleVerifyClick}>
           Verify
         </Button>
       </div>
@@ -52,7 +52,12 @@ const VerificationForm = ({ onNext, onPrevious, email }: Props) => {
         <Button size="large" onClick={() => onPrevious?.(isVerified)}>
           Previous
         </Button>
-        <Button size="large" htmlType="submit" onClick={() => onNext?.(true)} hidden={!isVerified}>
+        <Button
+          size="large"
+          type="primary"
+          htmlType="submit"
+          onClick={() => onNext?.(true)}
+          hidden={!isVerified}>
           Next Step
         </Button>
       </div>

@@ -1,7 +1,7 @@
 import postApi from "@/api/postApi";
 import CandidatesList from "@/components/Applications/CandidatesList";
-import { getApplications } from "@/store/actions/applicationActions";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { applicationActions } from "@/store/reducers/applicationSlice";
 import { selectApplications, selectUser } from "@/store/selectors";
 import { Application } from "@/types";
 import { stringHelper } from "@/utils";
@@ -70,7 +70,7 @@ const Candidates = () => {
 
   const handleSelectPosition = (id: any) => {
     setIsLoading(true);
-    dispatch(getApplications(id));
+    dispatch(applicationActions.getApplications(id));
   };
 
   const handleSearch = (searchText: any) => {

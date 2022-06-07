@@ -4,7 +4,7 @@ import HeaderPost from "@/components/JobPost/Header";
 import ListPost from "@/components/JobPost/ListPost";
 import { Post } from "@/types";
 import { Button, Card, Col, Input, Row, Select } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./index.module.less";
 

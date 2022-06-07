@@ -9,7 +9,7 @@ import UpdatePostPage from "@/pages/JobPost/UpdatePost";
 import Loginpage from "@/pages/LoginPage";
 import NotFoundPage from "@/pages/NotFound";
 import SignUpPage from "@/pages/RegisterPage";
-import Sample from "@/pages/Sample";
+import Setting from "@/pages/Setting";
 
 interface IRoute {
   path: string;
@@ -38,10 +38,6 @@ const AdminRoutes: IRoute[] = [
     page: <AboutPage />,
   },
   {
-    path: "/sample",
-    page: <Sample />,
-  },
-  {
     path: "/chatting",
     page: <Chatting />,
   },
@@ -64,6 +60,10 @@ const AdminRoutes: IRoute[] = [
   {
     path: "/job-posts/:id",
     page: <PostDetails />,
+  },
+  {
+    path: "/setting",
+    page: <Setting />,
   },
 ];
 

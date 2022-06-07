@@ -9,10 +9,10 @@ const Title = () => {
   return (
     <div>
       <Row style={{ alignItems: "center", justifyContent: "center" }}>
-        <Col span={7}>
-          <Avatar shape="square" src={user?.images[0] ? user.images[0] : avatarUrl} />
+        <Col span={4}>
+          <Avatar shape="square" src={user?.logo ? user.logo : avatarUrl} />
         </Col>
-        <Col span={17}>
+        <Col span={20}>
           <p style={{ fontSize: "16px", marginBottom: "0" }}>{user?.name}</p>
           <p
             style={{

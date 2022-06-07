@@ -1,29 +1,19 @@
-import authApi from "@/api/authApi";
-import emailApi from "@/api/emailApi";
 import { FromLocation } from "@/components/Login/LoginForm";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { authActions } from "@/store/reducers/authSlice";
 import { selectUser } from "@/store/selectors";
 import { WorkLocation } from "@/types";
+import notificationSocket from "@/utils/notificationSocket";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { message, Steps } from "antd";
-import React, { useEffect, useState } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import AccountInfoForm from "./AccountInfoForm";
 import CompanyInfoForm from "./CompanyInfoForm";
 import VerificationForm from "./VerificationAccount";
-import moment from "moment";
-import notificationSocket from "@/utils/notificationSocket";
 const { Step } = Steps;
 
-const companySizeOptions: string[] = [
-  "Less than 10",
-  "10-50",
-  "50-100",
-  "100-500",
-  "500-1000",
-  "1000+",
-];
 type RegisterFormValue = {
   email: string;
   password: string;

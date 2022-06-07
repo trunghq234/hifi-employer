@@ -1,3 +1,4 @@
+import WorkAddressInput from "@/components/Setting/WorkAddressInput";
 import { validateMessages } from "@/constants/validateMessages";
 import { WorkLocation } from "@/types";
 import { Button, Col, Form, Input, Row, Select } from "antd";
@@ -50,8 +51,7 @@ const CompanyInfoForm = ({ onNext, onPrevious, loading }: Props) => {
       <Row>
         <h5 className="text-base font-bold mb-2 text-center">Company Information</h5>
         <Col span={24}>
-          <Form.Item name="name" label="Company Name" rules={[{ required: true }]}>
-            {/* <LabelInput label="Company Name" /> */}
+          <Form.Item name="name" label="Company name" rules={[{ required: true }]}>
             <Input placeholder="Company Name" />
           </Form.Item>
         </Col>
@@ -65,12 +65,12 @@ const CompanyInfoForm = ({ onNext, onPrevious, loading }: Props) => {
           </Form.Item>
         </Col>
         <Col span={24}>
-          <Form.Item name="industries" label="Company Industries" rules={[{ required: true }]}>
+          <Form.Item name="industries" label="Company industries" rules={[{ required: true }]}>
             <CompanyIndustriesSelect />
           </Form.Item>
         </Col>
         <Col span={24}>
-          <Form.Item name="contactName" label="Contact Person's Name" rules={[{ required: true }]}>
+          <Form.Item name="contactName" label="Contact person's name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
         </Col>
@@ -93,8 +93,23 @@ const CompanyInfoForm = ({ onNext, onPrevious, loading }: Props) => {
           </Form.Item>
         </Col>
         <Col span={24}>
-          <Form.Item name="location" label="Work Location" rules={[{ required: true }]}>
-            <WorkLocationInput />
+          <Form.Item
+            label={
+              <>
+                <span
+                  style={{
+                    color: "#ff4d4f",
+                    fontSize: "14px",
+                    marginRight: "4px",
+                    fontFamily: "SimSun",
+                  }}>
+                  *
+                </span>
+                Work location
+              </>
+            }
+            rules={[{ required: true }]}>
+            <WorkAddressInput />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -107,7 +122,7 @@ const CompanyInfoForm = ({ onNext, onPrevious, loading }: Props) => {
         <Button size="large" onClick={() => onPrevious?.()}>
           Previous
         </Button>
-        <Button size="large" htmlType="submit" loading={loading}>
+        <Button size="large" type="primary" htmlType="submit" loading={loading}>
           Submit
         </Button>
       </div>

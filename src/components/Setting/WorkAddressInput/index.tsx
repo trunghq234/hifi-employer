@@ -12,7 +12,7 @@ type Props = {
 const { Option } = Select;
 type ChangeType = keyof WorkLocation;
 
-const WorkLocationInput: React.FC<Props> = (props) => {
+const WorkAddressInput: React.FC<Props> = (props) => {
   const { value = {}, onChange } = props;
   const handleChange = (type: ChangeType, newValue: any) => {
     if (!value) return;
@@ -85,4 +85,27 @@ const WorkLocationInput: React.FC<Props> = (props) => {
   );
 };
 
-export default WorkLocationInput;
+export default WorkAddressInput;
+
+{
+  /* <Row gutter={[20, 20]}>
+  <Col span={16}>
+    <Form.Item label="Address" name="address" noStyle rules={[{ required: true }]}>
+      <Input
+        className="w-full"
+        placeholder="Address"
+        onChange={(value) => handleChange("address", value.target.value)}
+      />
+    </Form.Item>
+  </Col>
+  <Col span={8}>
+    <Form.Item label="City" name="city" noStyle rules={[{ required: true }]}>
+      <Select placeholder="City/Province" onChange={(value) => handleChange("city", value)}>
+        {citiesData.map((option) => (
+          <Option key={option.name}>{option.name}</Option>
+        ))}
+      </Select>
+    </Form.Item>
+  </Col>
+</Row>; */
+}

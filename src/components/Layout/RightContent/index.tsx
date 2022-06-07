@@ -2,15 +2,9 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { authActions } from "@/store/reducers/authSlice";
 import { selectUser } from "@/store/selectors";
 import notificationSocket from "@/utils/notificationSocket";
-import {
-  BellFilled,
-  BellOutlined,
-  NotificationOutlined,
-  UserOutlined,
-  WechatOutlined,
-} from "@ant-design/icons";
+import { BellFilled, WechatOutlined } from "@ant-design/icons";
 import { Avatar, Badge, Button, Col, Popover, Row, Tooltip } from "antd";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Content from "./Content";
 import Notifications from "./Notifications";
 import Title from "./Title";
@@ -61,7 +55,7 @@ const RightContent = () => {
           <Avatar
             style={{ cursor: "pointer" }}
             shape="square"
-            src={user?.images[0] ? user.images[0] : avatarUrl}
+            src={user?.logo ? user.logo : avatarUrl}
           />
         </Popover>
       </Col>
