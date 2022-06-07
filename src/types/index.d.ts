@@ -35,18 +35,27 @@ type Company = {
   notifications: Notification[];
 };
 
-type Post = Partial<{
+type Post = {
+  _id: string;
   title: string;
   jobType: string;
-  category: string;
+  jobCategory: Subcategory | string;
+  // | string;
   salary: Salary;
-  description: string;
-  skillTags: Skill[];
-  preferedLangs: string[];
-  locations: WorkLocation[];
-  photoFile: any;
+  company: Company;
+  description: any;
+  skillTags: Array<Skill>;
+  locations: any;
+  verficationStatus: string;
+  createdAt: Date;
+  updatedAt: string;
   postPhoto: string;
-}>;
+  preferedLangs: string[];
+  photoFile: any;
+  applicationDeadline: string | moment.Moment;
+  workplaceType: "remote" | "on-site" | "hybrid";
+  experienceLevel: "Internship" | "Entry level" | "Associate" | "Mid-Senior level" | "Director";
+};
 
 type Skill = {
   _id: string;
@@ -62,6 +71,7 @@ type Category = {
 type Subcategory = {
   _id: string;
   name: string;
+  category?: Category;
 };
 
 type Salary = {
@@ -120,6 +130,12 @@ type Application = {
   phoneNumber: string;
   resume: Resume;
 };
+
+declare global {
+  interface String {
+    capitalize(): string;
+  }
+}
 
 export type {
   User,

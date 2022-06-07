@@ -1,28 +1,29 @@
 import postApi from "@/api/postApi";
-import { deteteImage, uploadImage } from "@/firebase/services";
 import { Post } from "@/types";
-import { objectHelper } from "@/utils";
 import { Button, Col, DatePicker, Form, message, Row } from "antd";
+import moment from "moment";
 import { useState } from "react";
 import DescriptionRichInput from "../DescriptionRichInput";
-import ImageFileUpload from "../ImageFileUpload";
 import JobCategory from "../JobCategory";
 import JobTypeSelect from "../JobTypeSelect";
+import Label from "../Label";
 import LabelInput from "../LabelInput";
 import PreferedLangSelect from "../PreferedLangSelect";
 import SalaryRange from "../SalaryRange";
 import SkillSearchSelect from "../SkillsSearchInput";
 import WorkLocationSelect from "../WorkLocationSelect";
-import Label from "../Label";
 
-type Props = {};
+type Props = {
+  post: Post;
+  changePreviewMode?: (data: any) => void;
+};
 const layout = {
   wrapperCol: { span: 24 },
 };
-const defaultFormValue: Post = {
+const defaultFormValue: Partial<Post> = {
   title: "",
   jobType: "",
-  category: "",
+  jobCategory: "",
   salary: { min: 1000, max: 3000, unit: "usd", negotiable: false },
   description: "",
   skillTags: [],
@@ -31,34 +32,27 @@ const defaultFormValue: Post = {
   photoFile: undefined,
   postPhoto: "",
 };
-const JobPostForm = (props: Props) => {
+
+const UpdatePostForm = ({ post: postData, changePreviewMode }: Props) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
+
   const onFinish = async (post: Post) => {
     setLoading(true);
-    const { error, url } = await uploadImage(post.photoFile[0]);
-    if (error) {
-      message.error(error);
-      setLoading(false);
-      return;
-    }
-    post.postPhoto = url;
     try {
-      objectHelper.renameProperty(post, "categories", "jobCategories");
-      const { data } = await postApi.createPost(post);
-      message.info("Create job hirement post successfully!");
+      await postApi.updatePost(postData._id, post);
+      message.success("Post updated successfully");
     } catch (error: any) {
-      await deteteImage(url);
       message.error(error.message);
     }
     setLoading(false);
-    form.resetFields();
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
 
+  console.log("postData", postData);
   return (
     <Form
       {...layout}
@@ -66,7 +60,19 @@ const JobPostForm = (props: Props) => {
       layout="horizontal"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      initialValues={defaultFormValue}>
+      initialValues={
+        postData
+          ? {
+              ...postData,
+              category: undefined,
+              applicationDeadline: postData?.applicationDeadline
+                ? moment.isMoment(postData?.applicationDeadline)
+                  ? postData?.applicationDeadline
+                  : moment(postData?.applicationDeadline)
+                : moment(),
+            }
+          : defaultFormValue
+      }>
       <Row gutter={[80, 0]}>
         <Col xs={24} md={12}>
           <Form.Item name="title" rules={[{ required: true, message: "Please input job title!" }]}>
@@ -81,8 +87,9 @@ const JobPostForm = (props: Props) => {
 
         <Col xs={24} md={12}>
           <Form.Item
-            name="category"
-            rules={[{ required: true, message: "Please input job category!" }]}>
+            name="jobCategory"
+            rules={[{ required: true, message: "Please input job category!" }]}
+            initialValue={(postData as Post).jobCategory}>
             <JobCategory />
           </Form.Item>
         </Col>
@@ -104,7 +111,7 @@ const JobPostForm = (props: Props) => {
           <Form.Item
             name="skillTags"
             rules={[{ required: true, message: "Please skill tags for job!" }]}>
-            <SkillSearchSelect />
+            <SkillSearchSelect defaultValues={postData.skillTags} />
           </Form.Item>
         </Col>
         <Col xs={24} md={12}>
@@ -117,15 +124,7 @@ const JobPostForm = (props: Props) => {
           </Form.Item>
         </Col>
 
-        <Col xs={12} md={6}>
-          <Form.Item
-            name="photoFile"
-            rules={[{ required: true, message: "Please choose photo of post!" }]}>
-            <ImageFileUpload />
-          </Form.Item>
-        </Col>
-
-        <Col xs={12} md={6}>
+        <Col xs={24} md={12}>
           <Label text="Application deadline" requiredMark={true} />
           <Form.Item
             name="applicationDeadline"
@@ -145,30 +144,33 @@ const JobPostForm = (props: Props) => {
 
       <Form.Item>
         <div className="flex justify-between">
-          <Button size="large" className="mr-5 border !rounded">
+          <Button
+            size="large"
+            className="mr-5 border !rounded"
+            onClick={async () => {
+              form
+                .validateFields()
+                .then((values) => {
+                  changePreviewMode?.(values);
+                })
+                .catch((error) => {
+                  console.log("error validate fields", error);
+                });
+            }}>
             Preview mode
           </Button>
-          <div>
-            <Button
-              type="text"
-              size="large"
-              className="mr-5 border !rounded"
-              onClick={() => setLoading(false)}>
-              Save draft
-            </Button>
-            <Button
-              type="primary"
-              size="large"
-              htmlType="submit"
-              className="!rounded"
-              loading={loading}>
-              Publish
-            </Button>
-          </div>
+          <Button
+            type="primary"
+            size="large"
+            htmlType="submit"
+            className="!rounded"
+            loading={loading}>
+            Update
+          </Button>
         </div>
       </Form.Item>
     </Form>
   );
 };
 
-export default JobPostForm;
+export default UpdatePostForm;

@@ -1,9 +1,10 @@
 import { validateMessages } from "@/constants/validateMessages";
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Col, Form, Input, message, Row } from "antd";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import _debounce from "lodash.debounce";
 import validationApi from "@/api/validationApi";
 import axios from "axios";
+import emailApi from "@/api/emailApi";
 const layout = {
   labelCol: { span: 7 },
   wrapperCol: { span: 17 },
@@ -21,6 +22,8 @@ const AccountInfoForm = ({ onNext }: Props) => {
   const [form] = Form.useForm();
   const [isEmailValidating, setIsEmailValidating] = useState(false);
   const [emailIsValid, setEmailIsvalid] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const mounted = useRef(false);
 
   useEffect(() => {
@@ -61,7 +64,21 @@ const AccountInfoForm = ({ onNext }: Props) => {
 
   const handleSubmit = (data: any) => {
     if (!emailIsValid) return;
-    onNext?.(data);
+    if (data.email) {
+      setLoading(true);
+      emailApi
+        .sendEmailVerification(data.email)
+        .then(() => {
+          message.success("Email sent to verify account");
+          onNext?.(data);
+        })
+        .catch(() => {
+          message.error("Error sending email to verify account");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
 
   return (
@@ -103,7 +120,11 @@ const AccountInfoForm = ({ onNext }: Props) => {
         </Col>
       </Row>
       <div className="flex justify-end w-full">
-        <Button size="large" htmlType="submit" disabled={!emailIsValid || isEmailValidating}>
+        <Button
+          size="large"
+          htmlType="submit"
+          disabled={!emailIsValid || isEmailValidating}
+          loading={loading}>
           Next Step
         </Button>
       </div>

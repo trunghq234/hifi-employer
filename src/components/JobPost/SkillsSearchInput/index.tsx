@@ -1,24 +1,46 @@
 import suggestionApi from "@/api/suggestionApi";
 import { Skill } from "@/types";
-import { message, Select, Typography } from "antd";
+import { message, Select } from "antd";
 import _debounce from "lodash.debounce";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Label from "../Label";
 import Content from "./Content";
-const { Title } = Typography;
 const { Option } = Select;
 
 interface IProps {
   style?: React.CSSProperties;
   value?: string[];
   onChange?: (value: string[]) => void;
+  defaultValues?: string[] | Skill[];
+}
+
+function isSkillArray(values: Skill[] | string[]): values is Skill[] {
+  for (const value of values) {
+    if (!(value as Skill)._id) {
+      return false;
+    }
+  }
+  return true;
 }
 export type messageType = "NotFound" | "Loading" | "Default";
 const SkillsSearchSelect: React.FC<IProps> = (props: IProps) => {
-  const { value, onChange } = props;
+  const { value, onChange, defaultValues } = props;
   const [data, setData] = useState<Skill[]>([]);
   const [messageType, setMessageType] = useState<messageType>("Default");
   const skillSelectRef = useRef<any>(null);
+
+  useEffect(() => {
+    const skillTags = defaultValues;
+    if (skillTags && skillTags?.length !== 0) {
+      if (!isSkillArray(skillTags)) {
+        suggestionApi.getSkills(skillTags as string[]).then((tags) => {
+          setData(tags);
+        });
+      } else {
+        setData(skillTags as Skill[]);
+      }
+    }
+  }, [defaultValues]);
 
   const searchSkillCallApi = useMemo(
     () =>
@@ -70,6 +92,7 @@ const SkillsSearchSelect: React.FC<IProps> = (props: IProps) => {
         placeholder={"Please choose 2 skills"}
         onSearch={handleSearch}
         onChange={handleChange}
+        defaultValue={defaultValues as string[]}
         size="large"
         onBlur={() => {
           setMessageType("Default");
