@@ -103,7 +103,11 @@ const AccountInfoForm = ({ onNext }: Props) => {
         </Col>
       </Row>
       <div className="flex justify-end w-full">
-        <Button size="large" htmlType="submit" disabled={!emailIsValid || isEmailValidating}>
+        <Button
+          size="large"
+          type="primary"
+          htmlType="submit"
+          disabled={!emailIsValid || isEmailValidating}>
           Next Step
         </Button>
       </div>

@@ -1,8 +1,7 @@
-import { Menu } from "antd";
-import React from "react";
-import Icon, { EditOutlined, LogoutOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "@/store/hooks";
 import { authActions } from "@/store/reducers/authSlice";
+import { EditOutlined, LogoutOutlined } from "@ant-design/icons";
+import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 
 const Content = () => {

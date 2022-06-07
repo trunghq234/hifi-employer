@@ -12,7 +12,9 @@ const VerificationForm = ({ onNext, onPrevious, email }: Props) => {
 
   useEffect(() => {
     // TODO: send email to user to verify account
-    message.success("Send email success");
+    if (email) {
+      message.success("Send email success");
+    }
   }, [email]);
 
   return (
@@ -21,7 +23,7 @@ const VerificationForm = ({ onNext, onPrevious, email }: Props) => {
       receive the email?
       <div className="flex gap-4">
         <Input className="my-2 w-1/3" />
-        <Button className="my-2 bg-primary-color" onClick={() => setIsVerified(true)}>
+        <Button className="my-2" type="primary" onClick={() => setIsVerified(true)}>
           Verify
         </Button>
       </div>
@@ -35,7 +37,12 @@ const VerificationForm = ({ onNext, onPrevious, email }: Props) => {
         <Button size="large" onClick={() => onPrevious?.(isVerified)}>
           Previous
         </Button>
-        <Button size="large" htmlType="submit" onClick={() => onNext?.(true)} hidden={!isVerified}>
+        <Button
+          size="large"
+          type="primary"
+          htmlType="submit"
+          onClick={() => onNext?.(true)}
+          hidden={!isVerified}>
           Next Step
         </Button>
       </div>

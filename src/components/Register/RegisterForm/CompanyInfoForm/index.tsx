@@ -1,3 +1,4 @@
+import WorkAddressInput from "@/components/Setting/WorkAddressInput";
 import { validateMessages } from "@/constants/validateMessages";
 import { WorkLocation } from "@/types";
 import { Button, Col, Form, Input, Row, Select } from "antd";
@@ -51,7 +52,6 @@ const CompanyInfoForm = ({ onNext, onPrevious, loading }: Props) => {
         <h5 className="text-base font-bold mb-2 text-center">Company Information</h5>
         <Col span={24}>
           <Form.Item name="name" label="Company name" rules={[{ required: true }]}>
-            {/* <LabelInput label="Company Name" /> */}
             <Input placeholder="Company Name" />
           </Form.Item>
         </Col>
@@ -109,7 +109,7 @@ const CompanyInfoForm = ({ onNext, onPrevious, loading }: Props) => {
               </>
             }
             rules={[{ required: true }]}>
-            <WorkLocationInput />
+            <WorkAddressInput />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -122,7 +122,7 @@ const CompanyInfoForm = ({ onNext, onPrevious, loading }: Props) => {
         <Button size="large" onClick={() => onPrevious?.()}>
           Previous
         </Button>
-        <Button size="large" htmlType="submit" loading={loading}>
+        <Button size="large" type="primary" htmlType="submit" loading={loading}>
           Submit
         </Button>
       </div>
