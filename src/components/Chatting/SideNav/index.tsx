@@ -76,10 +76,9 @@ const SideNav: FC<IProps> = (props) => {
       const index = newRooms.findIndex((room) => room._id === receivedData?._id);
 
       if (index != -1) {
-        newRooms[index] = receivedData;
-      } else {
-        newRooms.push(receivedData);
+        newRooms.splice(index, 1);
       }
+      newRooms.unshift(receivedData);
 
       dispatch(setRoomsState(newRooms));
 
