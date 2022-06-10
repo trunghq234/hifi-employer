@@ -7,9 +7,12 @@ import { Message, Room } from "@/types";
 import { setCurrentRoomState, setRoomsState } from "@/store/reducers/chattingSlices";
 import { selectUser } from "@/store/selectors";
 
-interface IProps {}
+interface IProps {
+  chatterAvatar?: string;
+}
 
 const ChatBoxContent: FC<IProps> = (props) => {
+  const { chatterAvatar } = props;
   const chatting = useAppSelector((state) => state.chatting);
   const [messageList, setMessageList] = useState<Message[]>([]);
   const user = useAppSelector(selectUser);
@@ -30,6 +33,7 @@ const ChatBoxContent: FC<IProps> = (props) => {
               isMine={message.userId === user?._id}
               message={message.content}
               date={message.createdAt}
+              avatar={message.userId === user?._id ? user.logo : chatterAvatar}
             />
           );
         })}

@@ -5,20 +5,20 @@ import moment from "moment";
 import Linkify from "react-linkify";
 
 interface IProps {
-  // avatar: string;
+  avatar?: string;
   message: string;
   date: string;
   isMine: boolean;
 }
 
 const ChatItem: FC<IProps> = (props) => {
-  const { isMine, message, date } = props;
+  const { isMine, message, date, avatar } = props;
 
   return (
     <div className={styles.container}>
       <Row align="bottom" wrap={false} className={isMine ? styles["flex-row-reserve"] : ""}>
         <Col>
-          <Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" size={"large"} />
+          <Avatar src={avatar || "https://joeschmoe.io/api/v1/random"} size={"large"} />
         </Col>
         <Col flex="initial">
           <Card className={styles.bubble} bodyStyle={{ padding: "16px" }}>

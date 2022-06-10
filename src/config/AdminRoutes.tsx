@@ -18,10 +18,6 @@ interface IRoute {
 
 const AdminRoutes: IRoute[] = [
   {
-    path: "/",
-    page: <Dashboard />,
-  },
-  {
     path: "/404",
     page: <NotFoundPage />,
   },
@@ -37,10 +33,7 @@ const AdminRoutes: IRoute[] = [
     path: "/about",
     page: <AboutPage />,
   },
-  {
-    path: "/chatting",
-    page: <Chatting />,
-  },
+
   {
     path: "/manage-candidates",
     page: <Candidates />,
@@ -60,6 +53,10 @@ const AdminRoutes: IRoute[] = [
   {
     path: "/job-posts/:id",
     page: <PostDetails />,
+  },
+  {
+    path: "/chatting",
+    page: <Chatting />,
   },
   {
     path: "/setting",

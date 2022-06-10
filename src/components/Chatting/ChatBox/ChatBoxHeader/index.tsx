@@ -21,9 +21,9 @@ const ChatBoxHeader: FC<IProps> = (props) => {
       <Row align="middle">
         <Col md={3} xs={4}>
           <Avatar
-            src="https://joeschmoe.io/api/v1/random"
-            alt="Han Solo"
-            className={styles.avatar}
+            src={chatter?.avatar || "https://joeschmoe.io/api/v1/random"}
+            alt={chatter?.name}
+            className="!h-16 !w-16"
           />
         </Col>
         <Col md={6} sm={8} xs={8}>
