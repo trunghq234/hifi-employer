@@ -35,7 +35,7 @@ const RegisterForm = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const user = useAppSelector(selectUser);
   const location = useLocation();
-  const from = (location.state as FromLocation)?.from?.pathname || "/";
+  const from = (location.state as FromLocation)?.from?.pathname || "/manage-candidates";
 
   const updateFormData = async (data: any) => {
     setFormData((prev) => ({ ...prev, ...data }));

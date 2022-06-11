@@ -13,7 +13,7 @@ const Content = () => {
   };
 
   const editProfile = () => {
-    navigate("/profile");
+    navigate("/setting");
   };
 
   const contents = [

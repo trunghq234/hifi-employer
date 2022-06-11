@@ -10,24 +10,6 @@ import {
 const MenuItems = {
   routes: [
     {
-      path: "/",
-      name: "Dashboard",
-      icon: (
-        <span role="img" className="anticon">
-          <HiViewGrid size={20} />
-        </span>
-      ),
-    },
-    {
-      path: "/chatting",
-      name: "Chatting",
-      icon: (
-        <span role="img" className="anticon">
-          <HiOutlineChat size={20} />
-        </span>
-      ),
-    },
-    {
       path: "/manage-candidates",
       name: "Candidates",
       icon: (
@@ -42,6 +24,15 @@ const MenuItems = {
       icon: (
         <span role="img" className="anticon">
           <UnorderedListOutlined size={20} />
+        </span>
+      ),
+    },
+    {
+      path: "/chatting",
+      name: "Chatting",
+      icon: (
+        <span role="img" className="anticon">
+          <HiOutlineChat size={20} />
         </span>
       ),
     },
