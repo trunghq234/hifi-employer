@@ -1,7 +1,7 @@
 import suggestionApi from "@/api/suggestionApi";
 import { useAppSelector } from "@/store/hooks";
 import { selectUser } from "@/store/selectors";
-import { Post, Skill } from "@/types";
+import { Post, Skill, WorkLocation } from "@/types";
 import { LeftOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Divider, Row, Tag } from "antd";
 import React, { useEffect, useState } from "react";
@@ -28,7 +28,17 @@ const PostPreview = ({ post: postData, changeMode }: Props) => {
       isMounted = false;
     };
   }, [JSON.stringify(post.skillTags)]);
-  console.log("post", post);
+
+  useEffect(() => {
+    setPost((prev) => ({
+      ...prev,
+      locations: user?.locations.filter((l) =>
+        (post.locations as string[])?.includes(l._id as string),
+      ),
+    }));
+  }, [user?.locations]);
+
+  console.log("Post", post);
   return (
     <Card className={styles.container}>
       <Button
@@ -55,7 +65,15 @@ const PostPreview = ({ post: postData, changeMode }: Props) => {
         </Col>
         <Row style={{ marginTop: "10px" }}>
           <div style={{ fontSize: "1rem", marginBottom: "20px" }}>
-            <Col span={24}>{user?.name} · Ho Chi Minh City, Viet Nam</Col>
+            <Col span={24}>
+              {user?.name} ·{" "}
+              {(post?.locations as WorkLocation[])
+                ?.map((l) => l.city)
+                .filter(function (item, pos, arr) {
+                  return arr.indexOf(item) == pos;
+                })
+                .join(" / ")}{" "}
+            </Col>
             <Col span={24}>{post.workplaceType}</Col>
           </div>
           <Col span={24}>
