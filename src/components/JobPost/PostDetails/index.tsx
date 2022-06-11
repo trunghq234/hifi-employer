@@ -82,8 +82,12 @@ export const PostDetails = (props: Props) => {
           <div style={{ fontSize: "1rem", marginBottom: "20px" }}>
             <Col span={24}>
               {data?.company.name} ·{" "}
-              {(data?.locations as WorkLocation[])?.map((l) => l.city).join(" / ") ||
-                "Thành phố Hồ Chí Minh"}
+              {(data?.locations as WorkLocation[])
+                ?.map((l) => l.city)
+                .filter(function (item, pos, arr) {
+                  return arr.indexOf(item) == pos;
+                })
+                .join(" / ")}{" "}
             </Col>
             <Col span={24}>
               {data?.workplaceType.capitalize()} · {moment(data?.createdAt).fromNow()}
