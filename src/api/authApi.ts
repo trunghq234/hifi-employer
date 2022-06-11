@@ -26,13 +26,13 @@ const authApi = {
   updatePassword: async ({ idCompany, password, newPassword }: any) => {
     const {
       data: { data, accessToken },
-    } = await axiosClient.patch(`/auth/password/${idCompany}`, { password, newPassword });
+    } = await axiosClient.patch(`employer/auth/password/${idCompany}`, { password, newPassword });
     return { user: data, accessToken };
   },
   updateCompany: async ({ idCompany, company }: any) => {
     const {
       data: { data },
-    } = await axiosClient.patch(`/auth/${idCompany}`, company);
+    } = await axiosClient.patch(`employer/auth/${idCompany}`, company);
     return { user: data };
   },
 };

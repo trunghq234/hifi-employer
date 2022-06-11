@@ -1,8 +1,9 @@
 import postApi from "@/api/postApi";
+import { useAppSelector } from "@/store/hooks";
 import { Post } from "@/types";
 import { Button, Col, DatePicker, Form, message, Row } from "antd";
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DescriptionRichInput from "../DescriptionRichInput";
 import JobCategory from "../JobCategory";
 import JobTypeSelect from "../JobTypeSelect";
@@ -37,6 +38,10 @@ const UpdatePostForm = ({ post: postData, changePreviewMode }: Props) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
+  const company = useAppSelector((state) => state.auth.user);
+
+  console.log("postData: ", postData);
+  console.log("Company: ", company);
   const onFinish = async (post: Post) => {
     setLoading(true);
     try {
@@ -52,7 +57,10 @@ const UpdatePostForm = ({ post: postData, changePreviewMode }: Props) => {
     console.log("Failed:", errorInfo);
   };
 
-  console.log("postData", postData);
+  useEffect(() => {
+    return () => {};
+  }, []);
+
   return (
     <Form
       {...layout}
@@ -64,7 +72,7 @@ const UpdatePostForm = ({ post: postData, changePreviewMode }: Props) => {
         postData
           ? {
               ...postData,
-              category: undefined,
+              jobCategory: undefined,
               applicationDeadline: postData?.applicationDeadline
                 ? moment.isMoment(postData?.applicationDeadline)
                   ? postData?.applicationDeadline
@@ -137,7 +145,7 @@ const UpdatePostForm = ({ post: postData, changePreviewMode }: Props) => {
           <Form.Item
             name="locations"
             rules={[{ required: true, message: "Please choose working location of company" }]}>
-            <WorkLocationSelect />
+            <WorkLocationSelect options={company?.locations} />
           </Form.Item>
         </Col>
       </Row>

@@ -46,7 +46,7 @@ type Post = {
   company: Company;
   description: any;
   skillTags: Array<Skill>;
-  locations: any;
+  locations: string[] | WorkLocation[];
   verficationStatus: string;
   createdAt: Date;
   updatedAt: string;
@@ -83,7 +83,7 @@ type Salary = {
 };
 
 type WorkLocation = {
-  id: string;
+  _id: string;
   officeName?: string;
   city?: string;
   address?: string;
