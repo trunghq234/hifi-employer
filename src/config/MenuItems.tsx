@@ -1,3 +1,4 @@
+import { UnorderedListOutlined } from "@ant-design/icons";
 import {
   HiOutlineBriefcase,
   HiOutlineChat,
@@ -40,7 +41,7 @@ const MenuItems = {
       name: "Job Posts",
       icon: (
         <span role="img" className="anticon">
-          <HiOutlineBriefcase />
+          <UnorderedListOutlined size={20} />
         </span>
       ),
     },

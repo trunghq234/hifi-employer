@@ -1,5 +1,6 @@
 import postApi from "@/api/postApi";
-import { Post, Skill, Subcategory } from "@/types";
+import { useAppSelector } from "@/store/hooks";
+import { Post, Skill, Subcategory, WorkLocation } from "@/types";
 import { LeftOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Divider, Row, Spin, Tag } from "antd";
 import axios from "axios";
@@ -15,6 +16,7 @@ export const PostDetails = (props: Props) => {
   const [data, setData] = useState<Post>();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const user = useAppSelector((state) => state.auth.user);
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
@@ -24,7 +26,14 @@ export const PostDetails = (props: Props) => {
         setLoading(true);
         const res = await postApi.getById(id);
         if (res.data.data) {
-          isSubscribed && setData(res.data.data);
+          const locationMap = new Map(user?.locations.map((l) => [l._id, l]));
+
+          const locations = (res.data.data.locations as string[])
+            .map((l: string) => locationMap.get(l))
+            .filter((l) => l);
+          const data = { ...res.data.data, locations };
+
+          isSubscribed && setData(data);
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -71,7 +80,11 @@ export const PostDetails = (props: Props) => {
         </Col>
         <Row style={{ marginTop: "10px" }}>
           <div style={{ fontSize: "1rem", marginBottom: "20px" }}>
-            <Col span={24}>{data?.company.name} · Ho Chi Minh City, Viet Nam</Col>
+            <Col span={24}>
+              {data?.company.name} ·{" "}
+              {(data?.locations as WorkLocation[])?.map((l) => l.city).join(" / ") ||
+                "Thành phố Hồ Chí Minh"}
+            </Col>
             <Col span={24}>
               {data?.workplaceType.capitalize()} · {moment(data?.createdAt).fromNow()}
             </Col>

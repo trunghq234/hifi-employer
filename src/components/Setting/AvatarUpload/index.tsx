@@ -11,7 +11,6 @@ interface AvatarUploadProps {
 
 const AvatarUpload: React.FC<AvatarUploadProps> = ({ value, onChange }) => {
   const [imageFiles, setImageFiles] = useState<RcFile[]>([]);
-
   const onRemove = (file: UploadFile<unknown>) => {
     if (!value) return;
     const index = value.findIndex((f) => f.uid === file.uid);

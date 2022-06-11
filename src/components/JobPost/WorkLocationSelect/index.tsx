@@ -1,17 +1,19 @@
-import { Button, Select } from "antd";
+import { WorkLocation } from "@/types";
+import { Select } from "antd";
 import React from "react";
 import Label from "../Label";
 import LocationOption from "./LocationOption";
 import OptionLabel from "./OptionLabel";
-import { locationList } from "../data";
 const { Option } = Select;
 
 interface IProps {
   value?: string[];
   onChange?: (value: string[]) => void;
+  options?: WorkLocation[];
 }
 const WorkLocationSelect: React.FC<IProps> = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, options } = props;
+
   return (
     <div>
       <Label text="Working Location" requiredMark />
@@ -23,10 +25,10 @@ const WorkLocationSelect: React.FC<IProps> = (props) => {
         value={value}
         optionLabelProp="label"
         size="large">
-        {locationList.map((loca) => (
+        {options?.map((loca) => (
           <Option
-            key={loca.id}
-            value={loca.id}
+            key={loca._id}
+            value={loca._id}
             label={<OptionLabel name={loca.officeName} address={loca.address} />}>
             <LocationOption name={loca.officeName} address={loca.address} />
           </Option>
