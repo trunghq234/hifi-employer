@@ -1,15 +1,14 @@
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { SearchOutlined } from "@ant-design/icons";
-import { Input, Typography } from "antd";
-import React, { FC, useEffect, useState } from "react";
-import roomApi from "../../../api/roomApi";
+import { $chatting, setCurrentRoomState, setRoomsState } from "@/store/reducers/chattingSlices";
+import { selectUser } from "@/store/selectors";
+import { Room } from "@/types";
 import socket from "@/utils/messageSocket";
+import { SearchOutlined } from "@ant-design/icons";
+import { Input } from "antd";
+import { FC, useEffect, useState } from "react";
+import roomApi from "../../../api/roomApi";
 import ChatUserItem from "./ChatUserItem";
 import styles from "./index.module.less";
-import { Room } from "@/types";
-import { $chatting, setCurrentRoomState, setRoomsState } from "@/store/reducers/chattingSlices";
-const { Title } = Typography;
-import { selectUser } from "@/store/selectors";
 
 interface IProps {}
 
@@ -90,7 +89,6 @@ const SideNav: FC<IProps> = (props) => {
 
   return (
     <div>
-      <Title level={3}>Chats</Title>
       <Input
         prefix={<SearchOutlined />}
         onChange={(event: any) => handleSearch(event.target.value)}

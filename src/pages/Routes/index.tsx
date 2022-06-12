@@ -2,7 +2,7 @@ import MainLayout from "@/components/Layout";
 import { AdminRoutes } from "@/config";
 import { useAppDispatch } from "@/store/hooks";
 import { authActions } from "@/store/reducers/authSlice";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import RequireAuth from "../Auth";
 import LoadingPage from "../LoadingPage";

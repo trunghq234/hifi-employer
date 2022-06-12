@@ -1,10 +1,13 @@
+import Avatar from "@/components/commons/Avatar";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { authActions } from "@/store/reducers/authSlice";
 import { selectUser } from "@/store/selectors";
+import { stringToHslColor } from "@/utils/color";
 import notificationSocket from "@/utils/notificationSocket";
 import { BellFilled, WechatOutlined } from "@ant-design/icons";
-import { Avatar, Badge, Button, Col, Popover, Row, Tooltip } from "antd";
+import { Badge, Button, Col, Popover, Row, Tooltip } from "antd";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import Content from "./Content";
 import Notifications from "./Notifications";
 import Title from "./Title";
@@ -38,7 +41,9 @@ const RightContent = () => {
     <Row gutter={[20, 10]}>
       <Col>
         <Tooltip title="Chatting">
-          <Button type="link" icon={<WechatOutlined />} href="/chatting"></Button>
+          <Link to="/chatting">
+            <WechatOutlined style={{ fontSize: 18 }} />
+          </Link>
         </Tooltip>
       </Col>
       <Col>
@@ -52,11 +57,7 @@ const RightContent = () => {
       </Col>
       <Col>
         <Popover placement="bottomRight" content={<Content />} title={<Title />} trigger="hover">
-          <Avatar
-            style={{ cursor: "pointer" }}
-            shape="square"
-            src={user?.logo ? user.logo : avatarUrl}
-          />
+          <Avatar src={user?.logo} text={user?.name} />
         </Popover>
       </Col>
     </Row>

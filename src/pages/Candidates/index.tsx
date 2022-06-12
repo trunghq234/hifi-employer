@@ -5,10 +5,8 @@ import { applicationActions } from "@/store/reducers/applicationSlice";
 import { selectApplications, selectUser } from "@/store/selectors";
 import { Application } from "@/types";
 import { stringHelper } from "@/utils";
-import notificationSocket from "@/utils/notificationSocket";
 import { Card, Col, Input, Row, Select, Tabs } from "antd";
 import { useEffect, useState } from "react";
-import moment from "moment";
 
 const { Option } = Select;
 const { Search } = Input;
@@ -68,9 +66,9 @@ const Candidates = () => {
     setCandidates(candidatesList);
   };
 
-  const handleSelectPosition = (id: any) => {
+  const handleSelectPosition = (idCompany: any) => {
     setIsLoading(true);
-    dispatch(applicationActions.getApplications(id));
+    dispatch(applicationActions.getApplications(idCompany));
   };
 
   const handleSearch = (searchText: any) => {
@@ -104,7 +102,7 @@ const Candidates = () => {
 
   return (
     <div>
-      <h1>Candidates management</h1>
+      <h1 className="text-blue-600 text-2xl">Candidates management</h1>
       <Card>
         <Row gutter={[20, 20]} align="middle">
           <Col span={2}>

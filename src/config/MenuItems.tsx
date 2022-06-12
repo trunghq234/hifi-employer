@@ -1,20 +1,23 @@
 import { UnorderedListOutlined } from "@ant-design/icons";
-import {
-  HiOutlineBriefcase,
-  HiOutlineChat,
-  HiOutlineCog,
-  HiOutlinePencilAlt,
-  HiViewGrid,
-} from "react-icons/hi";
+import { HiBriefcase, HiChat, HiCog, HiHome } from "react-icons/hi";
 
 const MenuItems = {
   routes: [
+    {
+      path: "/",
+      name: "Welcome",
+      icon: (
+        <span role="img" className="anticon">
+          <HiHome size={20} />
+        </span>
+      ),
+    },
     {
       path: "/manage-candidates",
       name: "Candidates",
       icon: (
         <span role="img" className="anticon">
-          <HiOutlineBriefcase size={20} />
+          <HiBriefcase size={20} />
         </span>
       ),
     },
@@ -32,7 +35,7 @@ const MenuItems = {
       name: "Chatting",
       icon: (
         <span role="img" className="anticon">
-          <HiOutlineChat size={20} />
+          <HiChat size={20} />
         </span>
       ),
     },
@@ -41,7 +44,7 @@ const MenuItems = {
       name: "Setting",
       icon: (
         <span role="img" className="anticon">
-          <HiOutlineCog size={20} />
+          <HiCog size={20} />
         </span>
       ),
     },

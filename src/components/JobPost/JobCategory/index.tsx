@@ -14,7 +14,6 @@ interface IProps {
 const JobCategory: React.FC<IProps> = ({ value, onChange }) => {
   const [categories, setCategories] = useState<Category[]>([]);
 
-  console.log("category", value);
   useEffect(() => {
     let mounted = true;
     (() => {

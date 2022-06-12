@@ -3,13 +3,58 @@ import { validateMessages } from "@/constants/validateMessages";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { authActions } from "@/store/reducers/authSlice";
 import { selectUser } from "@/store/selectors";
+import { CheckCircleOutlined, CloseCircleOutlined, SyncOutlined } from "@ant-design/icons";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { Button, Col, Form, Input, message, Row, Select } from "antd";
+import { Button, Col, Form, Input, message, Row, Select, Tag } from "antd";
+import { PresetColorType, PresetStatusColorType } from "antd/lib/_util/colors";
+import { LiteralUnion } from "antd/lib/_util/type";
 import { useState } from "react";
 import WorkAddressInput from "../WorkAddressInput";
 
 const { TextArea } = Input;
 const { Option } = Select;
+
+const accountStatusMap = new Map<
+  string,
+  {
+    color: LiteralUnion<PresetColorType | PresetStatusColorType, string>;
+    text: string;
+    icon?: JSX.Element;
+  }
+>([
+  [
+    "pending",
+    {
+      color: "processing",
+      text: "Pending approval",
+      icon: <SyncOutlined spin />,
+    },
+  ],
+  [
+    "fullfilled",
+    {
+      color: "green",
+      text: "Approved",
+      icon: <CheckCircleOutlined />,
+    },
+  ],
+  [
+    "rejected",
+    {
+      color: "error",
+      text: "Rejected",
+      icon: <CloseCircleOutlined />,
+    },
+  ],
+  [
+    "deleted",
+    {
+      color: "error",
+      text: "Disabled",
+      icon: <CloseCircleOutlined />,
+    },
+  ],
+]);
 
 const companySizeOptions: string[] = [
   "Less than 10",
@@ -25,6 +70,7 @@ const EditProfile = () => {
   const userState = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const accoutStatus = userState?.accountStatus || "pending";
 
   const defaultFormValue = {
     name: userState?.name,
@@ -62,6 +108,14 @@ const EditProfile = () => {
       <Row gutter={[20, 0]} justify="center">
         <Col span={24}>
           <h5 className="text-lg font-semibold">Company information</h5>
+        </Col>
+        <Col span={24} className="!mb-2 flex items-center">
+          <p className="!mb-0 mr-2">Account Status:</p>
+          <Tag
+            icon={accountStatusMap.get(accoutStatus)?.icon}
+            color={accountStatusMap.get(accoutStatus)?.color}>
+            {accountStatusMap.get(accoutStatus)?.text}
+          </Tag>
         </Col>
         <Col span={24}>
           <Form.Item name="name" label="Company name" rules={[{ required: true }]}>

@@ -1,19 +1,13 @@
 import ChangeAvatar from "@/components/Setting/ChangeAvatar";
 import ChangePassword from "@/components/Setting/ChangePassword";
 import EditProfile from "@/components/Setting/EditProfile";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Card, Tabs } from "antd";
 import { FC, useEffect, useState } from "react";
-import {
-  HiOutlineLockClosed,
-  HiOutlinePhotograph,
-  HiOutlineUser,
-  HiPhotograph,
-} from "react-icons/hi";
+import { HiOutlineLockClosed, HiOutlinePhotograph, HiOutlineUser } from "react-icons/hi";
 
 const { TabPane } = Tabs;
 type TabPosition = "left" | "right" | "top" | "bottom";
-const iconProps = { color: "#6B7280", size: 20 };
+const iconProps = { size: 20 };
 
 const Setting: FC = () => {
   const [position, setPosition] = useState<TabPosition>("left");
@@ -24,7 +18,7 @@ const Setting: FC = () => {
   }, []);
   return (
     <div>
-      <h1>Setting</h1>
+      <h1 className="text-blue-600 text-2xl">Setting</h1>
       <Card>
         <Tabs tabPosition={position} moreIcon={<></>}>
           <TabPane

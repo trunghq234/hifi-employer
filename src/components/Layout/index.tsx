@@ -21,7 +21,7 @@ const MainLayout = () => {
         logo={logoImage}
         fixedHeader
         fixSiderbar
-        primaryColor="#6D5CE8"
+        primaryColor="#446FFC"
         contentWidth="Fluid"
         layout="side"
         headerTitleRender={(logo, title) => (

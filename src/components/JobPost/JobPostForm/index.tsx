@@ -2,8 +2,10 @@ import postApi from "@/api/postApi";
 import { useAppSelector } from "@/store/hooks";
 import { selectUser } from "@/store/selectors";
 import { Post } from "@/types";
+import errorHelper from "@/utils/errorHelper";
 import { SaveTwoTone } from "@ant-design/icons";
 import { Button, Col, DatePicker, Form, message, Row, Select } from "antd";
+import axios from "axios";
 import moment from "moment";
 import { useState } from "react";
 import DescriptionRichInput from "../DescriptionRichInput";
@@ -58,11 +60,12 @@ const JobPostForm = ({ post: postData, changePreviewMode, onSuccess }: Props) =>
       await postApi.createPost(post);
       message.info("Create job hirement post successfully!");
       onSuccess?.();
+      form.resetFields();
     } catch (error: any) {
-      message.error(error.message);
+      const errorMessage = errorHelper.handleAxiosError(error);
+      message.error(errorMessage);
     }
     setLoading(false);
-    form.resetFields();
   };
 
   const onFinishFailed = (errorInfo: any) => {
