@@ -15,7 +15,7 @@ const Chatting = () => {
   };
 
   return (
-    <div className="h-4/5">
+    <div className="h-[90%]">
       <h1 className="text-blue-600 text-2xl">Chats</h1>
       <Card className="h-full" bodyStyle={{ height: "100%" }}>
         <Row className="h-full">
