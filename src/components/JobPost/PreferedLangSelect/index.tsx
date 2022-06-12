@@ -13,7 +13,7 @@ const PreferedLangSelect: React.FC<IProps> = (props) => {
   const { value, onChange } = props;
   return (
     <div>
-      <Label text="Preferred Language For Applications" />
+      <Label text="Preferred Language For Applications" requiredMark={true} />
       <Select
         mode="multiple"
         allowClear
