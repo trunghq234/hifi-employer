@@ -1,15 +1,17 @@
-import { HiBriefcase, HiChat, HiCog, HiPencil } from "react-icons/hi";
 import { UnorderedListOutlined } from "@ant-design/icons";
-import {
-  HiOutlineBriefcase,
-  HiOutlineChat,
-  HiOutlineCog,
-  HiOutlinePencilAlt,
-  HiViewGrid,
-} from "react-icons/hi";
+import { HiBriefcase, HiChat, HiCog, HiHome } from "react-icons/hi";
 
 const MenuItems = {
   routes: [
+    {
+      path: "/",
+      name: "Welcome",
+      icon: (
+        <span role="img" className="anticon">
+          <HiHome size={20} />
+        </span>
+      ),
+    },
     {
       path: "/manage-candidates",
       name: "Candidates",

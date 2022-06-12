@@ -2,7 +2,6 @@ import { PostDetails } from "@/components/JobPost/PostDetails";
 import AboutPage from "@/pages/AboutPage";
 import Candidates from "@/pages/Candidates";
 import Chatting from "@/pages/Chatting";
-import Dashboard from "@/pages/Dashboard";
 import JobPostsPage from "@/pages/JobPost";
 import NewPostPage from "@/pages/JobPost/NewPost";
 import UpdatePostPage from "@/pages/JobPost/UpdatePost";
@@ -10,6 +9,7 @@ import Loginpage from "@/pages/LoginPage";
 import NotFoundPage from "@/pages/NotFound";
 import SignUpPage from "@/pages/RegisterPage";
 import Setting from "@/pages/Setting";
+import Welcome from "@/pages/Welcome";
 
 interface IRoute {
   path: string;
@@ -17,6 +17,10 @@ interface IRoute {
 }
 
 const AdminRoutes: IRoute[] = [
+  {
+    path: "/",
+    page: <Welcome />,
+  },
   {
     path: "/404",
     page: <NotFoundPage />,
