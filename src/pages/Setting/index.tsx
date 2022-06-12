@@ -1,15 +1,9 @@
 import ChangeAvatar from "@/components/Setting/ChangeAvatar";
 import ChangePassword from "@/components/Setting/ChangePassword";
 import EditProfile from "@/components/Setting/EditProfile";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Card, Tabs } from "antd";
 import { FC, useEffect, useState } from "react";
-import {
-  HiOutlineLockClosed,
-  HiOutlinePhotograph,
-  HiOutlineUser,
-  HiPhotograph,
-} from "react-icons/hi";
+import { HiOutlineLockClosed, HiOutlinePhotograph, HiOutlineUser } from "react-icons/hi";
 
 const { TabPane } = Tabs;
 type TabPosition = "left" | "right" | "top" | "bottom";

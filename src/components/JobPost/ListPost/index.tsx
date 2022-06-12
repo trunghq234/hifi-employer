@@ -164,7 +164,6 @@ const ListPost = (props: Props) => {
       setTotalSize(props.data.totalItems);
 
       const tmp = convertToTableData(props.data.data);
-      console.log("prop.data", props.data);
       setDataSource(tmp);
     }
   }, [props.data]);

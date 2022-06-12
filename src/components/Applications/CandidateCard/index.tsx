@@ -54,10 +54,13 @@ const CandidateCard = ({ candidate }: { candidate: Application }) => {
       case "NEW":
         return (
           <>
-            <Button onClick={() => updateStatus(candidate._id, applicationStatus.unsuitable)}>
+            <Button
+              style={{ width: 120 }}
+              onClick={() => updateStatus(candidate._id, applicationStatus.unsuitable)}>
               Unsuitable
             </Button>
             <Button
+              style={{ width: 120 }}
               type="primary"
               onClick={() => updateStatus(candidate._id, applicationStatus.inProgress)}>
               Approve
@@ -67,10 +70,16 @@ const CandidateCard = ({ candidate }: { candidate: Application }) => {
       case "IN_PROGRESS":
         return (
           <>
-            <Button type="default" onClick={handleMessage}>
+            <Button
+              style={{ width: 120 }}
+              onClick={() => updateStatus(candidate._id, applicationStatus.unsuitable)}>
+              Unsuitable
+            </Button>
+            <Button style={{ width: 120 }} type="primary" onClick={handleMessage}>
               Message
             </Button>
             <Button
+              style={{ backgroundColor: "#1CB84B", borderColor: "#1CB84B", width: 120 }}
               type="primary"
               onClick={() => updateStatus(candidate._id, applicationStatus.hired)}>
               Hire
@@ -80,6 +89,7 @@ const CandidateCard = ({ candidate }: { candidate: Application }) => {
       case "UNSUITABLE":
         return (
           <Button
+            style={{ width: 120 }}
             type="primary"
             onClick={() => updateStatus(candidate._id, applicationStatus.inProgress)}>
             Approve back

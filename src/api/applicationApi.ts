@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 
 const applicationApi = {
   getAllByPost: (id: any) => {
-    const url = `employer/applications/posts/${id}`;
+    const url = `employer/posts/${id}`;
     return axiosClient.get(url);
   },
   updateStatus: (id: string, status: string) => {
