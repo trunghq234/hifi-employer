@@ -171,6 +171,7 @@ const ListPost = (props: Props) => {
   return (
     <div>
       <Table
+        bordered
         columns={columns}
         dataSource={dataSource}
         pagination={{

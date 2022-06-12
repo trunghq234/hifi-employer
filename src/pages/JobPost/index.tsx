@@ -3,9 +3,10 @@ import CheckboxMenu from "@/components/commons/CheckboxMenu";
 import HeaderPost from "@/components/JobPost/Header";
 import ListPost from "@/components/JobPost/ListPost";
 import { Post } from "@/types";
+import { PlusCircleOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Input, Row, Select } from "antd";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./index.module.less";
 
 const { Search } = Input;
@@ -103,16 +104,17 @@ const JobPostsPage = (props: Props) => {
 
   return (
     <div>
-      <Row>
-        <HeaderPost />
-      </Row>
+      <h1 className="text-blue-600 text-2xl">Posts list</h1>
       <Card>
         <Row gutter={[20, 20]}>
-          <Col span={6}>
-            <Search placeholder="Search" onSearch={(text) => handleSearch(text)} enterButton />
-          </Col>
-          <Col span={18}>
-            <div className={styles.filterContainer}>
+          <Col span={20}>
+            <div className="flex flex-row gap-3">
+              <Search
+                style={{ width: 300 }}
+                placeholder="Search"
+                onSearch={(text) => handleSearch(text)}
+                enterButton
+              />
               <CheckboxMenu
                 options={categoryOption}
                 onChange={(selectedItems: any) => {
@@ -120,21 +122,26 @@ const JobPostsPage = (props: Props) => {
                 }}
                 keyword="By category"
               />
-              <Col span={4}>
-                <Select
-                  style={{ width: "100%" }}
-                  defaultValue="all"
-                  onChange={(value) => setSelectedStatus(value)}>
-                  <Option value="all">All status</Option>
-                  <Option value="approved">Approved</Option>
-                  <Option value="pending">Pending</Option>
-                  <Option value="rejected">Rejected</Option>
-                </Select>
-              </Col>
-              <Button type="primary" className={styles.btnFilter} onClick={handleFilter}>
+              <Select
+                style={{ width: 140 }}
+                defaultValue="all"
+                onChange={(value) => setSelectedStatus(value)}>
+                <Option value="all">All status</Option>
+                <Option value="approved">Approved</Option>
+                <Option value="pending">Pending</Option>
+                <Option value="rejected">Rejected</Option>
+              </Select>
+              <Button type="primary" style={{ width: 80 }} onClick={handleFilter}>
                 Filter
               </Button>
             </div>
+          </Col>
+          <Col span={4}>
+            <Link to="new">
+              <Button block type="primary" icon={<PlusCircleOutlined />}>
+                Post new job
+              </Button>
+            </Link>
           </Col>
           <Col span={24}>
             <ListPost data={dataSource} query={query} />

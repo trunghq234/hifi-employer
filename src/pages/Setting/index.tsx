@@ -7,7 +7,7 @@ import { HiOutlineLockClosed, HiOutlinePhotograph, HiOutlineUser } from "react-i
 
 const { TabPane } = Tabs;
 type TabPosition = "left" | "right" | "top" | "bottom";
-const iconProps = { color: "#446FFC", size: 20 };
+const iconProps = { size: 20 };
 
 const Setting: FC = () => {
   const [position, setPosition] = useState<TabPosition>("left");
@@ -18,7 +18,7 @@ const Setting: FC = () => {
   }, []);
   return (
     <div>
-      <h1>Setting</h1>
+      <h1 className="text-blue-600 text-2xl">Setting</h1>
       <Card>
         <Tabs tabPosition={position} moreIcon={<></>}>
           <TabPane

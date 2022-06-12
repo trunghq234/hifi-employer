@@ -109,11 +109,6 @@ const EditProfile = () => {
         <Col span={24}>
           <h5 className="text-lg font-semibold">Company information</h5>
         </Col>
-        <Col span={24}>
-          <Form.Item name="name" label="Company name" rules={[{ required: true }]}>
-            <Input placeholder="Company Name" />
-          </Form.Item>
-        </Col>
         <Col span={24} className="!mb-2 flex items-center">
           <p className="!mb-0 mr-2">Account Status:</p>
           <Tag
@@ -121,6 +116,11 @@ const EditProfile = () => {
             color={accountStatusMap.get(accoutStatus)?.color}>
             {accountStatusMap.get(accoutStatus)?.text}
           </Tag>
+        </Col>
+        <Col span={24}>
+          <Form.Item name="name" label="Company name" rules={[{ required: true }]}>
+            <Input placeholder="Company Name" />
+          </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item name="size" label="Size of company" rules={[{ required: true }]}>

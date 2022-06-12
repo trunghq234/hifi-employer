@@ -102,7 +102,7 @@ const Candidates = () => {
 
   return (
     <div>
-      <h1>Candidates management</h1>
+      <h1 className="text-blue-600 text-2xl">Candidates management</h1>
       <Card>
         <Row gutter={[20, 20]} align="middle">
           <Col span={2}>

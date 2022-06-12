@@ -11,7 +11,6 @@ type Props = {};
 const NewPostPage = (props: Props) => {
   const [post, setPost] = useState<Partial<Post>>({});
   const [mode, setMode] = useState("new");
-  console.log("post", post);
   return (
     <Card className="text-lg text-[#685879]">
       <div>

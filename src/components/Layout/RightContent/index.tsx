@@ -7,6 +7,7 @@ import notificationSocket from "@/utils/notificationSocket";
 import { BellFilled, WechatOutlined } from "@ant-design/icons";
 import { Badge, Button, Col, Popover, Row, Tooltip } from "antd";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import Content from "./Content";
 import Notifications from "./Notifications";
 import Title from "./Title";
@@ -40,7 +41,9 @@ const RightContent = () => {
     <Row gutter={[20, 10]}>
       <Col>
         <Tooltip title="Chatting">
-          <Button type="link" icon={<WechatOutlined />} href="/chatting"></Button>
+          <Link to="/chatting">
+            <WechatOutlined style={{ fontSize: 18 }} />
+          </Link>
         </Tooltip>
       </Col>
       <Col>

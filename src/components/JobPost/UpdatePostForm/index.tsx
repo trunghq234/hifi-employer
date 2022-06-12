@@ -40,8 +40,6 @@ const UpdatePostForm = ({ post: postData, changePreviewMode }: Props) => {
 
   const company = useAppSelector((state) => state.auth.user);
 
-  console.log("postData: ", postData);
-  console.log("Company: ", company);
   const onFinish = async (post: Post) => {
     setLoading(true);
     try {

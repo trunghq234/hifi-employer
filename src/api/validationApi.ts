@@ -6,7 +6,7 @@ const validationApi = {
   checkEmail: async (email: string) => {
     const {
       data: { data },
-    } = await axios.get(baseURL + "/check-employer-or-jobseeker" + `?email=${email}`);
+    } = await axios.get(baseURL + "suggestion/check-employer-or-jobseeker" + `?email=${email}`);
     return data;
   },
 };

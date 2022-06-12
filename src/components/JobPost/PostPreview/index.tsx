@@ -38,7 +38,6 @@ const PostPreview = ({ post: postData, changeMode }: Props) => {
     }));
   }, [user?.locations]);
 
-  console.log("Post", post);
   return (
     <Card className={styles.container}>
       <Button

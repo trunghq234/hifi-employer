@@ -9,14 +9,14 @@ type Props = {
 } & AvatarProps;
 
 const Avatar: React.FC<Props> = ({ size, src, text, style, ...others }) => {
-  const isLetterAvatar = !!(src && text);
+  const isLetterAvatar = !(src && text);
   return (
     <AntAvatar
       size={size}
       src={src}
       style={{
         cursor: "pointer",
-        ...(isLetterAvatar && { backgroundColor: stringToHslColor(text || "") }),
+        ...(isLetterAvatar && { backgroundColor: text ? stringToHslColor(text) : "transparent" }),
         ...style,
       }}
       shape="square"

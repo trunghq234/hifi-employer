@@ -23,7 +23,6 @@ const CompanyIndustriesSelect: React.FC<IProps> = ({ value, onChange }) => {
         }
         const tmp = value.map((e: { _id: any }) => e._id);
         setDefaultValue(tmp);
-        // console.log(tmp);
       });
     })();
 

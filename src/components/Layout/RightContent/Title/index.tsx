@@ -6,8 +6,7 @@ const Title: React.FC = () => {
   const user = useAppSelector(selectUser);
   return (
     <div>
-      <div
-        style={{ display: "flex", alignItems: "center", justifyContent: "center", maxWidth: 185 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 160 }}>
         <Avatar
           src={user?.logo}
           text={user?.name}
@@ -24,8 +23,9 @@ const Title: React.FC = () => {
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
+            width: "100%",
           }}>
-          {user?.name}
+          {user?.name} {user?.name}
         </p>
       </div>
     </div>

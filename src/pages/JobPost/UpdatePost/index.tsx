@@ -46,7 +46,6 @@ const UpdatePostPage = (props: Props) => {
     };
   }, []);
 
-  console.log("post", post);
   return (
     <Card className="text-lg text-[#685879]">
       <div>
