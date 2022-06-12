@@ -3,12 +3,19 @@ import { validateMessages } from "@/constants/validateMessages";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { authActions } from "@/store/reducers/authSlice";
 import { selectUser } from "@/store/selectors";
-import { CheckCircleOutlined, CloseCircleOutlined, SyncOutlined } from "@ant-design/icons";
+import socket from "@/utils/messageSocket";
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  QuestionCircleTwoTone,
+  SyncOutlined,
+} from "@ant-design/icons";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { Button, Col, Form, Input, message, Row, Select, Tag } from "antd";
+import { Button, Col, Form, Input, message, Row, Select, Tag, Tooltip } from "antd";
 import { PresetColorType, PresetStatusColorType } from "antd/lib/_util/colors";
 import { LiteralUnion } from "antd/lib/_util/type";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import WorkAddressInput from "../WorkAddressInput";
 
 const { TextArea } = Input;
@@ -66,6 +73,7 @@ const companySizeOptions: string[] = [
 ];
 
 const EditProfile = () => {
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const userState = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
@@ -97,6 +105,17 @@ const EditProfile = () => {
         setIsLoading(false);
       });
   };
+
+  const handleSupport = () => {
+    socket.connect();
+    socket.emit("joinRoomByChatterId", {
+      admin: "627784b7a8dfd63eec4a8ca1",
+      company: userState?._id,
+    });
+
+    navigate("/chatting");
+  };
+
   return (
     <Form
       form={form}
@@ -107,7 +126,17 @@ const EditProfile = () => {
       initialValues={defaultFormValue}>
       <Row gutter={[20, 0]} justify="center">
         <Col span={24}>
-          <h5 className="text-lg font-semibold">Company information</h5>
+          <Row justify="space-between">
+            <h5 className="text-lg font-semibold">Company information</h5>
+            <Tooltip title="Contact admin">
+              <Button
+                type="primary"
+                shape="circle"
+                icon={<QuestionCircleTwoTone />}
+                onClick={handleSupport}
+              />
+            </Tooltip>
+          </Row>
         </Col>
         <Col span={24} className="!mb-2 flex items-center">
           <p className="!mb-0 mr-2">Account Status:</p>
