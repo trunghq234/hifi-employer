@@ -1,13 +1,11 @@
 import postApi from "@/api/postApi";
 import CheckboxMenu from "@/components/commons/CheckboxMenu";
-import HeaderPost from "@/components/JobPost/Header";
 import ListPost from "@/components/JobPost/ListPost";
 import { Post } from "@/types";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Input, Row, Select } from "antd";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./index.module.less";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -24,8 +22,7 @@ export type DataSource = {
   totalItems: number;
   totalPages: number;
 };
-const JobPostsPage = (props: Props) => {
-  const [companyOption, setCompanyOption] = useState<Array<FilterOption>>([]);
+const JobPostsPage: React.FC<Props> = (props) => {
   const [categoryOption, setCategoryOption] = useState<Array<FilterOption>>([]);
   const [query, setQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<Array<String | Number>>([]);
@@ -79,13 +76,6 @@ const JobPostsPage = (props: Props) => {
     const getFilterOption = async () => {
       try {
         const result = await postApi.getFilterOption();
-        const companies = result.data.data.companyOption.map((e: any) => {
-          return {
-            value: e._id,
-            label: e.name,
-          };
-        });
-        setCompanyOption(companies);
         const categories = result.data.data.categoryOption.map((e: any) => {
           return {
             value: e._id,

@@ -35,7 +35,13 @@ const Content = () => {
     return contents.map((content) => {
       return (
         <Menu.Item
-          style={{ padding: "0", fontSize: "16px", fontWeight: "400", alignItems: "center" }}
+          style={{
+            display: "flex",
+            padding: "0",
+            fontSize: "16px",
+            fontWeight: "400",
+            alignItems: "center",
+          }}
           key={content.key}
           onClick={content.onClick}
           icon={content.icon}>

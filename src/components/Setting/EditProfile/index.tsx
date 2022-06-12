@@ -31,7 +31,7 @@ const accountStatusMap = new Map<
     },
   ],
   [
-    "fulfilled",
+    "fullfilled",
     {
       color: "green",
       text: "Approved",
@@ -50,7 +50,7 @@ const accountStatusMap = new Map<
     "deleted",
     {
       color: "error",
-      text: "Rejected",
+      text: "Disabled",
       icon: <CloseCircleOutlined />,
     },
   ],

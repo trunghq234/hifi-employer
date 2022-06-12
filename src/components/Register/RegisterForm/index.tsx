@@ -77,10 +77,6 @@ const RegisterForm = () => {
     };
   }, [isSubmit]);
 
-  if (user) {
-    return <Navigate to={from} replace />;
-  }
-
   useEffect(() => {
     notificationSocket.emit("joinNotification", {
       receiver: "627784b7a8dfd63eec4a8ca1",
@@ -97,6 +93,9 @@ const RegisterForm = () => {
     notificationSocket.emit("sendNotification", sendData);
   }, []);
 
+  if (user) {
+    return <Navigate to={from} replace />;
+  }
   return (
     <div className="bg-white-color min-h-screen">
       <div className="h-screen overflow-y-scroll">
