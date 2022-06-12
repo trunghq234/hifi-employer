@@ -2,7 +2,6 @@ import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 import { defineConfig } from "vite";
 import vitePluginImp from "vite-plugin-imp";
-import svgr from "vite-plugin-svgr";
 
 function pathResolve(dir: string) {
   return resolve(__dirname, ".", dir);
@@ -30,14 +29,13 @@ export default defineConfig({
         },
       ],
     }),
-    svgr(),
   ],
   css: {
     preprocessorOptions: {
       less: {
         javascriptEnabled: true,
         modifyVars: {
-          "primary-color": "#683bc9",
+          "primary-color": "#446FFC",
           "border-radius-base": "4px",
           "card-shadow":
             "box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",

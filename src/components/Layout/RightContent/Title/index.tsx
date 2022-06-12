@@ -7,12 +7,12 @@ const Title = () => {
   const avatarUrl = "https://joeschmoe.io/api/v1/random";
   const user = useAppSelector(selectUser);
   return (
-    <div>
-      <Row style={{ alignItems: "center", justifyContent: "center" }}>
-        <Col span={4}>
-          <Avatar shape="square" src={user?.logo ? user.logo : avatarUrl} />
+    <div style={{ width: 240 }}>
+      <Row gutter={[20, 20]} align="middle">
+        <Col span={6}>
+          <Avatar size="large" shape="square" src={user?.logo ? user.logo : avatarUrl} />
         </Col>
-        <Col span={20}>
+        <Col span={18}>
           <p style={{ fontSize: "16px", marginBottom: "0" }}>{user?.name}</p>
           <p
             style={{
