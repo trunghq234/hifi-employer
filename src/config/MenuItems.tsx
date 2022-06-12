@@ -1,4 +1,12 @@
 import { HiBriefcase, HiChat, HiCog, HiPencil } from "react-icons/hi";
+import { UnorderedListOutlined } from "@ant-design/icons";
+import {
+  HiOutlineBriefcase,
+  HiOutlineChat,
+  HiOutlineCog,
+  HiOutlinePencilAlt,
+  HiViewGrid,
+} from "react-icons/hi";
 
 const MenuItems = {
   routes: [
@@ -16,7 +24,7 @@ const MenuItems = {
       name: "Job Posts",
       icon: (
         <span role="img" className="anticon">
-          <HiPencil size={20} />
+          <UnorderedListOutlined size={20} />
         </span>
       ),
     },

@@ -1,5 +1,8 @@
 import postApi from "@/api/postApi";
+import { useAppSelector } from "@/store/hooks";
+import { selectUser } from "@/store/selectors";
 import { Post } from "@/types";
+import { SaveTwoTone } from "@ant-design/icons";
 import { Button, Col, DatePicker, Form, message, Row, Select } from "antd";
 import moment from "moment";
 import { useState } from "react";
@@ -47,11 +50,9 @@ const defaultFormValue: Partial<Post> = {
 const JobPostForm = ({ post: postData, changePreviewMode, onSuccess }: Props) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
+  const user = useAppSelector((state) => state.auth.user);
 
-  console.log("postData", postData);
   const onFinish = async (post: Post) => {
-    console.log("post onFinish", post);
-
     setLoading(true);
     try {
       await postApi.createPost(post);
@@ -171,7 +172,7 @@ const JobPostForm = ({ post: postData, changePreviewMode, onSuccess }: Props) =>
           <Form.Item
             name="locations"
             rules={[{ required: true, message: "Please choose working location of company" }]}>
-            <WorkLocationSelect />
+            <WorkLocationSelect options={user?.locations} />
           </Form.Item>
         </Col>
       </Row>

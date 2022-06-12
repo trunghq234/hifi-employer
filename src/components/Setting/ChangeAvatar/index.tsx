@@ -21,6 +21,8 @@ const ChangeAvatar = () => {
     data.append("file", photoFile[0]);
     data.append("upload_preset", "hifi_upload");
     data.append("cloud_name", "hifi");
+    setIsLoading(true);
+
     axios
       .post("https://api.cloudinary.com/v1_1/hifi/image/upload", data)
       .then((res) => {
@@ -28,10 +30,12 @@ const ChangeAvatar = () => {
         setImageUrl(url);
         handleUpdate(url);
       })
-      .catch((err) => message.error(err));
+      .catch((err) => message.error(err))
+      .finally(() => setIsLoading(false));
   };
 
   const handleUpdate = (url: string) => {
+    setIsLoading(true);
     dispatch(authActions.updateCompany({ idCompany: userState?._id, company: { logo: url } }))
       .then(unwrapResult)
       .then((data) => {

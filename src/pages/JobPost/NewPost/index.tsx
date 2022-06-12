@@ -34,7 +34,6 @@ const NewPostPage = (props: Props) => {
         <JobPostForm
           post={post}
           changePreviewMode={(data) => {
-            console.log("data", data);
             setPost(data);
             setMode("preview");
           }}

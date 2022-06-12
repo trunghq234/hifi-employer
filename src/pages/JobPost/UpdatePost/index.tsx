@@ -29,6 +29,7 @@ const UpdatePostPage = (props: Props) => {
             ),
             jobCategory: res.data.data.jobCategory._id ?? (res.data.data.jobCategory as string),
           };
+
           isSubscribed && setPost(postData);
         }
       } catch (error) {
