@@ -90,7 +90,7 @@ export const PostDetails = (props: Props) => {
                 .join(" / ")}{" "}
             </Col>
             <Col span={24}>
-              {data?.workplaceType.capitalize()} · {moment(data?.createdAt).fromNow()}
+              {data?.workplaceType?.capitalize()} · {moment(data?.createdAt).fromNow()}
             </Col>
           </div>
           <Col span={24}>
